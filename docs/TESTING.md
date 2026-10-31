@@ -7,6 +7,10 @@
 | Unit tests (no WordPress) | `composer test` or `npm run test:php:unit` | PHP 8.1+ |
 | Integration tests (WP + WC) | `npm run env:start` then `npm run test:php:integration` | Docker, Node 22 (`nvm use`) |
 | Integration tests on minimum versions (WP 6.7 + WC 10.0.0) | `npm run env:start:min` then `npm run test:php:integration:min` | Docker (port 8890) |
+| Integration tests on the 3 order storages (HPOS, posts, sync) | `npm run test:php:integration:storage` (`:storage:min` for the minimum versions) | wp-env running |
+| Demo data (CRC or USD store) | `npm run seed` / `npm run seed -- crc` | wp-env running |
+| End-to-end matrix (SPEC §8) | `npm run test:e2e:matrix` (`PHP_VERSIONS="8.1 8.3"` by default) | wp-env, Playwright (`npx playwright install chromium`) |
+| Screenshots for the phase report | `CRKIT_E2E_SCREENSHOTS=1 CRKIT_E2E_CURRENCY=usd npx playwright test screenshots` | Seeded wp-env |
 | Coding standards | `composer lint` (`composer lint:fix` to auto-fix) | — |
 | Static analysis | `composer analyze` | — |
 | JS lint / build | `npm run lint:js` / `npm run build` | Node 22 |
@@ -61,3 +65,44 @@ Phase 0 adds no checkout behavior, so the checkout, currency and guest/logged-in
 | Plugin Check canary (unescaped `echo $_GET` added to the staging folder) | Detected, confirming the path is analysed |
 
 Integration tests on PHP 8.3 run only in the CI matrix.
+
+
+## Phase 1 evidence (2026-10-31)
+
+Environment: WordPress 7.1.4, WooCommerce 11.2.1, Plugin Check 2.1.0, theme Twenty Twenty-Five (block theme), site language es_CR. Minimum versions: WordPress 6.7, WooCommerce 10.0.0.
+
+### SPEC §8 matrix (end to end, Playwright)
+
+Each cell places a real order with SINPE Móvil through the browser, checks the payment steps and the amount in colones on the order received page (and the CRC estimate in the USD block checkout), uploads a PNG receipt, opens it as the store (HTTP 200, `image/png`), checks that the shopper's session cannot open it, and confirms the payment from the order screen (status → processing). "Max. amount" checks that SINPE Móvil is not offered in either checkout for an order above ₡500,000. No JavaScript errors on any page.
+
+| PHP | Currency | Order storage | Classic · guest | Classic · logged in | Blocks · guest | Blocks · logged in | Max. amount |
+|---|---|---|---|---|---|---|---|
+| 8.1 | CRC | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | CRC | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | CRC | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+60 of 60 checks passed. `debug.log` stayed empty during the run.
+
+### Automated suites
+
+| Suite | Result |
+|---|---|
+| Unit (Brain Monkey), PHP 8.1 / 8.3 / 8.4 / 8.5 locally | 93 tests, 199 assertions, OK |
+| Integration, wp-env PHP 8.1, HPOS / posts / sync | 68 tests, 276 assertions, OK on each storage |
+| Integration in CI | PHP 8.1, 8.3, 8.4 and the minimum versions (WP 6.7 + WC 10.0.0), each on the 3 storages |
+| Mutation checks (manual) | Removing the order owner check fails 2 receipt tests. Removing the second MIME check fails none: `wp_check_filetype_and_ext()` already rejects every invalid file in the suite (see ADR-0026). |
+
+### Not covered
+
+- The classic theme thank-you template (`checkout/thankyou.php`): the e2e runs use a block theme. The hook it relies on (`woocommerce_thankyou_crkit_sinpe_movil`) is covered by an integration test.
+- PHP 8.4 in the e2e matrix (integration tests run on 8.4 in CI).
+- A real BCCR token: the BCCR provider is tested against fixtures and real error responses only.
