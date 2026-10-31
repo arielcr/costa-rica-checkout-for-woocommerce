@@ -1,7 +1,7 @@
 === Costa Rica Kit for WooCommerce ===
-Contributors: arielorozco
+Contributors: arielcr
 Tags: costa rica, sinpe movil, payment gateway, exchange rate, woocommerce
-Requires at least: 6.8
+Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
 Stable tag: 0.1.0

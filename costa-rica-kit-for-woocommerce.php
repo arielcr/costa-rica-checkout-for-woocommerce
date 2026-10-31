@@ -3,7 +3,7 @@
  * Plugin Name:          Costa Rica Kit for WooCommerce
  * Description:          SINPE Móvil payments, exchange rates, provinces/cantons/districts and ID numbers for WooCommerce stores in Costa Rica.
  * Version:              0.1.0
- * Requires at least:    6.8
+ * Requires at least:    6.7
  * Requires PHP:         8.1
  * Requires Plugins:     woocommerce
  * Author:               Ariel Orozco
@@ -11,7 +11,7 @@
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          costa-rica-kit-for-woocommerce
  * Domain Path:          /languages
- * WC requires at least: 9.0
+ * WC requires at least: 10.0
  * WC tested up to:      11.2
  *
  * @package CRKit

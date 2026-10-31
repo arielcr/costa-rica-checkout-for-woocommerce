@@ -15,7 +15,7 @@
 
 	<!-- Minimum versions used by version-aware sniffs. -->
 	<config name="testVersion" value="8.1-"/>
-	<config name="minimum_wp_version" value="6.8"/>
+	<config name="minimum_wp_version" value="6.7"/>
 
 	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress-Docs"/>
