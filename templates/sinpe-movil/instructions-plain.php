@@ -29,7 +29,7 @@ echo '1. ' . esc_html__( 'Open your bank app and choose SINPE Móvil.', 'costa-r
 echo '2. ' . esc_html( sprintf( __( 'Send exactly %1$s to the number %2$s.', 'costa-rica-kit-for-woocommerce' ), $amount_crc_text, $phone ) );
 if ( '' !== $holder ) {
 	/* translators: %s: account holder name. */
-	echo ' ' . esc_html( sprintf( __( 'Your bank app will show the name %s.', 'costa-rica-kit-for-woocommerce' ), $holder ) );
+	echo ' ' . esc_html( sprintf( __( 'Your bank app will show the name %s.', 'costa-rica-kit-for-woocommerce' ), rtrim( $holder, '.' ) ) );
 }
 echo "\n";
 

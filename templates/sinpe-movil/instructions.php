@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 				printf(
 					/* translators: %s: account holder name. */
 					esc_html__( 'Your bank app will show the name %s.', 'costa-rica-kit-for-woocommerce' ),
-					'<strong>' . esc_html( $holder ) . '</strong>'
+					'<strong>' . esc_html( rtrim( $holder, '.' ) ) . '</strong>'
 				);
 			}
 			?>

@@ -400,13 +400,13 @@ final class ExchangeRateAdmin {
 	}
 
 	/**
-	 * Rate formatted for display, e.g. "₡456.04".
+	 * Rate formatted for display with the store's price separators, e.g. "₡456.04".
 	 *
 	 * @param float $rate Rate.
 	 * @return string
 	 */
 	public static function format_rate( float $rate ): string {
-		return '₡' . number_format_i18n( $rate, 2 );
+		return '₡' . number_format( $rate, 2, wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
 	}
 
 	/**

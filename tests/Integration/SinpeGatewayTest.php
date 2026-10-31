@@ -199,7 +199,7 @@ final class SinpeGatewayTest extends SinpeTestCase {
 
 		$this->assertStringContainsString( 'How to pay with SINPE Móvil', $html );
 		$this->assertStringContainsString( '8888-7777', $html );
-		$this->assertStringContainsString( 'Tienda Demo S.A.', $html );
+		$this->assertStringContainsString( 'Tienda Demo S.A</strong>.', $html, 'No double period after the holder name.' );
 		$this->assertStringContainsString( 'enctype="multipart/form-data"', $html );
 		$this->assertStringContainsString( 'name="order_key" value="' . $order->get_order_key() . '"', $html );
 	}

@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_email_header', $email_heading, $email ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core WooCommerce email hook. ?>
 
-<p>
+<p class="crkit-sinpe-receipt-email">
 	<?php
 	printf(
 		/* translators: 1: order number, 2: customer name. */
