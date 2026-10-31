@@ -1,0 +1,4 @@
+{"estado":true,"mensaje":"Consulta exitosa","datos":[{"titulo":"Tipo cambio de compra y de venta del dólar de los Estados Unidos de América","periodicidad":"Diaria","indicadores":[
+  {"codigoIndicador":"317","nombreIndicador":"Tipo cambio compra","series":[{"fecha":"2026-10-29","valorDatoPorPeriodo":450.10000000},{"fecha":"2026-10-30","valorDatoPorPeriodo":449.70000000},{"fecha":"2026-10-31","valorDatoPorPeriodo":null},{"fecha":"2026-11-01","valorDatoPorPeriodo":448.90000000}]},
+  {"codigoIndicador":"318","nombreIndicador":"Tipo cambio venta","series":[{"fecha":"2026-10-29","valorDatoPorPeriodo":456.80000000},{"fecha":"2026-10-30","valorDatoPorPeriodo":456.04000000},{"fecha":"2026-10-31","valorDatoPorPeriodo":455.50000000},{"fecha":"2026-11-01","valorDatoPorPeriodo":455.20000000}]}
+]}]}
