@@ -18,6 +18,8 @@
 		"test:php:unit": "composer test",
 		"test:php:integration": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce vendor/bin/phpunit -c phpunit-integration.xml.dist",
 		"test:php:integration:min": "wp-env run cli --config=.wp-env.min.json --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce vendor/bin/phpunit -c phpunit-integration.xml.dist",
+		"test:php:integration:storage": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash bin/test-integration-storage.sh",
+		"test:php:integration:storage:min": "wp-env run cli --config=.wp-env.min.json --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash bin/test-integration-storage.sh",
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
