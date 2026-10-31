@@ -1,0 +1,61 @@
+{
+	"name": "arielorozco/costa-rica-kit-for-woocommerce",
+	"description": "SINPE Móvil, exchange rate, provinces/cantons/districts and ID number for WooCommerce stores in Costa Rica.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Ariel Orozco"
+		}
+	],
+	"require": {
+		"php": ">=8.1"
+	},
+	"require-dev": {
+		"brain/monkey": "^2.7",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+		"php-stubs/woocommerce-stubs": "^11.2",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"phpstan/extension-installer": "^1.4",
+		"phpstan/phpstan": "^2.1",
+		"phpunit/phpunit": "^9.6",
+		"szepeviktor/phpstan-wordpress": "^2.0",
+		"wp-coding-standards/wpcs": "^3.4",
+		"yoast/phpunit-polyfills": "^4.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"CRKit\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"CRKit\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
+		},
+		"optimize-autoloader": true,
+		"platform": {
+			"php": "8.1.0"
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"lint": "phpcs",
+		"lint:fix": "phpcbf",
+		"analyze": "phpstan analyse --memory-limit=1G",
+		"test": "phpunit",
+		"test:integration": "phpunit -c phpunit-integration.xml.dist"
+	},
+	"scripts-descriptions": {
+		"lint": "Run PHP_CodeSniffer (WPCS + PHPCompatibilityWP).",
+		"lint:fix": "Auto-fix coding standard issues where possible.",
+		"analyze": "Run PHPStan static analysis.",
+		"test": "Run the unit test suite (no WordPress).",
+		"test:integration": "Run the integration test suite (requires wp-env)."
+	}
+}
