@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-10-31
 
 ### Added
+- Requirements: WordPress 6.7+, WooCommerce 10.0+, PHP 8.1+.
 - Plugin scaffolding: bootstrap, PSR-4 autoloading, module container.
 - WooCommerce → Settings → Costa Rica tab with one toggle per module.
 - Compatibility declarations for HPOS (`custom_order_tables`) and the block checkout (`cart_checkout_blocks`).

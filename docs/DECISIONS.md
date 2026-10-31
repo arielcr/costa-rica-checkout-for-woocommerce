@@ -39,11 +39,12 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 - **Decision:** PHPUnit 9.6 for both suites. `phpunit.xml.dist` runs the unit suite (Brain Monkey, no WordPress); `phpunit-integration.xml.dist` runs the integration suite inside wp-env. PHPUnit allows one bootstrap per configuration, hence two files.
 - **Consequences:** `composer test` is fast and needs no Docker; `npm run test:php:integration` needs wp-env.
 
-## ADR-0007: Single wp-env environment with a dedicated test table prefix
+## ADR-0007: Integration tests on a dedicated database
 
-- **Context:** wp-env 12 deprecates the separate tests environment (`testsEnvironment`) and warns when it is on. With a single environment, the WordPress test installer shares the site database and prefix (`wp_`) and **drops the development site's tables**.
-- **Decision:** `"testsEnvironment": false`, and the integration bootstrap sets `WORDPRESS_TABLE_PREFIX=wptests_` before loading the test suite.
-- **Alternatives:** a second config file with `--config` (a second set of containers for a smoke suite).
+- **Context:** wp-env 12 deprecates the separate tests environment (`testsEnvironment`). With a single environment, wp-env's default `wp-tests-config.php` points the WordPress test suite to the site database (`wordpress`, prefix `wp_`), and the test installer **drops every table of its database** on each run. A first attempt with a different table prefix (`wptests_`) protected the site tables but still shared the database.
+- **Decision:** `"testsEnvironment": false`, and the suite loads its own configuration (`tests/Integration/wp-tests-config.php`, through `WP_TESTS_CONFIG_FILE_PATH`) with a dedicated database, `crkit_tests`, on the same MySQL server. The bootstrap creates it if missing. The config refuses to run if the site database ever has the same name, and `TestEnvironmentTest` asserts the database and prefix in use.
+- **Verified:** table statistics and checksums of the `wordpress` database are identical before and after a full integration run.
+- **Alternatives:** a second wp-env config (`--config`) only for tests (a second set of containers for a smoke suite); prefix-only isolation (rejected: same database).
 
 ## ADR-0008: Pinned versions in `.wp-env.json`
 
@@ -70,11 +71,22 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 - **Context:** SPEC §2 gives the header `Description` in Spanish; SPEC §4 requires English source strings. The header description is translatable through the plugin text domain.
 - **Decision:** English description in the header and readme; Spanish comes from the `es_CR` translation.
 
-## ADR-0013: `WC requires at least: 9.0`
+## ADR-0013: Minimum versions: WooCommerce 10.0, WordPress 6.7, tested in CI
 
-- **Decision:** 9.0, the minimum allowed by the SPEC. Every WooCommerce API planned for phases 1–3 exists in 9.0 (HPOS, `FeaturesUtil`, block payment method integration, Additional Checkout Fields API from 8.9).
-- **Consequence:** only the latest WooCommerce is exercised in the test matrix. Open question for the owner: raise the minimum to reduce the support surface (see the phase 0 report).
+- **Decision (owner, phase 0 review):** `WC requires at least: 10.0`, and `Requires at least: 6.7`, the minimum that WooCommerce 10.0.0 declares (`plugins.svn.wordpress.org/woocommerce/tags/10.0.0`).
+- **Test:** `.wp-env.min.json` runs the integration suite on the exact floor: WordPress 6.7 (6.7.0), WooCommerce 10.0.0, PHP 8.1, on port 8890. CI job `integration-min`.
+- **Why the exact floor:** it is what the headers promise. Later patch releases only add fixes.
 
 ## ADR-0014: Contents of the distributable zip
 
 - **Decision:** the zip ships `composer.json` (documents the autoloader) but not `composer.lock`. `vendor/` contains only the Composer autoloader generated with `--no-dev --optimize-autoloader`. Empty folders are pruned.
+
+## ADR-0015: npm `overrides` for `serialize-javascript`
+
+- **Context:** `npm audit` reported one high-severity issue in `serialize-javascript@6.0.2` (dev only, used by `copy-webpack-plugin` inside `@wordpress/scripts`). `npm audit fix` only offers a breaking downgrade of `@wordpress/scripts`.
+- **Decision:** `"overrides": { "serialize-javascript": "^7.1.4" }`. 7.x keeps the same CommonJS API (`serialize( value, options )`) and requires Node 20+, which the project already needs. The JS build was verified after the change.
+- **Remaining:** low and moderate advisories in dev dependencies, without a compatible fix. They do not ship in the plugin zip.
+
+## ADR-0016: Agent skills
+
+- **Decision:** WordPress agent skills (`wp-plugin-development`, `wp-plugin-directory-guidelines`, `wp-phpstan`, `wp-env`) are installed at project level in `.claude/skills/` (gitignored). `skills-lock.json` is committed so they can be reinstalled with the same content; it is excluded from the zip.
