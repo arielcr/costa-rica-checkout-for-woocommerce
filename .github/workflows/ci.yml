@@ -78,6 +78,24 @@ jobs:
       - run: npm run env:start
       - run: npm run test:php:integration
 
+  integration-min:
+    name: Integration tests (minimum versions, WP 6.7 + WC 10.0.0, PHP 8.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+      - uses: ramsey/composer-install@v4
+      - run: npm ci
+      - run: npm run env:start:min
+      - run: npm run test:php:integration:min
+
   js:
     name: JS lint and build
     runs-on: ubuntu-latest
