@@ -15,6 +15,9 @@
 /.nvmrc
 /.wp-env.json
 /.wp-env.override.json
+/.wp-env.min.json
+/.wp-env.min.override.json
+/skills-lock.json
 .DS_Store
 
 # Dependencies and build tooling

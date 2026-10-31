@@ -12,8 +12,12 @@
 .phpcs-cache
 /.phpstan-cache/
 
+# Agent skills (installed with `npx skills add`, see skills-lock.json)
+/.claude/skills/
+
 # Local overrides
 .wp-env.override.json
+.wp-env.min.override.json
 phpcs.xml
 phpstan.neon
 phpunit.xml
