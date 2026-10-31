@@ -11,8 +11,10 @@ namespace CRKit;
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use CRKit\Admin\SettingsPage;
+use CRKit\Admin\SettingsSectionInterface;
 use CRKit\Modules\ExchangeRate\ExchangeRateModule;
 use CRKit\Modules\Identification\IdentificationModule;
+use CRKit\Modules\LifecycleInterface;
 use CRKit\Modules\Locations\LocationsModule;
 use CRKit\Modules\ModuleInterface;
 use CRKit\Modules\SinpeMovil\SinpeMovilModule;
@@ -33,6 +35,11 @@ final class Plugin {
 	 * Id of the WooCommerce settings tab.
 	 */
 	public const SETTINGS_TAB = 'crkit';
+
+	/**
+	 * Option (`yes`/`no`) to delete receipts and order data on uninstall.
+	 */
+	public const DELETE_DATA_OPTION = 'crkit_delete_data_on_uninstall';
 
 	/**
 	 * Registered modules, keyed by module id.
@@ -116,6 +123,8 @@ final class Plugin {
 
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRKIT_PLUGIN_FILE ), array( $this, 'add_plugin_action_links' ) );
+		add_action( 'add_option_' . self::MODULES_OPTION, array( $this, 'handle_modules_added' ), 10, 2 );
+		add_action( 'update_option_' . self::MODULES_OPTION, array( $this, 'handle_modules_updated' ), 10, 2 );
 
 		foreach ( $this->get_enabled_modules() as $module ) {
 			$module->register();
@@ -141,6 +150,26 @@ final class Plugin {
 	}
 
 	/**
+	 * Module by id, whether it is enabled or not.
+	 *
+	 * @param string $id Module id.
+	 * @return ModuleInterface|null
+	 */
+	public function get_module( string $id ): ?ModuleInterface {
+		return $this->modules[ $id ] ?? null;
+	}
+
+	/**
+	 * Module by id, only if it is enabled.
+	 *
+	 * @param string $id Module id.
+	 * @return ModuleInterface|null
+	 */
+	public function get_enabled_module( string $id ): ?ModuleInterface {
+		return $this->is_module_enabled( $id ) ? $this->modules[ $id ] : null;
+	}
+
+	/**
 	 * Modules the merchant has enabled (or that are enabled by default), keyed by id.
 	 *
 	 * @return array<string, ModuleInterface>
@@ -159,17 +188,104 @@ final class Plugin {
 	 * @return bool
 	 */
 	public function is_module_enabled( string $id ): bool {
+		return $this->is_enabled_in( $id, get_option( self::MODULES_OPTION, array() ) );
+	}
+
+	/**
+	 * Whether a module is enabled according to a given value of the toggles option.
+	 *
+	 * @param string $id      Module id.
+	 * @param mixed  $toggles Value of the `crkit_modules` option.
+	 * @return bool
+	 */
+	private function is_enabled_in( string $id, mixed $toggles ): bool {
 		if ( ! isset( $this->modules[ $id ] ) ) {
 			return false;
 		}
-
-		$toggles = get_option( self::MODULES_OPTION, array() );
 
 		if ( is_array( $toggles ) && isset( $toggles[ $id ] ) ) {
 			return 'yes' === $toggles[ $id ];
 		}
 
 		return $this->modules[ $id ]->is_enabled_by_default();
+	}
+
+	/**
+	 * Enabled modules that add a section to the settings tab, keyed by section id.
+	 *
+	 * @return array<string, SettingsSectionInterface>
+	 */
+	public function get_settings_sections(): array {
+		$sections = array();
+
+		foreach ( $this->get_enabled_modules() as $module ) {
+			if ( $module instanceof SettingsSectionInterface ) {
+				$sections[ $module->get_settings_section_id() ] = $module;
+			}
+		}
+
+		return $sections;
+	}
+
+	/**
+	 * Plugin activation: sets up the enabled modules.
+	 *
+	 * @return void
+	 */
+	public function activate(): void {
+		foreach ( $this->get_enabled_modules() as $module ) {
+			if ( $module instanceof LifecycleInterface ) {
+				$module->activate();
+			}
+		}
+	}
+
+	/**
+	 * Plugin deactivation: cleans up every module, enabled or not.
+	 *
+	 * @return void
+	 */
+	public function deactivate(): void {
+		foreach ( $this->modules as $module ) {
+			if ( $module instanceof LifecycleInterface ) {
+				$module->deactivate();
+			}
+		}
+	}
+
+	/**
+	 * First save of the module toggles.
+	 *
+	 * @param string $option Option name.
+	 * @param mixed  $value  New value.
+	 * @return void
+	 */
+	public function handle_modules_added( string $option, mixed $value ): void {
+		$this->handle_modules_updated( array(), $value );
+	}
+
+	/**
+	 * Sets up modules that were just enabled and cleans up those that were just disabled.
+	 *
+	 * @param mixed $old_value Previous toggles.
+	 * @param mixed $new_value New toggles.
+	 * @return void
+	 */
+	public function handle_modules_updated( mixed $old_value, mixed $new_value ): void {
+		foreach ( $this->modules as $id => $module ) {
+			if ( ! $module instanceof LifecycleInterface ) {
+				continue;
+			}
+
+			$was_enabled = $this->is_enabled_in( $id, $old_value );
+			$is_enabled  = $this->is_enabled_in( $id, $new_value );
+
+			if ( $is_enabled && ! $was_enabled ) {
+				$module->activate();
+			} elseif ( $was_enabled && ! $is_enabled ) {
+				$module->deactivate();
+			}
+		}
 	}
 
 	/**
