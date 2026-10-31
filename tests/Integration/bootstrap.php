@@ -18,7 +18,7 @@ if ( false === $crkit_tests_dir || ! is_readable( $crkit_tests_dir . '/includes/
  * wp-env runs the site and the test suite against the same database, and the test installer
  * drops every table that uses its prefix. A dedicated prefix keeps the development site intact.
  */
-putenv( 'WORDPRESS_TABLE_PREFIX=wptests_' );
+putenv( 'WORDPRESS_TABLE_PREFIX=wptests_' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- Read by wp-env's wp-tests-config.php; test-only.
 
 require_once dirname( __DIR__, 2 ) . '/vendor/autoload.php';
 require_once dirname( __DIR__, 2 ) . '/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
