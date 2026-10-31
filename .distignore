@@ -27,6 +27,7 @@
 /package-lock.json
 /composer.lock
 /webpack.config.js
+/eslint.config.cjs
 /bin
 /build
 /dist
