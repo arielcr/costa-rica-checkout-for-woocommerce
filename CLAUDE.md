@@ -65,3 +65,9 @@ tests/ Unit/ (no WP, Brain Monkey) · Integration/ (WP + WC via wp-env) · fixtu
 - Plugin Check: `wp plugin check costa-rica-kit-for-woocommerce` inside wp-env.
 - CI (GitHub Actions): phpcs, phpstan, phpunit (PHP 8.1, 8.3, 8.4), JS build, Plugin Check (`wordpress/plugin-check-action`).
 - `npm run zip` builds a clean zip honoring `.distignore` (no tests, node_modules or dev configs; includes `assets/build`, `vendor/autoload` and `languages`).
+
+## Gotchas (learned in phase 0, see `docs/DECISIONS.md`)
+- Single wp-env environment: integration tests must keep `WORDPRESS_TABLE_PREFIX=wptests_` (set in `tests/Integration/bootstrap.php`), otherwise the test installer wipes the dev site.
+- WP/WC/Plugin Check versions are pinned in `.wp-env.json` (`woocommerce.zip` may serve a beta). Bump them together with `WC tested up to`.
+- Plugin Check runs on the built package (`npm run plugin-check`), not on the dev checkout.
+- Do not move `src/functions.php` to Composer `autoload.files`: its `ABSPATH` guard would stop PHPStan.
