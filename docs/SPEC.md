@@ -128,15 +128,25 @@ Servicio interno que usan los otros módulos. Además expone un shortcode en la 
 
 **Proveedores** (interfaz `RateProviderInterface` con implementaciones intercambiables):
 
-1. **Ministerio de Hacienda (default, sin credenciales):** `GET https://api.hacienda.go.cr/indicadores/tc`. Devuelve compra y venta del dólar (y del euro). Forma de respuesta esperada: `dolar.compra.valor`, `dolar.venta.valor`, cada uno con `fecha`. **Verificá la forma real con una petición** antes de escribir el parser y guardá esa respuesta como fixture de test.
+1. **Ministerio de Hacienda (default, sin credenciales):** `GET https://api.hacienda.go.cr/indicadores/tc`. Devuelve compra y venta del dólar (y del euro). Forma de respuesta esperada: `dolar.compra.valor`, `dolar.venta.valor`, cada uno con `fecha`. **Verificá la forma real con una petición** antes de escribir el parser y guardá esa respuesta como fixture de test. Los valores coinciden con la referencia del BCCR: para el 1 de octubre de 2026, Hacienda reportó 454.78 / 460.73 y el BCCR exactamente lo mismo.
 
 2. **BCCR, API SDDE (opcional, requiere token del comerciante):**
    - En 2026 el BCCR **discontinuó el viejo servicio web SOAP** (`wsindicadoreseconomicos.asmx`) a favor del nuevo sistema SDDE. **No implementes el SOAP viejo.**
    - Base: `https://apim.bccr.fi.cr/SDDE/api/Bccr.GE.SDDE.Publico.Indicadores.API`
    - Autenticación: `Authorization: Bearer <token>`. El token se genera desde el sitio de Indicadores Económicos del BCCR (Mi perfil → Generar token). Solo HTTPS, TLS 1.2+.
-   - Serie: `GET /indicadoresEconomicos/{codigo}/series?fechaInicio=yyyy/mm/dd&fechaFin=yyyy/mm/dd&idioma=ES` (las barras de las fechas van URL-encoded).
-   - Respuesta: `{ "estado": true, "mensaje": "...", "datos": [ { "codigoIndicador": "317", "nombreIndicador": "...", "series": [ { "fecha": "2026-10-30", "valorDatoPorPeriodo": 462.1 } ] } ] }`. `valorDatoPorPeriodo` puede venir `null`.
-   - Códigos: **317 = compra**. La venta tradicionalmente es **318**, pero la documentación de SDDE no lo menciona: verificalo con el endpoint de metadata antes de usarlo y reportá el resultado.
+   - **Endpoint recomendado (verificado en producción en octubre de 2026 por Ariel en otro proyecto):** `GET /cuadro/1/series?fechaInicio=yyyy%2Fmm%2Fdd&fechaFin=yyyy%2Fmm%2Fdd&idioma=ES`. El cuadro 1 trae compra **y** venta en una sola llamada. Las barras de las fechas van URL-encoded (`%2F`), igual que en el ejemplo oficial.
+   - Headers: `Authorization: Bearer <token>` y `Accept: application/json`.
+   - Respuesta real (recortada):
+     ```json
+     {"estado":true,"mensaje":"Consulta exitosa","datos":[{"titulo":"Tipo cambio de compra y de venta del dólar de los Estados Unidos de América","periodicidad":"Diaria","indicadores":[
+       {"codigoIndicador":"317","nombreIndicador":"Tipo cambio compra","series":[{"fecha":"2026-10-06","valorDatoPorPeriodo":454.50000000},{"fecha":"2026-10-07","valorDatoPorPeriodo":453.46000000}]},
+       {"codigoIndicador":"318","nombreIndicador":"Tipo cambio venta","series":[{"fecha":"2026-10-06","valorDatoPorPeriodo":460.35000000},{"fecha":"2026-10-07","valorDatoPorPeriodo":457.80000000}]}
+     ]}]}
+     ```
+     Usá este JSON como fixture de tests. `valorDatoPorPeriodo` puede venir `null`: descartá esos días. Uní compra y venta por fecha y solo aceptá días que tengan ambos valores.
+   - Códigos confirmados: **317 = compra**, **318 = venta**.
+   - **Trampa conocida:** el BCCR publica en la tarde el tipo de cambio **del día siguiente**. Pedí un rango (por ejemplo, los últimos 7 días hasta mañana) y quedate con el dato más reciente cuya fecha sea **menor o igual a hoy** en la zona horaria `America/Costa_Rica`. Nunca uses la fecha del servidor sin esa zona horaria.
+   - Alternativa por indicador individual, si alguna vez hiciera falta: `GET /indicadoresEconomicos/{codigo}/series` con los mismos parámetros.
    - Errores: 400, 401 (token inválido o vencido), 403 (sin suscripción), 404, 429 (exceso de solicitudes, bajar la frecuencia), 500. Mapear cada uno a un mensaje claro en el admin.
    - Hay inconsistencias de mayúsculas en la doc oficial (`Bccr.Ge` vs `Bccr.GE`) y un host alterno de Azure en un ejemplo. Usá `apim.bccr.fi.cr`, centralizá la URL en una constante filtrable y reportá qué variante funcionó.
 
