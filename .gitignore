@@ -1,0 +1,24 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build output
+/assets/build/
+/build/
+/dist/
+
+# Tooling caches
+.phpunit.result.cache
+.phpcs-cache
+/.phpstan-cache/
+
+# Local overrides
+.wp-env.override.json
+phpcs.xml
+phpstan.neon
+phpunit.xml
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

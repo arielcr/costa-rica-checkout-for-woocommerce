@@ -1,0 +1,31 @@
+{
+	"name": "costa-rica-kit-for-woocommerce",
+	"version": "0.1.0",
+	"private": true,
+	"description": "SINPE Móvil, exchange rate, provinces/cantons/districts and ID number for WooCommerce stores in Costa Rica.",
+	"author": "Ariel Orozco",
+	"license": "GPL-2.0-or-later",
+	"engines": {
+		"node": ">=22.22.2"
+	},
+	"scripts": {
+		"build": "wp-scripts build --webpack-src-dir=assets/src --output-path=assets/build",
+		"start": "wp-scripts start --webpack-src-dir=assets/src --output-path=assets/build",
+		"lint:js": "wp-scripts lint-js assets/src",
+		"lint:php": "composer lint",
+		"analyze:php": "composer analyze",
+		"test:php": "npm run test:php:unit && npm run test:php:integration",
+		"test:php:unit": "composer test",
+		"test:php:integration": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce vendor/bin/phpunit -c phpunit-integration.xml.dist",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:destroy": "wp-env destroy",
+		"zip": "bash bin/build-zip.sh",
+		"plugin-check": "npm run zip && wp-env run cli wp plugin check wp-content/plugins/costa-rica-kit-for-woocommerce/build/costa-rica-kit-for-woocommerce --slug=costa-rica-kit-for-woocommerce",
+		"i18n:pot": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce wp i18n make-pot . languages/costa-rica-kit-for-woocommerce.pot --exclude=assets/src,build,node_modules,tests,vendor"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^12.0.0",
+		"@wordpress/scripts": "^37.0.0"
+	}
+}

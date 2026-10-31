@@ -1,0 +1,46 @@
+# Files and folders excluded from the distributable zip (bin/build-zip.sh).
+# One rsync pattern per line; a leading "/" anchors to the plugin root.
+
+# Version control and CI
+/.git
+/.github
+/.gitignore
+/.gitattributes
+/.distignore
+
+# Agent / editor / environment
+/.claude
+/CLAUDE.md
+/.editorconfig
+/.nvmrc
+/.wp-env.json
+/.wp-env.override.json
+.DS_Store
+
+# Dependencies and build tooling
+/node_modules
+/vendor
+/package.json
+/package-lock.json
+/composer.lock
+/webpack.config.js
+/bin
+/build
+/dist
+
+# QA configuration and caches
+/phpcs.xml.dist
+/phpcs.xml
+/phpstan.neon.dist
+/phpstan.neon
+/phpunit.xml.dist
+/phpunit-integration.xml.dist
+/phpunit.xml
+/.phpunit.result.cache
+/.phpcs-cache
+/.phpstan-cache
+/tests
+
+# Project documentation (not needed at runtime)
+/docs
+/CHANGELOG.md
