@@ -65,7 +65,7 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 			'order_id' => (string) $order->get_id(),
 			'_wpnonce' => 'invalid',
 		);
-		$_REQUEST = $_GET;
+		$_REQUEST = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Test setup.
 
 		$this->expectException( WPDieException::class );
 		( new AdminMetabox() )->handle_confirm();
@@ -78,7 +78,7 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 			'order_id' => (string) $order->get_id(),
 			'_wpnonce' => wp_create_nonce( AdminMetabox::CONFIRM_ACTION . '_' . $order->get_id() ),
 		);
-		$_REQUEST = $_GET;
+		$_REQUEST = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Test setup.
 
 		try {
 			( new AdminMetabox() )->handle_confirm();
