@@ -12,8 +12,8 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T22:24:58+00:00\n"
-"PO-Revision-Date: 2026-10-31 16:00-0600\n"
+"POT-Creation-Date: 2026-10-31T23:51:39+00:00\n"
+"PO-Revision-Date: 2026-11-01 10:00-0600\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
 
@@ -62,80 +62,80 @@ msgstr "Borrar datos al desinstalar"
 msgid "When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders. Settings are always deleted."
 msgstr "Al borrar el plugin, eliminar también los comprobantes de pago de SINPE Móvil y los datos que este plugin agregó a los pedidos. Los ajustes se borran siempre."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:88
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:46
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:111
 #: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
 msgstr "Tipo de cambio"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:90
 msgid "US dollar rate in colones, used to show the exact amount in colones when your store sells in dollars. It is updated in the background twice a day; customers never wait for it."
 msgstr "Tipo de cambio del dólar en colones, usado para mostrar el monto exacto en colones cuando su tienda vende en dólares. Se actualiza en segundo plano dos veces al día; los clientes nunca esperan por él."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:94
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:95
 msgid "Current rate"
 msgstr "Tipo de cambio actual"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:99
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:100
 msgid "Source"
 msgstr "Fuente"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:106
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:107
 msgid "BCCR token"
 msgstr "Token del BCCR"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:107
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:108
 msgid "Only for the BCCR source. Generate it in the BCCR economic indicators site, under My profile → Generate token."
 msgstr "Solo para la fuente BCCR. Genérelo en el sitio de Indicadores Económicos del BCCR, en Mi perfil → Generar token."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:112
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:113
 #: src/Modules/ExchangeRate/ExchangeRateService.php:123
 msgid "Manual rate"
 msgstr "Tipo de cambio manual"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:113
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:114
 msgid "Use a fixed rate instead of the automatic source"
 msgstr "Usar un tipo de cambio fijo en lugar de la fuente automática"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:119
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:120
 msgid "Manual rate (₡ per US$)"
 msgstr "Tipo de cambio manual (₡ por US$)"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:120
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:121
 msgid "Used for both buying and selling while the manual rate is on."
 msgstr "Se usa tanto para compra como para venta mientras el tipo de cambio manual esté activo."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:129
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:130
 msgid "Maximum age (hours)"
 msgstr "Antigüedad máxima (horas)"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:130
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:131
 msgid "If the automatic rate is older than this and there is no manual rate, a notice is shown and SINPE Móvil is hidden in stores that do not sell in colones."
 msgstr "Si el tipo de cambio automático es más antiguo que esto y no hay tipo de cambio manual, se muestra un aviso y SINPE Móvil se oculta en las tiendas que no venden en colones."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:198
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:199
 msgid "You are not allowed to update the exchange rate."
 msgstr "No tiene permiso para actualizar el tipo de cambio."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:233
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:234
 msgid "No exchange rate yet."
 msgstr "Todavía no hay tipo de cambio."
 
 #. translators: 1: sell rate, 2: buy rate, both in colones.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:239
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:240
 #, php-format
 msgid "Sell: %1$s · Buy: %2$s"
 msgstr "Venta: %1$s · Compra: %2$s"
 
 #. translators: 1: date of the rate, 2: source name, 3: date and time of the last update.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:249
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:250
 #, php-format
 msgid "Rate of %1$s from %2$s, updated %3$s."
 msgstr "Tipo de cambio del %1$s (fuente: %2$s), actualizado el %3$s."
 
 #. translators: %d: maximum age in hours.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:261
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:262
 #, php-format
 msgid "This rate is older than %d hour."
 msgid_plural "This rate is older than %d hours."
@@ -143,92 +143,96 @@ msgstr[0] "Este tipo de cambio tiene más de %d hora."
 msgstr[1] "Este tipo de cambio tiene más de %d horas."
 
 #. translators: 1: date and time, 2: error message.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:274
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:275
 #, php-format
 msgid "Last update attempt (%1$s) failed: %2$s"
 msgstr "El último intento de actualización (%1$s) falló: %2$s"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:283
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:284
 msgid "Update now"
 msgstr "Actualizar ahora"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:306
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:307
 msgid "Exchange rate updated."
 msgstr "Tipo de cambio actualizado."
 
 #. translators: %s: error message.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:314
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:315
 #, php-format
 msgid "The exchange rate could not be updated: %s The last good rate is kept."
 msgstr "No se pudo actualizar el tipo de cambio: %s Se conserva el último tipo de cambio válido."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:331
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:332
 msgid "Costa Rica Kit: there is no exchange rate yet."
 msgstr "Costa Rica Kit: todavía no hay tipo de cambio."
 
 #. translators: %d: maximum age in hours.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:334
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:335
 #, php-format
 msgid "Costa Rica Kit: the exchange rate is older than %d hour."
 msgid_plural "Costa Rica Kit: the exchange rate is older than %d hours."
 msgstr[0] "Costa Rica Kit: el tipo de cambio tiene más de %d hora."
 msgstr[1] "Costa Rica Kit: el tipo de cambio tiene más de %d horas."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:339
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:340
 msgid "SINPE Móvil is hidden at checkout until a current rate is available."
 msgstr "SINPE Móvil se oculta en el checkout hasta que haya un tipo de cambio vigente."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:346
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:347
 msgid "Review the exchange rate settings"
 msgstr "Revisar los ajustes del tipo de cambio"
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:359
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:361
 msgid "the BCCR source needs a token."
 msgstr "la fuente BCCR necesita un token."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:361
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:363
 msgid "the source rejected the request (400)."
 msgstr "la fuente rechazó la solicitud (400)."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:363
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:365
 msgid "the BCCR token is invalid or expired (401). Generate a new one."
 msgstr "el token del BCCR no es válido o venció (401). Genere uno nuevo."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:365
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:367
 msgid "the BCCR token has no access to this service (403). Check your subscription."
 msgstr "el token del BCCR no tiene acceso a este servicio (403). Revise su suscripción."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:367
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:369
 msgid "the service address was not found (404)."
 msgstr "no se encontró la dirección del servicio (404)."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:369
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:371
 msgid "too many requests (429). The next scheduled update will try again."
 msgstr "demasiadas solicitudes (429). La próxima actualización programada lo intentará de nuevo."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:371
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:373
 msgid "the service could not be reached. Check your server connection."
 msgstr "no se pudo conectar con el servicio. Revise la conexión de su servidor."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:373
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:375
 msgid "the service returned an unexpected response."
 msgstr "el servicio devolvió una respuesta inesperada."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:375
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:377
 msgid "the service has no rate for the last days."
 msgstr "el servicio no tiene tipo de cambio para los últimos días."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:379
-msgid "the service had an internal error. With the BCCR source this can also mean an invalid token."
-msgstr "el servicio tuvo un error interno. Con la fuente BCCR esto también puede indicar un token inválido."
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:382
+msgid "the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again."
+msgstr "el BCCR respondió con un error interno (HTTP 500). Puede ser que el token no sea válido o que el servicio del BCCR esté fallando. Revise el token; si es correcto, la próxima actualización programada lo intentará de nuevo."
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:386
+msgid "the service had an internal error. The next scheduled update will try again."
+msgstr "el servicio tuvo un error interno. La próxima actualización programada lo intentará de nuevo."
 
 #. translators: %s: HTTP status code.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:384
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:391
 #, php-format
 msgid "the service answered with HTTP status %s."
 msgstr "el servicio respondió con el código HTTP %s."
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:387
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:394
 msgid "unknown error."
 msgstr "error desconocido."
 
