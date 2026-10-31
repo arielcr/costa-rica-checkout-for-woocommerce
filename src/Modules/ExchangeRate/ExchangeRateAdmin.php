@@ -9,7 +9,6 @@ declare( strict_types=1 );
 
 namespace CRKit\Modules\ExchangeRate;
 
-use CRKit\Modules\ExchangeRate\Providers\BccrProvider;
 use CRKit\Modules\ExchangeRate\Providers\HaciendaProvider;
 use CRKit\Plugin;
 
@@ -249,7 +248,7 @@ final class ExchangeRateAdmin {
 							/* translators: 1: date of the rate, 2: source name, 3: date and time of the last update. */
 							esc_html__( 'Rate of %1$s from %2$s, updated %3$s.', 'costa-rica-kit-for-woocommerce' ),
 							esc_html( self::format_date( $rate->date ) ),
-							esc_html( $this->get_source_name( $rate->source ) ),
+							esc_html( $this->service->get_source_label( $rate->source ) ),
 							esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $rate->fetched_at ) )
 						);
 						?>
@@ -408,30 +407,6 @@ final class ExchangeRateAdmin {
 	 */
 	public static function format_rate( float $rate ): string {
 		return '₡' . number_format_i18n( $rate, 2 );
-	}
-
-	/**
-	 * Display name of a rate source.
-	 *
-	 * @param string $source Source id.
-	 * @return string
-	 */
-	private function get_source_name( string $source ): string {
-		if ( ExchangeRateService::MANUAL_SOURCE === $source ) {
-			return __( 'the manual rate', 'costa-rica-kit-for-woocommerce' );
-		}
-
-		if ( HaciendaProvider::ID === $source ) {
-			return __( 'Ministerio de Hacienda', 'costa-rica-kit-for-woocommerce' );
-		}
-
-		if ( BccrProvider::ID === $source ) {
-			return __( 'BCCR', 'costa-rica-kit-for-woocommerce' );
-		}
-
-		$providers = $this->service->get_providers();
-
-		return isset( $providers[ $source ] ) ? $providers[ $source ]->get_name() : $source;
 	}
 
 	/**

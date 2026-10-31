@@ -112,6 +112,27 @@ final class ExchangeRateService {
 	}
 
 	/**
+	 * Display name of a rate source id.
+	 *
+	 * @param string $source Source id.
+	 * @return string
+	 */
+	public function get_source_label( string $source ): string {
+		switch ( $source ) {
+			case self::MANUAL_SOURCE:
+				return __( 'Manual rate', 'costa-rica-kit-for-woocommerce' );
+			case HaciendaProvider::ID:
+				return __( 'Ministerio de Hacienda', 'costa-rica-kit-for-woocommerce' );
+			case BccrProvider::ID:
+				return __( 'BCCR', 'costa-rica-kit-for-woocommerce' );
+		}
+
+		$providers = $this->get_providers();
+
+		return isset( $providers[ $source ] ) ? $providers[ $source ]->get_name() : $source;
+	}
+
+	/**
 	 * Current rate: the manual rate if it is on, otherwise the last good automatic rate (even if outdated).
 	 *
 	 * @return ExchangeRate|null
