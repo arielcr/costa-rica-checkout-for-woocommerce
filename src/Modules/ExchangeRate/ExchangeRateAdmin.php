@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace CRKit\Modules\ExchangeRate;
 
+use CRKit\Modules\ExchangeRate\Providers\BccrProvider;
 use CRKit\Modules\ExchangeRate\Providers\HaciendaProvider;
 use CRKit\Plugin;
 
@@ -273,7 +274,7 @@ final class ExchangeRateAdmin {
 							/* translators: 1: date and time, 2: error message. */
 							esc_html__( 'Last update attempt (%1$s) failed: %2$s', 'costa-rica-kit-for-woocommerce' ),
 							esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $status['attempted_at'] ) ),
-							esc_html( self::get_error_message( $status['error_code'] ) )
+							esc_html( self::get_error_message( $status['error_code'], $status['source'] ) )
 						);
 						?>
 					</p>
@@ -312,7 +313,7 @@ final class ExchangeRateAdmin {
 					sprintf(
 						/* translators: %s: error message. */
 						__( 'The exchange rate could not be updated: %s The last good rate is kept.', 'costa-rica-kit-for-woocommerce' ),
-						self::get_error_message( $status['error_code'] )
+						self::get_error_message( $status['error_code'], $status['source'] )
 					)
 				)
 			);
@@ -350,10 +351,11 @@ final class ExchangeRateAdmin {
 	/**
 	 * Translated message for an update error code.
 	 *
-	 * @param string $code Error code.
+	 * @param string $code   Error code.
+	 * @param string $source Provider id of the failed attempt.
 	 * @return string
 	 */
-	public static function get_error_message( string $code ): string {
+	public static function get_error_message( string $code, string $source = '' ): string {
 		switch ( $code ) {
 			case 'missing_token':
 				return __( 'the BCCR source needs a token.', 'costa-rica-kit-for-woocommerce' );
@@ -375,8 +377,13 @@ final class ExchangeRateAdmin {
 				return __( 'the service has no rate for the last days.', 'costa-rica-kit-for-woocommerce' );
 		}
 
+		if ( str_starts_with( $code, 'http_5' ) && BccrProvider::ID === $source ) {
+			// The BCCR API answers HTTP 500 both for an invalid token and for its own failures.
+			return __( 'the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again.', 'costa-rica-kit-for-woocommerce' );
+		}
+
 		if ( str_starts_with( $code, 'http_5' ) ) {
-			return __( 'the service had an internal error. With the BCCR source this can also mean an invalid token.', 'costa-rica-kit-for-woocommerce' );
+			return __( 'the service had an internal error. The next scheduled update will try again.', 'costa-rica-kit-for-woocommerce' );
 		}
 
 		if ( str_starts_with( $code, 'http_' ) ) {
