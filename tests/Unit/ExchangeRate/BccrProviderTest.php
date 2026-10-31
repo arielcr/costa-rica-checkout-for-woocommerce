@@ -33,10 +33,28 @@ final class BccrProviderTest extends TestCase {
 	}
 
 	public function test_ignores_tomorrows_rate(): void {
+		// In the afternoon of 2026-10-06 the series already includes 2026-10-07.
 		$rate = BccrProvider::parse( self::fixture( 'bccr/cuadro-1-2026-10-07.json' ), '2026-10-06', time() );
 
 		$this->assertSame( '2026-10-06', $rate->date );
+		$this->assertSame( 454.5, $rate->buy );
 		$this->assertSame( 460.35, $rate->sell );
+	}
+
+	public function test_weekend_days_use_the_published_rate(): void {
+		$rate = BccrProvider::parse( self::fixture( 'bccr/cuadro-1-2026-10-07.json' ), '2026-10-04', time() );
+
+		$this->assertSame( '2026-10-04', $rate->date );
+		$this->assertSame( 455.71, $rate->buy );
+		$this->assertSame( 462.08, $rate->sell );
+	}
+
+	public function test_matches_the_hacienda_rate_of_the_same_day(): void {
+		// SPEC §3B: on 2026-10-01 Hacienda reported 454.78 / 460.73, the same as the BCCR.
+		$rate = BccrProvider::parse( self::fixture( 'bccr/cuadro-1-2026-10-07.json' ), '2026-10-01', time() );
+
+		$this->assertSame( 454.78, $rate->buy );
+		$this->assertSame( 460.73, $rate->sell );
 	}
 
 	public function test_discards_null_days_and_only_accepts_days_with_both_values(): void {
@@ -49,7 +67,7 @@ final class BccrProviderTest extends TestCase {
 	}
 
 	public function test_fails_when_no_day_is_usable(): void {
-		$this->assert_parse_fails_with( self::fixture( 'bccr/cuadro-1-2026-10-07.json' ), '2026-10-01', 'no_data' );
+		$this->assert_parse_fails_with( self::fixture( 'bccr/cuadro-1-2026-10-07.json' ), '2026-09-29', 'no_data' );
 	}
 
 	public function test_fails_when_estado_is_false(): void {
