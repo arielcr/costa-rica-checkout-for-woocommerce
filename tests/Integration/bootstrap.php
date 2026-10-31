@@ -15,10 +15,23 @@ if ( false === $crkit_tests_dir || ! is_readable( $crkit_tests_dir . '/includes/
 }
 
 /*
- * wp-env runs the site and the test suite against the same database, and the test installer
- * drops every table that uses its prefix. A dedicated prefix keeps the development site intact.
+ * Use our own configuration: a dedicated database, never the development site's one.
+ * wp-env's default wp-tests-config.php points to the site database, and the test
+ * installer drops every table it finds there.
  */
-putenv( 'WORDPRESS_TABLE_PREFIX=wptests_' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- Read by wp-env's wp-tests-config.php; test-only.
+define( 'WP_TESTS_CONFIG_FILE_PATH', __DIR__ . '/wp-tests-config.php' );
+require_once WP_TESTS_CONFIG_FILE_PATH;
+
+// The installer expects the database to exist. Creating it is the only statement run outside it.
+// phpcs:disable WordPress.DB.RestrictedFunctions -- Test bootstrap: WordPress is not loaded yet.
+$crkit_mysqli = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD );
+if ( false === $crkit_mysqli ) {
+	echo 'Could not connect to the test database server.' . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CLI output.
+	exit( 1 );
+}
+mysqli_query( $crkit_mysqli, 'CREATE DATABASE IF NOT EXISTS `' . CRKIT_TESTS_DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci' );
+mysqli_close( $crkit_mysqli );
+// phpcs:enable WordPress.DB.RestrictedFunctions
 
 require_once dirname( __DIR__, 2 ) . '/vendor/autoload.php';
 require_once dirname( __DIR__, 2 ) . '/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
