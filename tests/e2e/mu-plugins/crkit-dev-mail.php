@@ -8,6 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// The integration suite loads the same wp-content and asserts on the mocked mailer.
+if ( defined( 'CRKIT_TESTS_DB_NAME' ) ) {
+	return;
+}
+
 add_filter(
 	'pre_wp_mail',
 	static function ( $short_circuit, array $atts ) {
