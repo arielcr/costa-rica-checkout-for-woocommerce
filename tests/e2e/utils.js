@@ -18,7 +18,32 @@ const scenario = () => ( {
 	storage: process.env.CRKIT_E2E_STORAGE || 'hpos',
 	currency: process.env.CRKIT_E2E_CURRENCY || 'usd',
 	php: process.env.CRKIT_E2E_PHP || '',
+	locale: process.env.CRKIT_E2E_LOCALE || '',
 } );
+
+/**
+ * Expected plugin texts for the site language (es_CR and es_ES share the translation).
+ * Null when the language is not known, so text checks are skipped.
+ */
+const TEXTS = {
+	es: {
+		instructionsTitle: 'Cómo pagar con SINPE Móvil',
+		receiptThanks: '¡Gracias! Recibimos su comprobante',
+		estimate: 'Monto a pagar: aproximadamente',
+	},
+	en: {
+		instructionsTitle: 'How to pay with SINPE Móvil',
+		receiptThanks: 'Thank you! We received your receipt',
+		estimate: 'Amount to pay: about',
+	},
+};
+const texts = () => {
+	const { locale } = scenario();
+	if ( locale.startsWith( 'es_' ) ) {
+		return TEXTS.es;
+	}
+	return 'en_US' === locale ? TEXTS.en : null;
+};
 
 async function login( page, { user, pass } ) {
 	await page.goto( '/wp-login.php' );
@@ -176,6 +201,7 @@ function orderEditUrl( id ) {
 }
 
 module.exports = {
+	texts,
 	ADMIN,
 	CUSTOMER,
 	RECEIPT_PNG,

@@ -4,16 +4,18 @@
 #   PHP versions × store currency (CRC, USD) × order storage (HPOS, posts, sync)
 #   and, inside Playwright, classic and block checkout × guest and logged-in customer.
 #
-#   bin/e2e-matrix.sh                       # PHP 8.1 and 8.3
+#   bin/e2e-matrix.sh                       # PHP 8.1 and 8.3, site in es_CR
 #   PHP_VERSIONS="8.4" bin/e2e-matrix.sh
+#   SITE_LOCALE=es_ES bin/e2e-matrix.sh     # site language: es_CR, es_ES or en_US
 #
-# Results: tests/e2e/.results/matrix/<php>-<currency>-<storage>.json, summarized by
+# Results: tests/e2e/.results/matrix-<locale>/<php>-<currency>-<storage>.json, summarized by
 # bin/e2e-matrix-report.mjs. The environment is left on the .wp-env.json PHP version, seeded in USD.
 #
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RESULTS="${ROOT}/tests/e2e/.results/matrix"
+SITE_LOCALE="${SITE_LOCALE:-es_CR}"
+RESULTS="${ROOT}/tests/e2e/.results/matrix-${SITE_LOCALE}"
 PHP_VERSIONS="${PHP_VERSIONS:-8.1 8.3}"
 cd "${ROOT}"
 mkdir -p "${RESULTS}"
@@ -39,13 +41,13 @@ for php in ${PHP_VERSIONS}; do
 	echo "   running PHP ${actual_php}"
 
 	for currency in usd crc; do
-		npm run --silent seed -- "${currency}" >/dev/null 2>&1 || { echo "seed failed"; exit 1; }
+		npm run --silent seed -- "${currency}" "${SITE_LOCALE}" >/dev/null 2>&1 || { echo "seed failed"; exit 1; }
 
 		for storage in hpos posts sync; do
-			echo "== PHP ${php} · ${currency} · ${storage}"
+			echo "== PHP ${php} · ${SITE_LOCALE} · ${currency} · ${storage}"
 			set_storage "${storage}"
 			PLAYWRIGHT_JSON_OUTPUT_NAME="${RESULTS}/${php}-${currency}-${storage}.json" \
-				CRKIT_E2E_PHP="${actual_php}" CRKIT_E2E_CURRENCY="${currency}" CRKIT_E2E_STORAGE="${storage}" \
+				CRKIT_E2E_PHP="${actual_php}" CRKIT_E2E_CURRENCY="${currency}" CRKIT_E2E_STORAGE="${storage}" CRKIT_E2E_LOCALE="${SITE_LOCALE}" \
 				npx playwright test tests/e2e/specs/matrix.spec.js --reporter=list,json || status=1
 		done
 	done
@@ -56,5 +58,5 @@ npx wp-env start >/dev/null 2>&1
 set_storage hpos
 npm run --silent seed -- usd >/dev/null 2>&1
 
-node bin/e2e-matrix-report.mjs
+node bin/e2e-matrix-report.mjs "${RESULTS}"
 exit "${status}"

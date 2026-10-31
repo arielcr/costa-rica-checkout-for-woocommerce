@@ -7,6 +7,7 @@ const { test, expect } = require( '@playwright/test' );
 const u = require( '../utils' );
 
 const { currency } = u.scenario();
+const texts = u.texts();
 
 for ( const checkout of [ 'classic', 'blocks' ] ) {
 	for ( const user of [ 'guest', 'customer' ] ) {
@@ -31,9 +32,16 @@ for ( const checkout of [ 'classic', 'blocks' ] ) {
 				await u.openBlockCheckout( page, 'guest' === user );
 				if ( 'usd' === currency ) {
 					await u.selectBlockSinpe( page );
-					await expect(
-						page.locator( '.crkit-sinpe-movil-blocks__estimate' )
-					).toContainText( '₡' );
+					const estimate = page.locator(
+						'.crkit-sinpe-movil-blocks__estimate'
+					);
+					await expect( estimate ).toContainText( '₡' );
+					if ( texts ) {
+						// Comes from the JSON translation of the block script.
+						await expect( estimate ).toContainText(
+							texts.estimate
+						);
+					}
 				}
 				await u.placeBlockOrder( page );
 			}
@@ -47,11 +55,20 @@ for ( const checkout of [ 'classic', 'blocks' ] ) {
 			await expect(
 				page.locator( '.crkit-sinpe-instructions__rate' )
 			).toHaveCount( 'usd' === currency ? 1 : 0 );
+			if ( texts ) {
+				await expect(
+					page.locator( '.crkit-sinpe-instructions__title' )
+				).toHaveText( texts.instructionsTitle );
+			}
 
 			await u.uploadReceipt( page );
-			await expect(
-				page.locator( '#crkit-sinpe-receipt .woocommerce-message' )
-			).toBeVisible();
+			const thanks = page.locator(
+				'#crkit-sinpe-receipt .woocommerce-message'
+			);
+			await expect( thanks ).toBeVisible();
+			if ( texts ) {
+				await expect( thanks ).toContainText( texts.receiptThanks );
+			}
 
 			// Store: the meta box shows the receipt; confirming moves the order to processing.
 			const store = await browser.newContext();

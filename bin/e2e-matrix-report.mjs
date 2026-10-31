@@ -5,7 +5,9 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const dir = join( process.cwd(), 'tests/e2e/.results/matrix' );
+const dir =
+	process.argv[ 2 ] ||
+	join( process.cwd(), 'tests/e2e/.results/matrix-es_CR' );
 const columns = [
 	[ 'classic checkout, guest', 'Classic · guest' ],
 	[ 'classic checkout, customer', 'Classic · logged in' ],

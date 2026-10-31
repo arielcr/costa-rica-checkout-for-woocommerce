@@ -3,16 +3,25 @@
 # Demo data for manual review in wp-env. Idempotent: run it again to switch scenarios.
 # Runs inside the wp-env cli container:
 #
-#   npm run seed            # store in US dollars (default)
-#   npm run seed -- crc     # store in colones
+#   npm run seed                  # store in US dollars, site in es_CR (default)
+#   npm run seed -- crc           # store in colones
+#   npm run seed -- usd es_ES     # site language: es_CR (default), es_ES or en_US
 #
 set -euo pipefail
 
 SCENARIO="${1:-usd}"
+LOCALE="${2:-es_CR}"
 case "${SCENARIO}" in
 	crc | usd) ;;
 	*)
-		echo "Usage: seed.sh [crc|usd]" >&2
+		echo "Usage: seed.sh [crc|usd] [es_CR|es_ES|en_US]" >&2
+		exit 1
+		;;
+esac
+case "${LOCALE}" in
+	es_CR | es_ES | en_US) ;;
+	*)
+		echo "Usage: seed.sh [crc|usd] [es_CR|es_ES|en_US]" >&2
 		exit 1
 		;;
 esac
@@ -40,9 +49,13 @@ wp option update woocommerce_price_thousand_sep "," --quiet
 wp option update woocommerce_price_decimal_sep "." --quiet
 wp option update woocommerce_currency_pos left --quiet
 
-echo "== Language: Spanish (Costa Rica)"
-wp language core install es_CR --activate --quiet || echo "   (could not install es_CR, keeping English)"
-wp language plugin install woocommerce es_CR --quiet || true
+echo "== Language: ${LOCALE}"
+if [ "${LOCALE}" = "en_US" ]; then
+	wp site switch-language en_US --quiet
+else
+	wp language core install "${LOCALE}" --activate --quiet || echo "   (could not install ${LOCALE}, keeping the current language)"
+	wp language plugin install woocommerce "${LOCALE}" --quiet || true
+fi
 
 echo "== Costa Rica Kit settings"
 wp option update crkit_modules '{"exchange_rate":"yes","sinpe_movil":"yes","locations":"no","identification":"no"}' --format=json --quiet
