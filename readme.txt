@@ -8,46 +8,74 @@ Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SINPE Móvil payments, colón exchange rates, provinces, cantons, districts and ID numbers for WooCommerce stores in Costa Rica.
+SINPE Móvil payments with receipts and exact amounts in colones, plus Hacienda and BCCR exchange rates, for WooCommerce stores in Costa Rica.
 
 == Description ==
 
 Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online store together in one well-maintained plugin. Each feature is a module that you can enable or disable in **WooCommerce → Settings → Costa Rica**.
 
-**Modules**
+**SINPE Móvil payments**
 
-* **SINPE Móvil:** a manual payment method. Customers pay from their banking app and upload the payment receipt; you confirm the payment from the order screen.
-* **Exchange rate:** keeps the US dollar exchange rate up to date (Ministerio de Hacienda by default, BCCR with your own token, or a manual rate) so stores priced in dollars can show the exact amount in colones.
-* **Provinces, cantons and districts:** dependent address fields based on the official administrative division of Costa Rica.
-* **ID number (cédula):** collects the customer's ID type and number at checkout so electronic invoicing plugins can use it.
+* Manual payment method: customers pay from their bank app and you confirm the payment from the order screen.
+* Shows the SINPE Móvil number, the account holder, the **exact amount in colones** and a reference on the order received page and in the on-hold email.
+* Stores in dollars: the amount in colones is calculated with the exchange rate of the day (sell or buy, plus an optional surcharge) and frozen in the order.
+* Customers upload the payment receipt (JPG, PNG, WEBP or PDF) from the order received page or from My Account. Receipts are stored privately, outside the Media Library, and only store staff and the customer can see them.
+* "Confirm payment" and "Reject payment" buttons in the order screen, and an email to the store when a receipt arrives.
+* Optional maximum amount per order, so the method is hidden above your bank's SINPE Móvil limit.
+* Works with the block and classic checkouts.
+
+**Exchange rate**
+
+* US dollar buy and sell rates from the Ministerio de Hacienda (no credentials), from the Banco Central de Costa Rica (with your own BCCR token), or a manual rate.
+* Updated in the background twice a day. Customers never wait for an external service: the checkout always reads the stored rate.
+* If the source fails, the last good rate is kept. If it gets too old, you see a notice and SINPE Móvil is hidden in stores that sell in dollars.
+* Functions for developers: `crkit_get_exchange_rate()` and `crkit_convert_to_crc()`.
+
+**Coming in future versions**
+
+* Provinces, cantons and districts in Costa Rican addresses.
+* ID number (cédula) at checkout, for electronic invoicing plugins.
 
 **Important:** this plugin does not process payments automatically. SINPE Móvil payments are confirmed manually by the store. It does not generate electronic invoices.
 
-Compatible with the block and classic checkouts and with WooCommerce High-Performance Order Storage (HPOS).
+Compatible with WooCommerce High-Performance Order Storage (HPOS) and the block checkout. Includes a Spanish (Costa Rica) translation.
 
 == Installation ==
 
 1. Install and activate WooCommerce.
 2. Install this plugin from **Plugins → Add New** or upload the zip file, then activate it.
-3. Go to **WooCommerce → Settings → Costa Rica** and enable the modules you need.
+3. Go to **WooCommerce → Settings → Costa Rica** and check the exchange rate source.
+4. Go to **WooCommerce → Settings → Payments → SINPE Móvil**, enter your SINPE Móvil number and the account holder, and enable the method.
 
 == Frequently Asked Questions ==
 
 = Does the plugin confirm SINPE Móvil payments automatically? =
 
-No. SINPE Móvil does not offer a public API to verify transfers, so the store reviews the receipt and confirms the payment manually.
+No. SINPE Móvil does not offer a public API to verify transfers, so the store checks the receipt and its bank account and confirms the payment manually.
 
 = Is there a limit on SINPE Móvil payments? =
 
-Yes. The Central Bank (BCCR) limits SINPE Móvil payments made by SMS to ₡100,000 per day, and the limit on authenticated channels (banking apps) depends on each bank. You can set a maximum order amount so the payment method is not offered for larger orders.
+Yes. The Central Bank (BCCR) limits SINPE Móvil payments made by SMS to ₡100,000 per day, and the limit in bank apps depends on each bank (usually up to ₡500,000). Set a maximum amount per order in the SINPE Móvil settings so the method is not offered for larger orders.
 
 = Do I need a BCCR token? =
 
-No. The exchange rate comes from the Ministerio de Hacienda by default, which requires no credentials. A BCCR token is only needed if you prefer the Central Bank's service as the source.
+No. The exchange rate comes from the Ministerio de Hacienda by default, which needs no credentials. A BCCR token is only needed if you prefer the Central Bank's service. You can generate it in the BCCR economic indicators site, under My profile → Generate token.
+
+= My store sells in dollars. What amount does the customer pay? =
+
+The order total converted to colones with the exchange rate of the day (sell rate by default), plus your optional surcharge, rounded up to whole colones. The amount and the rate are saved in the order, so later rate changes do not affect it.
+
+= Where are the payment receipts stored? Are they public? =
+
+In `wp-content/uploads/crkit-receipts/`, with random file names. They are not in the Media Library and are only served through a protected link that checks the user's permissions, so they stay private on Apache and on Nginx.
+
+= Can I change the payment instructions or the email layout? =
+
+Yes. Copy the files from the plugin's `templates` folder to `yourtheme/costa-rica-kit-for-woocommerce/` and edit them there.
 
 = Does it generate electronic invoices? =
 
-No. The ID number module stores the customer's ID so that your electronic invoicing plugin can use it.
+No. The future ID number module will store the customer's ID so that your electronic invoicing plugin can use it.
 
 == External services ==
 
@@ -68,11 +96,19 @@ The exchange rate module connects to the services below to get the US dollar buy
 == Screenshots ==
 
 1. Module toggles in WooCommerce → Settings → Costa Rica.
+2. Exchange rate settings with the current rate and the "Update now" button.
+3. SINPE Móvil settings.
+4. Block checkout with the estimated amount in colones.
+5. Payment steps and receipt upload on the order received page.
+6. SINPE Móvil box in the order screen, with the receipt and the confirm and reject buttons.
 
 == Changelog ==
 
 = 0.1.0 =
-* Initial development version: plugin scaffolding, settings tab with module toggles, HPOS and block checkout compatibility declarations.
+* New: SINPE Móvil payment method with the amount in colones, receipt uploads, order screen actions and a store email.
+* New: exchange rate from the Ministerio de Hacienda, the BCCR or a manual rate, updated in the background.
+* New: WooCommerce → Settings → Costa Rica, with one toggle per module.
+* New: Spanish (Costa Rica) translation.
 
 == Upgrade Notice ==
 

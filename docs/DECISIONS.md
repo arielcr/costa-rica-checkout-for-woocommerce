@@ -90,3 +90,100 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 ## ADR-0016: Agent skills
 
 - **Decision:** WordPress agent skills (`wp-plugin-development`, `wp-plugin-directory-guidelines`, `wp-phpstan`, `wp-env`) are installed at project level in `.claude/skills/` (gitignored). `skills-lock.json` is committed so they can be reinstalled with the same content; it is excluded from the zip.
+
+---
+
+# Phase 1
+
+## ADR-0017: One manual rate for buying and selling
+
+- **Decision:** the manual source is a single value (₡ per US$), used as both buy and sell rate.
+- **Why:** SPEC §3B says the merchant "fija el valor" (one value). A store that fixes its own rate rarely distinguishes buy and sell.
+- **Alternatives:** two fields (more UI and validation for a rare need).
+
+## ADR-0018: "Usable rate" semantics in the public API
+
+- **Decision:** `crkit_get_exchange_rate()` and `crkit_convert_to_crc()` return `null` when there is no rate or the automatic rate is older than the maximum age. `ExchangeRateService::get_current()` still exposes the last rate (with its date) for display.
+- **Why:** a stale rate must never be used to charge a customer; callers get one clear signal.
+
+## ADR-0019: Rate age measured from the last successful request
+
+- **Decision:** a rate is outdated when `fetched_at` is older than the maximum age (default 48 h), not by the date the source publishes.
+- **Why:** sources keep publishing the same date during weekends and holidays; what matters is that the store still talks to the source. A manual rate never goes stale.
+
+## ADR-0020: Supported currencies: CRC and USD
+
+- **Decision:** CRC totals need no rate; USD totals use the cached rate. Other currencies return `null` (SINPE Móvil is not offered) unless a plugin adds them through `crkit_convert_to_crc`.
+- **Why:** the Hacienda and BCCR sources used here only cover the US dollar for both buy and sell.
+
+## ADR-0021: Rounding to whole colones
+
+- **Decision:** `ceil( round( amount, 2 ) )`: round to cents first, then up.
+- **Why:** SPEC §3A asks to round up; rounding to cents first avoids charging an extra colón because of floating point noise (e.g. 4607.000000001). The block checkout script uses the same formula.
+
+## ADR-0022: Payment reference = order number
+
+- **Decision:** the reference shown to the customer is `$order->get_order_number()` (filters from sequential order number plugins apply).
+- **Why:** short enough for the SINPE Móvil description field and easy to find in WooCommerce.
+
+## ADR-0023: Rejected payments default to "Failed"
+
+- **Decision:** the "Rejected payments" setting defaults to `failed` (the customer can pay again from My Account); `cancelled` is the alternative.
+- **Why:** a rejected SINPE payment is usually a wrong amount or a missing transfer; letting the customer retry is the least destructive default.
+
+## ADR-0024: Receipts can be replaced while the order is on hold
+
+- **Decision:** a new upload replaces the previous receipt and deletes its file. Uploads are refused once the order leaves `on-hold`.
+- **Why:** customers often upload the wrong screenshot first; keeping only the latest one avoids orphan files.
+
+## ADR-0025: Receipt endpoints on admin-post.php
+
+- **Decision:** uploads go to `admin-post.php` (`admin_post` and `admin_post_nopriv`, so guests can upload with their order key). Viewing is `admin_post` only: store staff (`edit_shop_orders`) or the logged-in owner, with a nonce. Guests cannot view the receipt they uploaded.
+- **Why:** standard WordPress endpoints with nonces; no REST route or rewrite rules to maintain. SPEC §3A limits viewing to staff and the owner.
+
+## ADR-0026: Content check on top of wp_check_filetype_and_ext()
+
+- **Decision:** after `wp_check_filetype_and_ext()`, the file content is checked again with `fileinfo` and must match the allowed MIME type. Files are moved with `wp_handle_upload()` (random 32-hex names) into the private folder.
+- **Note:** in WordPress 6.7+ `wp_check_filetype_and_ext()` already rejects every invalid case in the test suite (a mutation test that removes the second check still passes). The check stays as defense in depth: it also makes PDFs fail closed when `fileinfo` is missing.
+
+## ADR-0027: Self-healing schedule on admin requests only
+
+- **Decision:** besides activation and module toggles, the recurring refresh is re-created on `admin_init` if missing (not on AJAX). Storefront requests never query Action Scheduler.
+
+## ADR-0028: Exchange rate settings hooks are not limited to is_admin()
+
+- **Decision:** sanitization and "refresh after the source changes" are registered on every request.
+- **Why:** WooCommerce settings can also be saved through the REST API, which is not an admin request. Found by an integration test.
+
+## ADR-0029: Privacy eraser follows WooCommerce
+
+- **Decision:** the eraser deletes receipts only when "Remove personal data from orders on request" is enabled in WooCommerce; otherwise it reports them as retained, like WooCommerce does with orders.
+
+## ADR-0030: Store email as a WC_Email with a transactional action
+
+- **Decision:** `crkit_sinpe_receipt_uploaded` is added to `woocommerce_email_actions`, and the email class listens to `crkit_sinpe_receipt_uploaded_notification`.
+- **Why:** it is configurable in WooCommerce → Settings → Emails and honors deferred transactional emails.
+
+## ADR-0031: Block checkout estimate computed in the browser
+
+- **Decision:** `get_payment_method_data()` passes the effective rate (rate × surcharge) and the maximum amount; the script computes the estimate from the live cart total and `canMakePayment` applies the same limit. The server-side `is_available()` keeps the authoritative rules.
+- **Why:** the cart total changes with shipping and coupons after the page loads; a static amount would go stale.
+
+## ADR-0032: Bundled es_CR translation with load_plugin_textdomain()
+
+- **Decision:** `load_plugin_textdomain()` on `init`, `.po/.mo` plus a JSON file for the block checkout script. Customer-facing strings use "usted".
+- **Why:** SPEC §4 asks to ship es_CR until the community translation exists. Translations from translate.wordpress.org take precedence once installed.
+
+## ADR-0033: Hacienda rate date
+
+- **Decision:** the date stored for a Hacienda rate is the `dolar.venta.fecha` the service reports, with no "not after today" filter (that filter applies to the BCCR series, which includes tomorrow).
+
+## ADR-0034: Asset manifest as JSON
+
+- **Decision:** the build writes `sinpe-movil-blocks.asset.json` (dependency extraction `outputFormat: json`), read with `wp_json_file_decode()`.
+- **Why:** a `require` of a generated PHP file breaks static analysis in CI before the build runs.
+
+## ADR-0035: End-to-end matrix with Playwright and a dev mail catcher
+
+- **Decision:** `bin/e2e-matrix.sh` runs the SPEC §8 matrix (PHP × currency × order storage × checkout × user) against wp-env; a development-only mu-plugin (`tests/e2e/mu-plugins/crkit-dev-mail.php`, mapped by `.wp-env.json`, never shipped) saves emails as HTML files for review.
+- **Why:** checkout UI and user type can only be verified in a browser; wp-env has no mail server.
