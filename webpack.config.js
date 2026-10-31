@@ -10,7 +10,10 @@ const WooCommerceDependencyExtractionWebpackPlugin = require( '@woocommerce/depe
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'sinpe-movil-blocks': path.resolve( __dirname, 'assets/src/sinpe-movil-blocks/index.js' ),
+		'sinpe-movil-blocks': path.resolve(
+			__dirname,
+			'assets/src/sinpe-movil-blocks/index.js'
+		),
 	},
 	output: {
 		...defaultConfig.output,
@@ -18,8 +21,11 @@ module.exports = {
 	},
 	plugins: [
 		...defaultConfig.plugins.filter(
-			( plugin ) => plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
+			( plugin ) =>
+				plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
 		),
-		new WooCommerceDependencyExtractionWebpackPlugin( { outputFormat: 'json' } ),
+		new WooCommerceDependencyExtractionWebpackPlugin( {
+			outputFormat: 'json',
+		} ),
 	],
 };
