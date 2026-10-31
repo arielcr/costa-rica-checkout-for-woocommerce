@@ -50,9 +50,35 @@ tests_add_filter(
 	static function (): void {
 		WC_Install::install();
 
+		/*
+		 * Order storage under test: `hpos` (default), `posts` or `sync` (HPOS with compatibility mode).
+		 * Run e.g. CRKIT_TEST_ORDER_STORAGE=posts vendor/bin/phpunit -c phpunit-integration.xml.dist.
+		 */
+		$storage = getenv( 'CRKIT_TEST_ORDER_STORAGE' );
+		$storage = in_array( $storage, array( 'hpos', 'posts', 'sync' ), true ) ? $storage : 'hpos';
+		$sync    = wc_get_container()->get( Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer::class );
+		if ( ! $sync->check_orders_table_exists() ) {
+			$sync->create_database_tables();
+		}
+		update_option( 'woocommerce_custom_orders_table_enabled', 'posts' === $storage ? 'no' : 'yes' );
+		update_option( 'woocommerce_custom_orders_table_data_sync_enabled', 'sync' === $storage ? 'yes' : 'no' );
+		define( 'CRKIT_TEST_ORDER_STORAGE', $storage );
+
 		// Reload capabilities after the install. See https://core.trac.wordpress.org/ticket/28374.
 		$GLOBALS['wp_roles'] = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required to refresh roles in tests.
 		wp_roles();
+	}
+);
+
+/*
+ * Load the WooCommerce mailer before the first test. WP_UnitTestCase restores the hooks that
+ * existed before the first test after each one, so a mailer created inside a test would keep
+ * its instance but lose its email hooks for the following tests.
+ */
+tests_add_filter(
+	'wp_loaded',
+	static function (): void {
+		WC()->mailer();
 	}
 );
 

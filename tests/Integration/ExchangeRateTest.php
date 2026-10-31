@@ -76,7 +76,7 @@ final class ExchangeRateTest extends WP_UnitTestCase {
 		$action_id = as_next_scheduled_action( Scheduler::HOOK, array(), Scheduler::GROUP );
 		$this->assertIsInt( $action_id );
 
-		$actions = as_get_scheduled_actions(
+		$actions  = as_get_scheduled_actions(
 			array(
 				'hook'   => Scheduler::HOOK,
 				'group'  => Scheduler::GROUP,

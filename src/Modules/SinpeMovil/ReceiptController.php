@@ -53,12 +53,21 @@ final class ReceiptController {
 	private ReceiptStorage $storage;
 
 	/**
+	 * Whether files must come from an HTTP upload (is_uploaded_file()). Only tests turn it off.
+	 *
+	 * @var bool
+	 */
+	private bool $require_http_upload;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param ReceiptStorage $storage Storage.
+	 * @param ReceiptStorage $storage             Storage.
+	 * @param bool           $require_http_upload Whether files must come from an HTTP upload.
 	 */
-	public function __construct( ReceiptStorage $storage ) {
-		$this->storage = $storage;
+	public function __construct( ReceiptStorage $storage, bool $require_http_upload = true ) {
+		$this->storage             = $storage;
+		$this->require_http_upload = $require_http_upload;
 	}
 
 	/**
@@ -202,7 +211,7 @@ final class ReceiptController {
 		$gateway = self::get_gateway();
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- File array; validated by ReceiptStorage (size, extension and real MIME type).
 		$file   = isset( $_FILES[ self::FILE_FIELD ] ) && is_array( $_FILES[ self::FILE_FIELD ] ) ? $_FILES[ self::FILE_FIELD ] : array();
-		$stored = $this->storage->store( $file, null === $gateway ? Gateway::DEFAULT_MAX_UPLOAD_MB * MB_IN_BYTES : $gateway->get_max_upload_bytes() );
+		$stored = $this->storage->store( $file, null === $gateway ? Gateway::DEFAULT_MAX_UPLOAD_MB * MB_IN_BYTES : $gateway->get_max_upload_bytes(), $this->require_http_upload );
 
 		if ( $stored instanceof WP_Error ) {
 			return $fail( (string) $stored->get_error_code() );
