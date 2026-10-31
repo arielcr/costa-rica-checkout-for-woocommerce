@@ -48,8 +48,8 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
-	<!-- Tests: test bootstraps define WordPress core constants (ABSPATH, WP_UNINSTALL_PLUGIN, ...). -->
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound">
+	<!-- Tests (not shipped): they define core constants (ABSPATH, ...) and invoke core/WooCommerce hooks. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
