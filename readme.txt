@@ -38,7 +38,7 @@ Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online st
 
 **Important:** this plugin does not process payments automatically. SINPE Móvil payments are confirmed manually by the store. It does not generate electronic invoices.
 
-Compatible with WooCommerce High-Performance Order Storage (HPOS) and the block checkout. Includes a Spanish (Costa Rica) translation.
+Compatible with WooCommerce High-Performance Order Storage (HPOS) and the block checkout. Includes Spanish translations for Costa Rica (es_CR) and Spain (es_ES).
 
 == Installation ==
 
@@ -83,15 +83,19 @@ The exchange rate module connects to the services below to get the US dollar buy
 
 **Ministerio de Hacienda de Costa Rica (default source)**
 
-* Sends: a request for the current exchange rate. No credentials and no personal data.
-* Service: https://api.hacienda.go.cr/docs/
-* Provider: https://www.hacienda.go.cr/
+* Request: `GET https://api.hacienda.go.cr/indicadores/tc`.
+* Sends: only the request for the current exchange rate. No credentials and no personal data.
+* API documentation: https://api.hacienda.go.cr/docs/
+* Privacy policy: https://www.hacienda.go.cr/docs/PoliticadePrivacidadDirectrizN.DM-009-2021.pdf
 
 **Banco Central de Costa Rica (BCCR) economic indicators API (optional)**
 
 * Used only if the store selects the BCCR as the exchange rate source.
-* Sends: the date range of the requested rates and the API token that the store owner generated in the BCCR site. No customer data.
-* Provider: https://www.bccr.fi.cr/
+* Request: `GET https://apim.bccr.fi.cr/SDDE/api/Bccr.GE.SDDE.Publico.Indicadores.API/cuadro/1/series` with the date range of the last week.
+* Sends: the date range and the API token that the store owner generated in the BCCR site. No customer data.
+* Economic indicators site (where the token is generated): https://sdd.bccr.fi.cr/es/IndicadoresEconomicos/
+* Data use policy: https://www.bccr.fi.cr/cr/es/politica-uso-datos.html
+* Website policies: https://www.bccr.fi.cr/cr/es/politicas-del-sitio-web.html
 
 == Screenshots ==
 
@@ -108,7 +112,7 @@ The exchange rate module connects to the services below to get the US dollar buy
 * New: SINPE Móvil payment method with the amount in colones, receipt uploads, order screen actions and a store email.
 * New: exchange rate from the Ministerio de Hacienda, the BCCR or a manual rate, updated in the background.
 * New: WooCommerce → Settings → Costa Rica, with one toggle per module.
-* New: Spanish (Costa Rica) translation.
+* New: Spanish translations (es_CR and es_ES).
 
 == Upgrade Notice ==
 

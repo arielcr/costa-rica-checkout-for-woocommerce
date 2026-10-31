@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hooks: `crkit_rate_providers`, `crkit_exchange_rate`, `crkit_convert_to_crc`, `crkit_exchange_rate_updated`, `crkit_exchange_rate_update_failed`, `crkit_sinpe_payment_pending`, `crkit_sinpe_receipt_uploaded`, `crkit_sinpe_payment_confirmed`, `crkit_sinpe_payment_rejected`, `crkit_registered_modules`, `crkit_loaded`.
 - Privacy policy text, personal data exporter and eraser for receipts.
 - "Delete data on uninstall" option.
-- Spanish (Costa Rica) translation, including the block checkout script.
+- Spanish translations (es_CR and es_ES, same texts), including the block checkout script.
 - Requirements: WordPress 6.7+, WooCommerce 10.0+, PHP 8.1+.
 - Plugin scaffolding: bootstrap, PSR-4 autoloading, module container.
 - WooCommerce → Settings → Costa Rica tab with one toggle per module.
