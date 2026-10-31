@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace CRKit\Modules\ExchangeRate;
 
+use CRKit\Admin\SettingsSectionInterface;
+use CRKit\Modules\LifecycleInterface;
 use CRKit\Modules\ModuleInterface;
 
 defined( 'ABSPATH' ) || exit;
@@ -16,12 +18,19 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Exchange rate module.
  */
-final class ExchangeRateModule implements ModuleInterface {
+final class ExchangeRateModule implements ModuleInterface, LifecycleInterface, SettingsSectionInterface {
 
 	/**
 	 * Module id.
 	 */
 	public const ID = 'exchange_rate';
+
+	/**
+	 * Lazily built service.
+	 *
+	 * @var ExchangeRateService|null
+	 */
+	private ?ExchangeRateService $service = null;
 
 	/**
 	 * {@inheritDoc}
@@ -52,9 +61,60 @@ final class ExchangeRateModule implements ModuleInterface {
 	}
 
 	/**
+	 * Exchange rate service.
+	 *
+	 * @return ExchangeRateService
+	 */
+	public function get_service(): ExchangeRateService {
+		if ( null === $this->service ) {
+			$this->service = new ExchangeRateService( new RateRepository(), new ExchangeRateSettings() );
+		}
+
+		return $this->service;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function register(): void {
-		// Module features are registered here as they are implemented.
+		( new Scheduler( $this->get_service() ) )->register();
+
+		// Not limited to is_admin(): settings can also be saved through the REST API.
+		( new ExchangeRateAdmin( $this->get_service() ) )->register();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function activate(): void {
+		Scheduler::schedule();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function deactivate(): void {
+		Scheduler::unschedule();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_settings_section_id(): string {
+		return ExchangeRateAdmin::SECTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_settings_section_label(): string {
+		return __( 'Exchange rate', 'costa-rica-kit-for-woocommerce' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_settings_section_fields(): array {
+		return ( new ExchangeRateAdmin( $this->get_service() ) )->get_settings_fields();
 	}
 }
