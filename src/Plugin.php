@@ -121,6 +121,7 @@ final class Plugin {
 		}
 		$this->booted = true;
 
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRKIT_PLUGIN_FILE ), array( $this, 'add_plugin_action_links' ) );
 		add_action( 'add_option_' . self::MODULES_OPTION, array( $this, 'handle_modules_added' ), 10, 2 );
@@ -138,6 +139,16 @@ final class Plugin {
 		 * @param Plugin $plugin Plugin instance.
 		 */
 		do_action( 'crkit_loaded', $this );
+	}
+
+	/**
+	 * Loads the bundled translations (es_CR) until they are available from translate.wordpress.org,
+	 * which take precedence once installed.
+	 *
+	 * @return void
+	 */
+	public function load_textdomain(): void {
+		load_plugin_textdomain( 'costa-rica-kit-for-woocommerce', false, dirname( plugin_basename( CRKIT_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
