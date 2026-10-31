@@ -175,6 +175,20 @@ final class SinpeGatewayTest extends SinpeTestCase {
 		$this->assertStringContainsString( $order->get_order_key(), $bodies, 'Link to upload the receipt.' );
 	}
 
+	public function test_settings_warn_dollar_stores_without_the_exchange_rate_module(): void {
+		$gateway = $this->configure_gateway( array() );
+
+		update_option( 'crkit_modules', array( 'exchange_rate' => 'no' ) );
+		ob_start();
+		$gateway->admin_options();
+		$this->assertStringContainsString( 'Exchange rate module is disabled', (string) ob_get_clean() );
+
+		update_option( 'woocommerce_currency', 'CRC' );
+		ob_start();
+		$gateway->admin_options();
+		$this->assertStringNotContainsString( 'Exchange rate module is disabled', (string) ob_get_clean() );
+	}
+
 	public function test_order_received_page_shows_steps_and_receipt_form(): void {
 		$this->set_rate();
 		$order = $this->place_order();

@@ -52,6 +52,22 @@ class Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Settings screen, with a warning when a dollar store has no exchange rate module.
+	 *
+	 * @return void
+	 */
+	public function admin_options() {
+		if ( 'CRC' !== get_woocommerce_currency() && null === crkit_exchange_rate_service() ) {
+			printf(
+				'<div class="notice notice-warning inline"><p>%s</p></div>',
+				esc_html__( 'Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica.', 'costa-rica-kit-for-woocommerce' )
+			);
+		}
+
+		parent::admin_options();
+	}
+
+	/**
 	 * Saves the settings from the gateway settings screen.
 	 *
 	 * @return void

@@ -12,7 +12,7 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T22:07:28+00:00\n"
+"POT-Creation-Date: 2026-10-31T22:24:58+00:00\n"
 "PO-Revision-Date: 2026-10-31 16:00-0600\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -65,7 +65,7 @@ msgstr "Al borrar el plugin, eliminar también los comprobantes de pago de SINPE
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:88
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:46
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:111
-#: src/Modules/SinpeMovil/Gateway.php:137
+#: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
 msgstr "Tipo de cambio"
 
@@ -379,7 +379,7 @@ msgid "Available placeholders: %s"
 msgstr "Marcadores disponibles: %s"
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:131
-#: src/Modules/SinpeMovil/Gateway.php:71
+#: src/Modules/SinpeMovil/Gateway.php:87
 msgid "Enable/Disable"
 msgstr "Activar/desactivar"
 
@@ -458,7 +458,7 @@ msgid "The receipt could not be saved. Please try again or contact the store."
 msgstr "No se pudo guardar el comprobante. Intente de nuevo o contacte a la tienda."
 
 #: src/Modules/SinpeMovil/Gateway.php:41
-#: src/Modules/SinpeMovil/Gateway.php:80
+#: src/Modules/SinpeMovil/Gateway.php:96
 #: src/Modules/SinpeMovil/SinpeMovilModule.php:39
 #: assets/build/sinpe-movil-blocks.js:1
 msgid "SINPE Móvil"
@@ -468,132 +468,136 @@ msgstr "SINPE Móvil"
 msgid "Manual payments with SINPE Móvil. Customers pay from their bank app, see the exact amount in colones, and upload the receipt; you confirm the payment from the order screen."
 msgstr "Pagos manuales con SINPE Móvil. Los clientes pagan desde la app de su banco, ven el monto exacto en colones y suben el comprobante; usted confirma el pago desde la pantalla del pedido."
 
-#: src/Modules/SinpeMovil/Gateway.php:73
+#: src/Modules/SinpeMovil/Gateway.php:63
+msgid "Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica."
+msgstr "Su tienda no vende en colones y el módulo Tipo de cambio está desactivado, así que SINPE Móvil no se ofrece en el checkout. Actívelo en WooCommerce → Ajustes → Costa Rica."
+
+#: src/Modules/SinpeMovil/Gateway.php:89
 msgid "Enable SINPE Móvil"
 msgstr "Activar SINPE Móvil"
 
-#: src/Modules/SinpeMovil/Gateway.php:77
+#: src/Modules/SinpeMovil/Gateway.php:93
 msgid "Title"
 msgstr "Título"
 
-#: src/Modules/SinpeMovil/Gateway.php:79
+#: src/Modules/SinpeMovil/Gateway.php:95
 msgid "Name of the payment method at checkout."
 msgstr "Nombre del método de pago en el checkout."
 
-#: src/Modules/SinpeMovil/Gateway.php:84
+#: src/Modules/SinpeMovil/Gateway.php:100
 msgid "Description"
 msgstr "Descripción"
 
-#: src/Modules/SinpeMovil/Gateway.php:86
+#: src/Modules/SinpeMovil/Gateway.php:102
 msgid "Shown at checkout when the customer selects SINPE Móvil."
 msgstr "Se muestra en el checkout cuando el cliente elige SINPE Móvil."
 
-#: src/Modules/SinpeMovil/Gateway.php:87
+#: src/Modules/SinpeMovil/Gateway.php:103
 msgid "Pay from your bank app with SINPE Móvil. After placing the order you will see the number and the exact amount in colones."
 msgstr "Pague desde la app de su banco con SINPE Móvil. Después de hacer el pedido verá el número y el monto exacto en colones."
 
-#: src/Modules/SinpeMovil/Gateway.php:91
+#: src/Modules/SinpeMovil/Gateway.php:107
 msgid "Extra instructions"
 msgstr "Instrucciones adicionales"
 
-#: src/Modules/SinpeMovil/Gateway.php:93
+#: src/Modules/SinpeMovil/Gateway.php:109
 msgid "Optional text added to the payment steps on the order received page and in the on-hold email."
 msgstr "Texto opcional que se agrega a los pasos de pago en la página de pedido recibido y en el correo de pedido en espera."
 
-#: src/Modules/SinpeMovil/Gateway.php:98
+#: src/Modules/SinpeMovil/Gateway.php:114
 msgid "SINPE Móvil number"
 msgstr "Número de SINPE Móvil"
 
-#: src/Modules/SinpeMovil/Gateway.php:100
+#: src/Modules/SinpeMovil/Gateway.php:116
 msgid "8-digit number that receives the payments, e.g. 8888-8888. Required to offer the method."
 msgstr "Número de 8 dígitos que recibe los pagos, por ejemplo 8888-8888. Es obligatorio para ofrecer el método."
 
-#: src/Modules/SinpeMovil/Gateway.php:105
+#: src/Modules/SinpeMovil/Gateway.php:121
 msgid "Account holder"
 msgstr "Titular de la cuenta"
 
-#: src/Modules/SinpeMovil/Gateway.php:107
+#: src/Modules/SinpeMovil/Gateway.php:123
 msgid "Name the customer sees in their bank app before confirming, so they know they are paying the right person."
 msgstr "Nombre que el cliente ve en la app de su banco antes de confirmar, para que sepa que le paga a la persona correcta."
 
-#: src/Modules/SinpeMovil/Gateway.php:111
+#: src/Modules/SinpeMovil/Gateway.php:127
 #: src/Modules/SinpeMovil/Privacy.php:134
 #: templates/sinpe-movil/receipt-form.php:28
 msgid "Payment receipt"
 msgstr "Comprobante de pago"
 
-#: src/Modules/SinpeMovil/Gateway.php:113
+#: src/Modules/SinpeMovil/Gateway.php:129
 msgid "Ask the customer to upload the payment receipt"
 msgstr "Pedir al cliente que suba el comprobante de pago"
 
-#: src/Modules/SinpeMovil/Gateway.php:117
+#: src/Modules/SinpeMovil/Gateway.php:133
 msgid "Maximum receipt size (MB)"
 msgstr "Tamaño máximo del comprobante (MB)"
 
-#: src/Modules/SinpeMovil/Gateway.php:119
+#: src/Modules/SinpeMovil/Gateway.php:135
 msgid "Allowed formats: JPG, PNG, WEBP and PDF."
 msgstr "Formatos permitidos: JPG, PNG, WEBP y PDF."
 
-#: src/Modules/SinpeMovil/Gateway.php:127
+#: src/Modules/SinpeMovil/Gateway.php:143
 msgid "Maximum amount per order (₡)"
 msgstr "Monto máximo por pedido (₡)"
 
-#: src/Modules/SinpeMovil/Gateway.php:129
+#: src/Modules/SinpeMovil/Gateway.php:145
 msgid "The method is not offered when the order total in colones is higher. Leave empty for no limit. The BCCR limits SINPE Móvil payments by SMS to ₡100,000 per day; the limit in bank apps depends on each bank (usually up to ₡500,000)."
 msgstr "El método no se ofrece cuando el total del pedido en colones es mayor. Déjelo vacío para no tener límite. El BCCR limita los pagos de SINPE Móvil por SMS a ₡100.000 diarios; el límite en las apps bancarias depende de cada banco (en general, hasta ₡500.000)."
 
-#: src/Modules/SinpeMovil/Gateway.php:139
+#: src/Modules/SinpeMovil/Gateway.php:155
 msgid "Only for stores that do not sell in colones. Uses the rate from the Exchange rate module."
 msgstr "Solo para tiendas que no venden en colones. Usa el tipo de cambio del módulo Tipo de cambio."
 
-#: src/Modules/SinpeMovil/Gateway.php:142
+#: src/Modules/SinpeMovil/Gateway.php:158
 msgid "Sell rate"
 msgstr "Tipo de cambio de venta"
 
-#: src/Modules/SinpeMovil/Gateway.php:143
+#: src/Modules/SinpeMovil/Gateway.php:159
 msgid "Buy rate"
 msgstr "Tipo de cambio de compra"
 
-#: src/Modules/SinpeMovil/Gateway.php:147
+#: src/Modules/SinpeMovil/Gateway.php:163
 msgid "Exchange rate surcharge (%)"
 msgstr "Recargo sobre el tipo de cambio (%)"
 
-#: src/Modules/SinpeMovil/Gateway.php:149
+#: src/Modules/SinpeMovil/Gateway.php:165
 msgid "Optional percentage added to the exchange rate, for stores that do not sell in colones."
 msgstr "Porcentaje opcional que se suma al tipo de cambio, para tiendas que no venden en colones."
 
-#: src/Modules/SinpeMovil/Gateway.php:157
+#: src/Modules/SinpeMovil/Gateway.php:173
 msgid "Rejected payments"
 msgstr "Pagos rechazados"
 
-#: src/Modules/SinpeMovil/Gateway.php:159
+#: src/Modules/SinpeMovil/Gateway.php:175
 msgid "Order status when you reject a payment from the order screen."
 msgstr "Estado del pedido cuando rechaza un pago desde la pantalla del pedido."
 
-#: src/Modules/SinpeMovil/Gateway.php:162
+#: src/Modules/SinpeMovil/Gateway.php:178
 msgid "Failed (the customer can pay again)"
 msgstr "Fallido (el cliente puede pagar de nuevo)"
 
-#: src/Modules/SinpeMovil/Gateway.php:163
+#: src/Modules/SinpeMovil/Gateway.php:179
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: src/Modules/SinpeMovil/Gateway.php:185
+#: src/Modules/SinpeMovil/Gateway.php:201
 msgid "The SINPE Móvil number must have 8 digits, for example 8888-8888."
 msgstr "El número de SINPE Móvil debe tener 8 dígitos, por ejemplo 8888-8888."
 
-#: src/Modules/SinpeMovil/Gateway.php:410
+#: src/Modules/SinpeMovil/Gateway.php:426
 msgid "SINPE Móvil is not available for this order right now. Please choose another payment method."
 msgstr "SINPE Móvil no está disponible para este pedido en este momento. Elija otro método de pago."
 
 #. translators: %s: amount in colones.
-#: src/Modules/SinpeMovil/Gateway.php:464
+#: src/Modules/SinpeMovil/Gateway.php:480
 #, php-format
 msgid "Awaiting SINPE Móvil payment of %s."
 msgstr "Esperando el pago con SINPE Móvil de %s."
 
 #. translators: 1: amount in colones, 2: exchange rate, 3: rate source, 4: date of the rate.
-#: src/Modules/SinpeMovil/Gateway.php:469
+#: src/Modules/SinpeMovil/Gateway.php:485
 #, php-format
 msgid "Awaiting SINPE Móvil payment of %1$s (exchange rate %2$s from %3$s, %4$s)."
 msgstr "Esperando el pago con SINPE Móvil de %1$s (tipo de cambio %2$s de %3$s, %4$s)."
