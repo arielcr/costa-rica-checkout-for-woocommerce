@@ -1,6 +1,6 @@
 /**
- * Build configuration: @wordpress/scripts defaults plus the WooCommerce dependency
- * extraction plugin, so @woocommerce/* packages are loaded from WooCommerce instead
+ * Build configuration: `@wordpress/scripts` defaults plus the WooCommerce dependency
+ * extraction plugin, so `@woocommerce/*` packages are loaded from WooCommerce instead
  * of being bundled.
  */
 const path = require( 'path' );

@@ -73,6 +73,9 @@ test( `screenshots (${ currency })`, async ( { browser } ) => {
 
 	await u.openBlockCheckout( page, false );
 	await u.selectBlockSinpe( page );
+	await expect(
+		page.locator( '.wc-block-checkout__sidebar [class*="skeleton"]' )
+	).toHaveCount( 0 );
 	await shot( page, `04-checkout-bloques-${ currency }` );
 
 	await u.placeBlockOrder( page );
@@ -117,15 +120,16 @@ test( `screenshots (${ currency })`, async ( { browser } ) => {
 	] );
 	await shot( admin, '11-admin-pago-confirmado' );
 
-	// Emails saved by the development mail catcher.
-	const mails = wp(
-		'ls -1t wp-content/uploads/crkit-dev-mail/ | head -20'
-	).split( '\n' );
-	for ( const [ needle, name ] of [
-		[ 'recibido', '12-correo-cliente-pedido-en-espera' ],
-		[ 'comprobante-de-sinpe', '13-correo-tienda-comprobante' ],
+	// Emails saved by the development mail catcher, picked by content (on-hold and processing share the subject).
+	const latestMail = ( pattern ) =>
+		wp(
+			`cd wp-content/uploads/crkit-dev-mail && grep -l ${ pattern } *.html | xargs ls -1t | head -1`
+		).trim();
+	for ( const [ pattern, name ] of [
+		[ 'crkit-sinpe-instructions', '12-correo-cliente-pedido-en-espera' ],
+		[ 'crkit-sinpe-receipt-email', '13-correo-tienda-comprobante' ],
 	] ) {
-		const file = mails.find( ( mail ) => mail.includes( needle ) );
+		const file = latestMail( pattern );
 		if ( file ) {
 			await admin.goto( `/wp-content/uploads/crkit-dev-mail/${ file }` );
 			await shot( admin, name );
@@ -140,12 +144,15 @@ test( `screenshots (${ currency })`, async ( { browser } ) => {
 	await u.addToCart( surfPage, 'CRK-SURF' );
 	await u.openBlockCheckout( surfPage, true );
 	await expect( u.blockSinpeRadio( surfPage ) ).toHaveCount( 0 );
+	await expect(
+		surfPage.locator( '.wc-block-checkout__sidebar [class*="skeleton"]' )
+	).toHaveCount( 0 );
 	await shot( surfPage, '14-checkout-sin-sinpe-sobre-el-tope' );
 	await surf.close();
 
 	// Outdated exchange rate: notice in the admin.
 	wp(
-		`wp eval '$r = get_option( "crkit_exchange_rate" ); $r["fetched_at"] = time() - 72 * HOUR_IN_SECONDS; update_option( "crkit_exchange_rate", $r, false );'`
+		`wp option patch update crkit_exchange_rate fetched_at ${ Math.floor( Date.now() / 1000 ) - 72 * 3600 }`
 	);
 	await admin.goto(
 		'/wp-admin/admin.php?page=wc-settings&tab=crkit&section=exchange_rate'
