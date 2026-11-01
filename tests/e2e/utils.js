@@ -162,16 +162,36 @@ async function selectBlockSinpe( page ) {
 		)
 		.click();
 	await expect( blockSinpeRadio( page ) ).toBeChecked();
+	// Selecting a method triggers a totals recalculation (`__experimental_calc_totals`).
+	await page.waitForLoadState( 'networkidle' );
 }
 
+/**
+ * Places the block checkout order with SINPE Móvil.
+ *
+ * WooCommerce 11.2 ignores a "Place order" click made while the totals recalculation that follows
+ * a payment method change is still in flight (reproduced with Direct bank transfer too). The click
+ * is retried in that case only: a real failure never reaches the order received page and still fails.
+ *
+ * @param {import('@playwright/test').Page} page Page.
+ */
 async function placeBlockOrder( page ) {
 	await selectBlockSinpe( page );
-	await Promise.all( [
-		page.waitForURL( /order-received/, { timeout: 60000 } ),
-		page
-			.locator( '.wc-block-components-checkout-place-order-button' )
-			.click(),
-	] );
+	const button = page.locator(
+		'.wc-block-components-checkout-place-order-button'
+	);
+
+	for ( let attempt = 1; attempt <= 3; attempt++ ) {
+		await button.click();
+		try {
+			await page.waitForURL( /order-received/, { timeout: 20000 } );
+			return;
+		} catch ( error ) {
+			if ( 3 === attempt ) {
+				throw error;
+			}
+		}
+	}
 }
 
 /**
