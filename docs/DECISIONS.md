@@ -187,3 +187,20 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 - **Decision:** `bin/e2e-matrix.sh` runs the SPEC §8 matrix (PHP × currency × order storage × checkout × user) against wp-env; a development-only mu-plugin (`tests/e2e/mu-plugins/crkit-dev-mail.php`, mapped by `.wp-env.json`, never shipped) saves emails as HTML files for review.
 - **Why:** checkout UI and user type can only be verified in a browser; wp-env has no mail server.
+
+## ADR-0036: es_ES ships with the same texts as es_CR (phase 1 review)
+
+- **Decision (owner):** `languages/` includes `es_ES` with the es_CR texts ("usted").
+- **Why:** many Costa Rican sites run WordPress in es_ES and would otherwise see the plugin in English. `load_plugin_textdomain()` stays until phase 4, when the community translations are reviewed.
+- **Verified:** the e2e matrix asserts the translated texts (payment steps, receipt confirmation, and the block checkout estimate, which comes from the JSON file) on a site in es_ES.
+
+## ADR-0037: BCCR HTTP 500 is reported as "invalid token or service failure"
+
+- **Context:** the BCCR API answers HTTP 500 for an invalid bearer token (verified 2026-10-31), the same status it uses for its own failures.
+- **Decision:** for the BCCR source, the admin message for 5xx names both causes and asks to check the token first. Other sources get a generic internal-error message. The API base keeps the `Bccr.GE` casing, which the owner's production app uses.
+
+## ADR-0038: E2E waits for WooCommerce's totals recalculation before placing block orders
+
+- **Context:** the first es_ES matrix run failed 4 times in "block checkout, guest": the order was never submitted. The trace showed that selecting a payment method in WooCommerce 11.2.1 sends `POST /wc/store/v1/checkout?__experimental_calc_totals=true`, and a "Place order" click made while it is in flight is ignored. A control script reproduced it with Direct bank transfer (BACS) too, so it is not caused by this plugin.
+- **Decision:** after selecting the method, the e2e helper waits for the network to settle; if a click is still ignored, it clicks again (up to 3 times). A real gateway failure never reaches the order received page, so it still fails the test.
+- **Note for later:** report it upstream to WooCommerce if it still happens on the next version.

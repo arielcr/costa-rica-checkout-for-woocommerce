@@ -92,11 +92,15 @@ Each cell places a real order with SINPE Móvil through the browser, checks the 
 
 60 of 60 checks passed. `debug.log` stayed empty during the run.
 
+**Same matrix with the site in es_ES** (phase 1 review, 2026-11-01): 60 of 60 checks passed on PHP 8.1 and 8.3 × CRC/USD × HPOS/posts/sync. In this run the specs also assert the translated plugin texts: the payment steps heading, the receipt confirmation and the block checkout estimate (which comes from the JSON translation of the script).
+
+The first es_ES run failed 4 times in "Blocks · guest" because of a WooCommerce 11.2.1 race (see ADR-0038): a "Place order" click made while the totals recalculation that follows a payment method change is in flight is ignored. It was reproduced with Direct bank transfer as well. The helper now waits for that request; the second run passed every cell.
+
 ### Automated suites
 
 | Suite | Result |
 |---|---|
-| Unit (Brain Monkey), PHP 8.1 / 8.3 / 8.4 / 8.5 locally | 93 tests, 199 assertions, OK |
+| Unit (Brain Monkey), PHP 8.1 / 8.3 / 8.4 / 8.5 locally | 105 tests, 216 assertions, OK (incl. the real BCCR production response) |
 | Integration, wp-env PHP 8.1, HPOS / posts / sync | 68 tests, 276 assertions, OK on each storage |
 | Integration in CI | PHP 8.1, 8.3, 8.4 and the minimum versions (WP 6.7 + WC 10.0.0), each on the 3 storages |
 | Mutation checks (manual) | Removing the order owner check fails 2 receipt tests. Removing the second MIME check fails none: `wp_check_filetype_and_ext()` already rejects every invalid file in the suite (see ADR-0026). |
