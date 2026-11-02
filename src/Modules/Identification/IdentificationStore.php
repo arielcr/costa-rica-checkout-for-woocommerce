@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace CRKit\Modules\Identification;
 
+use WC_Customer;
 use WC_Data;
 
 defined( 'ABSPATH' ) || exit;
@@ -122,5 +123,37 @@ final class IdentificationStore {
 		}
 
 		return $deleted;
+	}
+
+	/**
+	 * Copies the saved identification of a user into the session customer (`WC()->customer`).
+	 *
+	 * WooCommerce keeps block field meta in the session customer and prefills the block checkout from
+	 * it, but My Account and the classic checkout save the customer in the database only. Without this
+	 * the next checkout in the same session would show the previous ID.
+	 *
+	 * @param int $user_id User id.
+	 * @return void
+	 */
+	public static function sync_session_customer( int $user_id ): void {
+		$session = function_exists( 'WC' ) ? WC()->customer : null;
+
+		if ( $user_id <= 0 || ! $session instanceof WC_Customer || $session->get_id() !== $user_id ) {
+			return;
+		}
+
+		$saved = new WC_Customer( $user_id );
+
+		foreach ( array( self::TYPE_FIELD, self::NUMBER_FIELD, self::INVOICE_FIELD ) as $field ) {
+			$value = (string) $saved->get_meta( self::get_meta_key( $field ) );
+
+			if ( '' === $value ) {
+				$session->delete_meta_data( self::get_meta_key( $field ) );
+			} else {
+				$session->update_meta_data( self::get_meta_key( $field ), $value );
+			}
+		}
+
+		$session->save();
 	}
 }

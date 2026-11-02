@@ -127,6 +127,15 @@ test( 'My Account: the saved ID prefills the classic checkout and can be changed
 		'155812345678'
 	);
 
+	// The block checkout reads the session customer, refreshed after the save.
+	await page.goto( '/checkout/' );
+	await expect( page.locator( '#contact-crkit-id-type' ) ).toHaveValue(
+		'03'
+	);
+	await expect( page.locator( '#contact-crkit-id-number' ) ).toHaveValue(
+		'155812345678'
+	);
+
 	// Restore the seeded ID for the other specs.
 	await page.goto( '/my-account/edit-account/' );
 	await type.selectOption( '01' );

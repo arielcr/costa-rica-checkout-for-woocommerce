@@ -70,6 +70,7 @@ final class ClassicCheckout {
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'save_to_order' ), 10, 2 );
 		add_action( 'woocommerce_checkout_update_customer', array( $this, 'save_to_customer' ), 10, 2 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'order_processed' ), 10, 3 );
+		add_action( 'woocommerce_save_account_details', array( $this, 'account_details_saved' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 	}
 
@@ -159,12 +160,9 @@ final class ClassicCheckout {
 			return $value;
 		}
 
-		$customer = function_exists( 'WC' ) ? WC()->customer : null;
-		if ( ! $customer instanceof WC_Customer ) {
-			return $value;
-		}
-
-		$saved = (string) $customer->get_meta( IdentificationStore::get_meta_key( $fields[ $input ] ) );
+		// The saved customer, not the session copy, which can hold an older ID (IdentificationStore::sync_session_customer()).
+		$customer = new WC_Customer( get_current_user_id() );
+		$saved    = (string) $customer->get_meta( IdentificationStore::get_meta_key( $fields[ $input ] ) );
 
 		return '' === $saved ? $value : $saved;
 	}
@@ -281,8 +279,19 @@ final class ClassicCheckout {
 		$order = $order instanceof WC_Order ? $order : wc_get_order( absint( $order_id ) );
 
 		if ( $order instanceof WC_Order ) {
+			IdentificationStore::sync_session_customer( $order->get_customer_id() );
 			OrderIdentification::fire_saved( $order );
 		}
+	}
+
+	/**
+	 * After WooCommerce saves My Account → Account details (block contact fields), refresh the session copy.
+	 *
+	 * @param mixed $user_id User id.
+	 * @return void
+	 */
+	public function account_details_saved( mixed $user_id ): void {
+		IdentificationStore::sync_session_customer( absint( $user_id ) );
 	}
 
 	/**

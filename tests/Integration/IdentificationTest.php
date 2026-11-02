@@ -202,6 +202,26 @@ final class IdentificationTest extends WP_UnitTestCase {
 		$this->assertNull( $classic->get_saved_value( null, 'billing_first_name' ) );
 	}
 
+	public function test_saving_the_account_refreshes_the_session_customer(): void {
+		$user = self::factory()->user->create( array( 'role' => 'customer' ) );
+		wp_set_current_user( $user );
+		WC()->customer = new WC_Customer( $user, true );
+		WC()->customer->update_meta_data( '_wc_other/crkit/id-type', '01' );
+		WC()->customer->update_meta_data( '_wc_other/crkit/id-number', '112340567' );
+
+		// My Account saved a DIMEX in the database; the session still has the cédula física.
+		update_user_meta( $user, '_wc_other/crkit/id-type', '03' );
+		update_user_meta( $user, '_wc_other/crkit/id-number', '155812345678' );
+
+		$classic = new ClassicCheckout( $this->settings );
+		$this->assertSame( '03', $classic->get_saved_value( null, ClassicCheckout::TYPE_KEY ), 'The classic checkout reads the database.' );
+
+		$classic->account_details_saved( $user );
+
+		$this->assertSame( '03', WC()->customer->get_meta( '_wc_other/crkit/id-type' ) );
+		$this->assertSame( '155812345678', WC()->customer->get_meta( '_wc_other/crkit/id-number' ) );
+	}
+
 	public function test_classic_invoice_checkbox_has_no_optional_marker(): void {
 		$classic = new ClassicCheckout( $this->settings );
 		$html    = '<label for="crkit_electronic_invoice">I need an electronic invoice&nbsp;<span class="optional">(optional)</span></label>';
