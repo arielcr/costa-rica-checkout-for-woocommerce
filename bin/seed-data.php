@@ -172,17 +172,17 @@ foreach ( array( 'billing', 'shipping' ) as $crkit_group ) {
 }
 $crkit_wc_customer->save();
 
-// Page with the exchange rate shortcode and block.
-if ( ! get_page_by_path( 'tipo-de-cambio' ) ) {
-	wp_insert_post(
-		array(
-			'post_type'    => 'page',
-			'post_status'  => 'publish',
-			'post_title'   => 'Tipo de cambio',
-			'post_name'    => 'tipo-de-cambio',
-			'post_content' => "<!-- wp:paragraph -->\n<p>Shortcode <code>[crkit_exchange_rate]</code>:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:shortcode -->\n[crkit_exchange_rate]\n<!-- /wp:shortcode -->\n\n<!-- wp:paragraph -->\n<p>Bloque «Tipo de cambio (Costa Rica)», solo venta:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:crkit/exchange-rate {\"type\":\"sell\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"1rem\",\"bottom\":\"1rem\",\"left\":\"1rem\",\"right\":\"1rem\"}}},\"backgroundColor\":\"accent-5\"} /-->",
-		)
-	);
-}
+// Page with the exchange rate shortcode and block ([[…]] prints a shortcode literally).
+$crkit_rate_page = get_page_by_path( 'tipo-de-cambio' );
+wp_insert_post(
+	array(
+		'ID'           => $crkit_rate_page ? $crkit_rate_page->ID : 0,
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Tipo de cambio',
+		'post_name'    => 'tipo-de-cambio',
+		'post_content' => "<!-- wp:paragraph -->\n<p>Shortcode <code>[[crkit_exchange_rate]]</code>:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:shortcode -->\n[crkit_exchange_rate]\n<!-- /wp:shortcode -->\n\n<!-- wp:paragraph -->\n<p>Bloque «Tipo de cambio (Costa Rica)», solo venta:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:crkit/exchange-rate {\"type\":\"sell\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"1rem\",\"bottom\":\"1rem\",\"left\":\"1rem\",\"right\":\"1rem\"}}},\"backgroundColor\":\"accent-5\"} /-->",
+	)
+);
 
 WP_CLI::success( sprintf( 'Seeded the %s scenario.', strtoupper( $crkit_scenario ) ) );
