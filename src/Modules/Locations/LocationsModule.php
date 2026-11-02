@@ -24,6 +24,13 @@ final class LocationsModule implements ModuleInterface {
 	public const ID = 'locations';
 
 	/**
+	 * Lazily built repository.
+	 *
+	 * @var LocationRepository|null
+	 */
+	private ?LocationRepository $repository = null;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function get_id(): string {
@@ -52,9 +59,27 @@ final class LocationsModule implements ModuleInterface {
 	}
 
 	/**
+	 * Locations (official 2025 administrative division).
+	 *
+	 * @return LocationRepository
+	 */
+	public function get_repository(): LocationRepository {
+		if ( null === $this->repository ) {
+			$this->repository = new LocationRepository();
+		}
+
+		return $this->repository;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function register(): void {
-		// Module features are registered here as they are implemented.
+		$fields = new AddressFields( $this->get_repository() );
+		$fields->register();
+
+		( new ClassicCheckout( $this->get_repository(), $fields ) )->register();
+		( new BlocksCheckout( $this->get_repository(), $fields ) )->register();
+		( new AdminFields( $this->get_repository(), $fields ) )->register();
 	}
 }

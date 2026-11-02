@@ -14,6 +14,10 @@ module.exports = {
 			__dirname,
 			'assets/src/sinpe-movil-blocks/index.js'
 		),
+		'locations-classic': path.resolve(
+			__dirname,
+			'assets/src/locations-classic/index.js'
+		),
 	},
 	output: {
 		...defaultConfig.output,
