@@ -21,6 +21,7 @@ $crkit_options = array(
 	'crkit_exchange_rate',
 	'crkit_exchange_rate_status',
 	'crkit_exchange_rate_settings',
+	'crkit_identification_settings',
 	'woocommerce_crkit_sinpe_movil_settings',
 	'woocommerce_crkit_sinpe_receipt_uploaded_settings',
 );
@@ -56,10 +57,11 @@ if ( $crkit_delete_data ) {
 	 * - `_crkit_*`: SINPE Móvil payment data and receipts.
 	 * - `_billing_crkit_*`, `_shipping_crkit_*`: Costa Rican district of order addresses.
 	 * - `_wc_billing/crkit/*`, `_wc_shipping/crkit/*`: block checkout district fields.
+	 * - `_wc_other/crkit/*`: customer ID type and number and the electronic invoice request (both checkouts).
 	 */
 	global $wpdb;
-	$crkit_order_meta = array( '_crkit_', '_billing_crkit_', '_shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/' );
-	$crkit_user_meta  = array( 'billing_crkit_', 'shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/' );
+	$crkit_order_meta = array( '_crkit_', '_billing_crkit_', '_shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/', '_wc_other/crkit/' );
+	$crkit_user_meta  = array( 'billing_crkit_', 'shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/', '_wc_other/crkit/' );
 
 	$crkit_orders_meta = $wpdb->prefix . 'wc_orders_meta';
 	// phpcs:disable WordPress.DB.DirectDatabaseQuery -- One-off cleanup on uninstall; nothing to cache.

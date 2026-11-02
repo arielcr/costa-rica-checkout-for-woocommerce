@@ -22,6 +22,10 @@ module.exports = {
 			__dirname,
 			'assets/src/exchange-rate-block/index.js'
 		),
+		'identification-classic': path.resolve(
+			__dirname,
+			'assets/src/identification-classic/index.js'
+		),
 	},
 	output: {
 		...defaultConfig.output,
