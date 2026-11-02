@@ -41,7 +41,7 @@ Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online st
 
 **Exchange rate on your pages**
 
-* `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"`.
+* `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"` and `hide_outdated="yes|no"`. An outdated rate is shown with its date unless you hide it.
 
 **Coming in future versions**
 
@@ -91,6 +91,10 @@ From the official 2025 administrative division of Costa Rica (Decreto Ejecutivo 
 = Why is there no canton select in the block checkout? =
 
 The block checkout only allows extra fields that do not depend on each other. After the province, customers choose the district from a list of that province's districts, shown as "District (Canton)"; the canton is saved as the city automatically.
+
+= Can customers choose the district in the cart's shipping calculator? =
+
+No. For Costa Rican addresses the canton and district are chosen at checkout, where shipping is calculated again. The shipping calculator on the classic cart page does not show them, so rates that depend on the postcode are only exact at checkout. This is a known limitation.
 
 = Does it work with shipping plugins? =
 
