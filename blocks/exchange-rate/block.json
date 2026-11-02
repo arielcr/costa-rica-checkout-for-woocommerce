@@ -21,6 +21,10 @@
 		"showSource": {
 			"type": "boolean",
 			"default": true
+		},
+		"hideOutdated": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {

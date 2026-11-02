@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Shows the stored exchange rate. Never calls external services.
  *
- * Shortcode attributes: `type` (both|sell|buy, default both), `show_date` and `show_source` (yes|no, default yes).
+ * Shortcode attributes: `type` (both|sell|buy, default both), `show_date` and `show_source` (yes|no, default yes),
+ * `hide_outdated` (yes|no, default no: an outdated rate is shown with its date and the `is-outdated` class).
  */
 final class Shortcode {
 
@@ -63,9 +64,10 @@ final class Shortcode {
 	public function render_shortcode( mixed $atts ): string {
 		$atts = shortcode_atts(
 			array(
-				'type'        => 'both',
-				'show_date'   => 'yes',
-				'show_source' => 'yes',
+				'type'          => 'both',
+				'show_date'     => 'yes',
+				'show_source'   => 'yes',
+				'hide_outdated' => 'no',
 			),
 			is_array( $atts ) ? $atts : array(),
 			self::TAG
@@ -74,7 +76,8 @@ final class Shortcode {
 		return $this->render(
 			sanitize_key( (string) $atts['type'] ),
 			wc_string_to_bool( (string) $atts['show_date'] ),
-			wc_string_to_bool( (string) $atts['show_source'] )
+			wc_string_to_bool( (string) $atts['show_source'] ),
+			wc_string_to_bool( (string) $atts['hide_outdated'] )
 		);
 	}
 
@@ -117,24 +120,27 @@ final class Shortcode {
 		$html       = $this->render(
 			isset( $attributes['type'] ) ? sanitize_key( (string) $attributes['type'] ) : 'both',
 			! isset( $attributes['showDate'] ) || (bool) $attributes['showDate'],
-			! isset( $attributes['showSource'] ) || (bool) $attributes['showSource']
+			! isset( $attributes['showSource'] ) || (bool) $attributes['showSource'],
+			! empty( $attributes['hideOutdated'] )
 		);
 
 		return '' === $html ? '' : sprintf( '<div %1$s>%2$s</div>', get_block_wrapper_attributes(), $html );
 	}
 
 	/**
-	 * Markup of the current rate. Empty when there is no rate yet.
+	 * Markup of the current rate. Empty when there is no rate yet, or when it is outdated and `$hide_outdated` is set.
 	 *
 	 * @param string $type        `both`, `sell` or `buy`.
 	 * @param bool   $show_date   Show the date of the rate.
-	 * @param bool   $show_source Show the source.
+	 * @param bool   $show_source   Show the source.
+	 * @param bool   $hide_outdated Show nothing while the rate is outdated.
 	 * @return string
 	 */
-	public function render( string $type, bool $show_date, bool $show_source ): string {
-		$rate = $this->service->get_current();
+	public function render( string $type, bool $show_date, bool $show_source, bool $hide_outdated = false ): string {
+		$rate     = $this->service->get_current();
+		$outdated = $this->service->is_stale();
 
-		if ( null === $rate ) {
+		if ( null === $rate || ( $outdated && $hide_outdated ) ) {
 			return '';
 		}
 
@@ -164,7 +170,7 @@ final class Shortcode {
 
 		return sprintf(
 			'<span class="crkit-exchange-rate%1$s"><span class="crkit-exchange-rate__values">%2$s</span>%3$s</span>',
-			$this->service->is_stale() ? ' is-outdated' : '',
+			$outdated ? ' is-outdated' : '',
 			esc_html( implode( ' · ', $values ) ),
 			'' === $details ? '' : ' <small class="crkit-exchange-rate__details">' . esc_html( $details ) . '</small>'
 		);

@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 
 const Edit = ( { attributes, setAttributes } ) => {
-	const { type, showDate, showSource } = attributes;
+	const { type, showDate, showSource, hideOutdated } = attributes;
 
 	return (
 		<div { ...useBlockProps() }>
@@ -57,6 +57,21 @@ const Edit = ( { attributes, setAttributes } ) => {
 						checked={ showDate }
 						onChange={ ( value ) =>
 							setAttributes( { showDate: value } )
+						}
+						__nextHasNoMarginBottom
+					/>
+					<ToggleControl
+						label={ __(
+							'Hide when outdated',
+							'costa-rica-kit-for-woocommerce'
+						) }
+						help={ __(
+							'When off, an outdated rate is shown with its date.',
+							'costa-rica-kit-for-woocommerce'
+						) }
+						checked={ hideOutdated }
+						onChange={ ( value ) =>
+							setAttributes( { hideOutdated: value } )
 						}
 						__nextHasNoMarginBottom
 					/>

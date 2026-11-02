@@ -46,6 +46,18 @@ final class ExchangeRateShortcodeTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'is-outdated', do_shortcode( '[crkit_exchange_rate]' ) );
 	}
 
+	public function test_outdated_rate_can_be_hidden(): void {
+		update_option( RateRepository::RATE_OPTION, ( new ExchangeRate( 449.7, 456.04, '2026-10-01', 'hacienda', time() - 100 * HOUR_IN_SECONDS ) )->to_array(), false );
+
+		$this->assertSame( '', do_shortcode( '[crkit_exchange_rate hide_outdated="yes"]' ) );
+		$this->assertSame( '', do_blocks( '<!-- wp:crkit/exchange-rate {"hideOutdated":true} /-->' ) );
+		$this->assertStringContainsString( 'is-outdated', do_blocks( '<!-- wp:crkit/exchange-rate /-->' ), 'Shown by default.' );
+	}
+
+	public function test_hide_outdated_keeps_a_current_rate(): void {
+		$this->assertStringContainsString( 'Sell: ₡456.04', do_shortcode( '[crkit_exchange_rate hide_outdated="yes"]' ) );
+	}
+
 	public function test_nothing_is_shown_without_a_rate(): void {
 		delete_option( RateRepository::RATE_OPTION );
 

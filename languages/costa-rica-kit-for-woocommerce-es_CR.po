@@ -12,7 +12,7 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T21:09:11+00:00\n"
+"POT-Creation-Date: 2026-11-02T22:58:19+00:00\n"
 "PO-Revision-Date: 2026-11-01 10:00-0600\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -257,31 +257,31 @@ msgid "Ministerio de Hacienda (no credentials needed)"
 msgstr "Ministerio de Hacienda (no requiere credenciales)"
 
 #. translators: %s: sell exchange rate in colones.
-#: src/Modules/ExchangeRate/Shortcode.php:146
+#: src/Modules/ExchangeRate/Shortcode.php:152
 #, php-format
 msgid "Sell: %s"
 msgstr "Venta: %s"
 
 #. translators: %s: buy exchange rate in colones.
-#: src/Modules/ExchangeRate/Shortcode.php:150
+#: src/Modules/ExchangeRate/Shortcode.php:156
 #, php-format
 msgid "Buy: %s"
 msgstr "Compra: %s"
 
 #. translators: 1: date of the rate, 2: source name.
-#: src/Modules/ExchangeRate/Shortcode.php:156
+#: src/Modules/ExchangeRate/Shortcode.php:162
 #, php-format
 msgid "Rate of %1$s, source: %2$s"
 msgstr "Tipo de cambio del %1$s, fuente: %2$s"
 
 #. translators: %s: date of the rate.
-#: src/Modules/ExchangeRate/Shortcode.php:159
+#: src/Modules/ExchangeRate/Shortcode.php:165
 #, php-format
 msgid "Rate of %s"
 msgstr "Tipo de cambio del %s"
 
 #. translators: %s: source name.
-#: src/Modules/ExchangeRate/Shortcode.php:162
+#: src/Modules/ExchangeRate/Shortcode.php:168
 #, php-format
 msgid "Source: %s"
 msgstr "Fuente: %s"
@@ -893,6 +893,14 @@ msgstr "Compra"
 #: assets/build/exchange-rate-block.js:1
 msgid "Show the date"
 msgstr "Mostrar la fecha"
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Hide when outdated"
+msgstr "Ocultar si está vencido"
+
+#: assets/build/exchange-rate-block.js:1
+msgid "When off, an outdated rate is shown with its date."
+msgstr "Si está desactivado, un tipo de cambio vencido se muestra con su fecha."
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Show the source"
