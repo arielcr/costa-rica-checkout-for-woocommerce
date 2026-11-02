@@ -220,3 +220,22 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 - **Context:** the Additional Checkout Fields API (WC 10.0+) supports `select` fields with JSON Schema `hidden`/`required` rules evaluated against the address being edited, but cannot filter a select's options by another field's value. It only applies to block (Store API) orders.
 - **Options presented:** (1) one district select per province, shown only for that province; (2) one canton select per province plus one district select per canton (91 fields); (3) a single select with all 492 districts; (4) classic checkout only.
 - **Decision (owner, 2026-11-02):** option 1. The province is WooCommerce's own select; a district select labelled "District (Canton)" lists only that province's districts. City (canton) and postcode are hidden for Costa Rica and filled from the district. The classic checkout keeps the three dependent selects (province → canton → district).
+
+## ADR-0041: Costa Rican address format "District, Canton, Province"
+
+- **Decision:** `woocommerce_localisation_address_formats` for `CR` puts `{crkit_district}{city}, {state}` on one line, followed by the postcode. The district name comes from the stored district (`_billing_crkit_district` / `_shipping_crkit_district` on orders, `billing_crkit_district` / `shipping_crkit_district` on customers).
+- **Why:** it is how addresses are written in Costa Rica, and one filter covers the order screen, emails, My Account and the order received page. The block fields are registered with `show_in_order_confirmation => false` so the district is not printed twice.
+
+## ADR-0042: Classic canton and district fields through the country locale
+
+- **Decision:** the canton and district selects are default address fields, hidden for every country by the default locale and shown and required for `CR`, where city and postcode are hidden. WooCommerce's own address script shows, hides and requires them (`woocommerce_country_locale_field_selectors`).
+- **Store API exception:** the Store API validates addresses against the same locale, so in Store API requests (`WC()->is_store_api_request()`) the canton and district are not required; the block checkout requires its own district field instead. Found while placing the first block order ("Canton is required").
+
+## ADR-0043: My Account uses the classic selects and syncs the block field
+
+- **Context:** WooCommerce adds the block address fields to My Account → Addresses, where their rules cannot follow a province change, and validates them as required on save.
+- **Decision:** My Account shows only the classic dependent selects. Before WooCommerce saves the block fields, the district is copied into the field of its province (and emptied in the others), so validation passes and the block checkout is prefilled. Classic checkout orders sync the same field for the customer.
+
+## ADR-0044: Exchange rate shortcode and block
+
+- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate.
