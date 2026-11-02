@@ -139,8 +139,12 @@ Same 60 checks as phase 1, now choosing the province, canton and district in bot
 | Check | Result |
 |---|---|
 | Classic: province → canton → district options, hidden city/postcode filled (Barva, 40206), province change clears the district | ✅ |
-| Blocks: the district field follows the province (San José → Limón), "Valle La Estrella (Limón)" listed | ✅ |
+| Blocks: the district field follows the province (San José → Limón), "Limón — Valle La Estrella" listed | ✅ |
 | My Account: saving a district shows "San José de la Montaña, Barva, Heredia" and prefills the block checkout | ✅ |
+
+### Block checkout on mobile (390 px)
+
+The block district field is a native `<select>` (WooCommerce's own select component, like Country and Province): no search; phones open the system picker. San José has the longest list (123 districts). Options read "Canton — District" and are sorted by canton, then district (ADR-0045). Screenshots 11–14 in `docs/screenshots/fase-2/` (`CRKIT_E2E_SCREENSHOTS=2 npx playwright test screenshots-fase-2`); 14 renders the options as a list box because a screenshot cannot capture the system picker.
 
 ### Dataset
 

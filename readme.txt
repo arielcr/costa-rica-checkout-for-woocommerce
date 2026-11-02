@@ -90,7 +90,7 @@ From the official 2025 administrative division of Costa Rica (Decreto Ejecutivo 
 
 = Why is there no canton select in the block checkout? =
 
-The block checkout only allows extra fields that do not depend on each other. After the province, customers choose the district from a list of that province's districts, shown as "District (Canton)"; the canton is saved as the city automatically.
+The block checkout only allows extra fields that do not depend on each other. After the province, customers choose the district from a list of that province's districts, shown as "Canton — District" and sorted by canton (it is a regular dropdown without search); the canton is saved as the city automatically.
 
 = Can customers choose the district in the cart's shipping calculator? =
 

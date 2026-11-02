@@ -219,7 +219,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 - **Context:** the Additional Checkout Fields API (WC 10.0+) supports `select` fields with JSON Schema `hidden`/`required` rules evaluated against the address being edited, but cannot filter a select's options by another field's value. It only applies to block (Store API) orders.
 - **Options presented:** (1) one district select per province, shown only for that province; (2) one canton select per province plus one district select per canton (91 fields); (3) a single select with all 492 districts; (4) classic checkout only.
-- **Decision (owner, 2026-11-02):** option 1. The province is WooCommerce's own select; a district select labelled "District (Canton)" lists only that province's districts. City (canton) and postcode are hidden for Costa Rica and filled from the district. The classic checkout keeps the three dependent selects (province → canton → district).
+- **Decision (owner, 2026-11-02):** option 1. The province is WooCommerce's own select; a district select lists only that province's districts (labels and order: ADR-0045). City (canton) and postcode are hidden for Costa Rica and filled from the district. The classic checkout keeps the three dependent selects (province → canton → district).
 
 ## ADR-0041: Costa Rican address format "District, Canton, Province"
 
@@ -238,4 +238,10 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0044: Exchange rate shortcode and block
 
-- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate.
+- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate. The optional `hide_outdated="yes"` (shortcode) / `hideOutdated` (block) hides an outdated rate instead (owner's request, 2026-11-02).
+
+## ADR-0045: Block district options read "Canton — District", sorted by canton
+
+- **Context:** the block district field is WooCommerce's select component, a native `<select>` with no search; on phones it opens the system picker. San José lists 123 districts, and in official order (by district code) with "District (Canton)" labels a customer has to know the district name and scroll for it.
+- **Options presented:** (1) labels "Canton — District", sorted by canton, then district; (2) a custom searchable field (not supported by the Additional Checkout Fields API without replacing WooCommerce's component); (3) leave it as is.
+- **Decision (owner, 2026-11-02):** option 1. Sorting ignores accents and case (`remove_accents()` + `strcasecmp()`), so a canton's districts are contiguous and customers find their canton first. Only the block field changes; the classic checkout already filters districts by canton, and the order screen keeps its searchable select.
