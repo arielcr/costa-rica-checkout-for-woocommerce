@@ -1,0 +1,18 @@
+# PHPStan configuration. Extensions (szepeviktor/phpstan-wordpress) are loaded
+# automatically by phpstan/extension-installer.
+parameters:
+	level: 6
+	phpVersion: 80100
+	tmpDir: .phpstan-cache
+	# Hook values are only documented, never enforced: a filter can return anything,
+	# so runtime guards on filtered values must not be reported as redundant.
+	treatPhpDocTypesAsCertain: false
+	paths:
+		- costa-rica-kit-for-woocommerce.php
+		- uninstall.php
+		- src/
+	bootstrapFiles:
+		- tests/phpstan/bootstrap.php
+	scanFiles:
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php

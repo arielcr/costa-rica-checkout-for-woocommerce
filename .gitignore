@@ -1,0 +1,28 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build output
+/assets/build/
+/build/
+/dist/
+
+# Tooling caches
+.phpunit.result.cache
+.phpcs-cache
+/.phpstan-cache/
+
+# Agent skills (installed with `npx skills add`, see skills-lock.json)
+/.claude/skills/
+
+# Local overrides
+.wp-env.override.json
+.wp-env.min.override.json
+phpcs.xml
+phpstan.neon
+phpunit.xml
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
