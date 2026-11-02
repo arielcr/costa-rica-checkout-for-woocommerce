@@ -125,3 +125,64 @@ test( 'phase 2 screenshots', async ( { browser } ) => {
 	await store.close();
 	await customer.close();
 } );
+
+test( 'phase 2 mobile screenshots (390 px)', async ( { browser } ) => {
+	const shopper = await browser.newContext( {
+		viewport: { width: 390, height: 844 },
+		deviceScaleFactor: 2,
+		isMobile: true,
+		hasTouch: true,
+	} );
+	const page = await shopper.newPage();
+	await u.addToCart( page, 'CRK-COFFEE' );
+
+	// San José has the longest district list (123 districts).
+	await page.goto( '/checkout/' );
+	await page.waitForSelector( '.wc-block-checkout__form' );
+	await page.locator( '#shipping-state' ).selectOption( 'CR-SJ' );
+	await page.waitForLoadState( 'networkidle' );
+	const district = page.locator( '#shipping-crkit-district-sj' );
+	const center = () =>
+		district.evaluate( ( select ) =>
+			select.scrollIntoView( { block: 'center' } )
+		);
+	await center();
+	await shot( page, '11-movil-bloques-distrito-san-jose', {
+		fullPage: false,
+	} );
+
+	// The native select opens the system picker, which a screenshot cannot capture:
+	// render the same options as a list box to show their order.
+	await district.evaluate( ( select ) => {
+		select.setAttribute( 'size', '16' );
+		select.style.height = 'auto';
+		select.style.position = 'relative';
+		select.style.zIndex = '10';
+		select.style.background = '#fff';
+	} );
+	await district.screenshot( {
+		path: path.join( DIR, '14-movil-bloques-orden-distritos.png' ),
+	} );
+	await district.evaluate( ( select ) => {
+		select.removeAttribute( 'size' );
+		select.removeAttribute( 'style' );
+	} );
+
+	await district.selectOption( '10203' );
+	await page.waitForLoadState( 'networkidle' );
+	await expect( district ).toHaveValue( '10203' );
+	await center();
+	await shot( page, '12-movil-bloques-distrito-elegido', {
+		fullPage: false,
+	} );
+
+	await page.fill( '#email', 'invitado@example.com' );
+	await page.fill( '#shipping-first_name', 'Luis' );
+	await page.fill( '#shipping-last_name', 'Solano' );
+	await page.fill( '#shipping-address_1', 'Del parque, 200 m sur' );
+	await page.waitForLoadState( 'networkidle' );
+	await noSkeletons( page );
+	await shot( page, '13-movil-checkout-bloques-completo' );
+
+	await shopper.close();
+} );
