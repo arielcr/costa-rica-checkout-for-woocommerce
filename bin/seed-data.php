@@ -170,6 +170,10 @@ foreach ( array( 'billing', 'shipping' ) as $crkit_group ) {
 	$crkit_wc_customer->update_meta_data( $crkit_group . '_crkit_district', '10201' );
 	$crkit_wc_customer->update_meta_data( '_wc_' . $crkit_group . '/crkit/district-sj', '10201' );
 }
+// Saved ID (cédula física, sample number): both checkouts and My Account → Account details prefill it.
+$crkit_wc_customer->update_meta_data( '_wc_other/crkit/id-type', '01' );
+$crkit_wc_customer->update_meta_data( '_wc_other/crkit/id-number', '100000001' );
+$crkit_wc_customer->delete_meta_data( '_wc_other/crkit/electronic-invoice' );
 $crkit_wc_customer->save();
 
 // Page with the exchange rate shortcode and block ([[…]] prints a shortcode literally).
