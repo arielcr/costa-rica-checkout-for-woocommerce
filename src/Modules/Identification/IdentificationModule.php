@@ -96,7 +96,7 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 				'title'   => __( 'ID number at checkout', 'costa-rica-kit-for-woocommerce' ),
 				'options' => IdentificationSettings::get_requirement_options(),
 				'default' => IdentificationSettings::INVOICE,
-				'desc'    => __( 'With "Required only if the customer asks for an electronic invoice", checkout shows an "I need an electronic invoice" checkbox. The block checkout reads this setting when the page loads.', 'costa-rica-kit-for-woocommerce' ),
+				'desc'    => __( 'With "Required only if the customer asks for an electronic invoice", checkout shows an "I need an electronic invoice" checkbox.', 'costa-rica-kit-for-woocommerce' ),
 			),
 			array(
 				'id'   => 'crkit_identification_section',
