@@ -215,6 +215,8 @@ final class LocationsTest extends WP_UnitTestCase {
 		$fields = ( new BlocksCheckout( $this->locations, $this->fields ) )->remove_from_admin_fields( $fields );
 
 		$this->assertArrayNotHasKey( 'crkit/district-sj', $fields );
+		$this->assertArrayNotHasKey( 0, $fields );
+		$this->assertArrayHasKey( 'city', $fields );
 		$this->assertCount( 493, $fields[ AddressFields::DISTRICT ]['options'] );
 		$this->assertSame( 'Carmen, San José, San José', $fields[ AddressFields::DISTRICT ]['options']['10101'] );
 	}

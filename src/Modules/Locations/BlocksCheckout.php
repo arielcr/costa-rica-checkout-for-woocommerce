@@ -236,8 +236,8 @@ final class BlocksCheckout {
 		$group = 'shipping' === $load_address ? 'shipping' : 'billing';
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verified the nonce before this action.
-		$state    = isset( $_POST[ $group . '_state' ] ) ? wc_clean( wp_unslash( $_POST[ $group . '_state' ] ) ) : '';
-		$district = isset( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ? wc_clean( wp_unslash( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ) : '';
+		$state    = isset( $_POST[ $group . '_state' ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_state' ] ) ) : '';
+		$district = isset( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ) : '';
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		foreach ( $this->locations->get_states() as $province_state ) {
@@ -254,6 +254,12 @@ final class BlocksCheckout {
 	public function remove_from_admin_fields( mixed $fields ): array {
 		$fields = is_array( $fields ) ? $fields : array();
 
-		return array_filter( $fields, static fn( $key ): bool => ! str_contains( (string) $key, self::FIELD_PREFIX ), ARRAY_FILTER_USE_KEY );
+		// WooCommerce inserts the block fields with array_splice(), which drops their keys: match the field id too.
+		return array_filter(
+			$fields,
+			static fn( $field, $key ): bool => ! str_contains( (string) $key, self::FIELD_PREFIX )
+				&& ! ( is_array( $field ) && isset( $field['id'] ) && str_contains( (string) $field['id'], self::FIELD_PREFIX ) ),
+			ARRAY_FILTER_USE_BOTH
+		);
 	}
 }
