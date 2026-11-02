@@ -13,7 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Block checkout: one district field per province (Additional Checkout Fields API) shown only for the selected province, with options "Canton — District" sorted by canton; city and postcode filled on the server.
 - Order screen: searchable district field; addresses formatted as "District, Canton, Province" everywhere WooCommerce prints them.
 - `[crkit_exchange_rate]` shortcode and "Exchange rate (Costa Rica)" block (server-rendered); `hide_outdated` / "Hide when outdated" hides an outdated rate.
-- Uninstall removes the district meta of orders and customers when "Delete data on uninstall" is on.
+- ID number module: ID type (cédula física, cédula jurídica, DIMEX, NITE) and number in both checkouts, checked against Hacienda's format for each type; optional, required, or required only with "I need an electronic invoice".
+- The ID is shown with the billing address (order screen, emails, order received, My Account), editable in the order screen and in My Account → Account details, and included in WooCommerce's personal data export and erasure.
+- `crkit_get_order_identification()`, the `crkit_order_identification` filter and the `crkit_order_identification_saved` action for e-invoicing plugins.
+- Uninstall removes the district and ID meta of orders and customers when "Delete data on uninstall" is on.
 
 ## [0.1.0] - 2026-10-31
 

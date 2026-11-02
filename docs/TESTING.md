@@ -149,3 +149,18 @@ The block district field is a native `<select>` (WooCommerce's own select compon
 ### Dataset
 
 `data/cr-locations.json` is generated from the official PDF (see ADR-0039). Unit tests check 7 provinces, 84 cantons, 492 districts, the cantons and districts per province, unique five-digit postcodes, known districts, the vacant codes (203 06, 601 09, 607 02) and the cantons that replaced them (216, 612, 613). The per-province counts in the tests come from the same extraction; the decree has no summary table to compare against, so a manual spot check against the PDF is still recommended.
+
+## Phase 3 evidence (2026-11-02)
+
+Environment as in phase 2, with the ID module on (seeded, "required only for an electronic invoice"), site in es_CR.
+
+### ID e2e (`tests/e2e/specs/identification.spec.js`)
+
+| Check | Result |
+|---|---|
+| Classic: the invoice checkbox makes type and number required; "0-2345-6789" rejected (física starts with 0); "1-2345 6789" saved as 123456789 and shown with the billing address on the order received page and the order screen, with "Electronic invoice: Requested" | ✅ |
+| Blocks: "(optional)" disappears when the checkbox is checked; DIMEX with 10 digits rejected by the server; cédula jurídica "3-101-a00001" saved as 3101A00001 | ✅ |
+| My Account → Account details: saved ID shown, invalid number rejected, a 12-digit DIMEX saved and prefilled in the classic checkout | ✅ |
+
+Screenshots in `docs/screenshots/fase-3/` (`CRKIT_E2E_SCREENSHOTS=3 npx playwright test screenshots-fase-3`).
+
