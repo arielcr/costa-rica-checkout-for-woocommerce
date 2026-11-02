@@ -5,6 +5,7 @@
 	<file>costa-rica-kit-for-woocommerce.php</file>
 	<file>uninstall.php</file>
 	<file>src</file>
+	<file>templates</file>
 	<file>tests</file>
 
 	<arg name="extensions" value="php"/>
@@ -25,6 +26,17 @@
 		<properties>
 			<property name="text_domain" type="array">
 				<element value="costa-rica-kit-for-woocommerce"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- WooCommerce capabilities. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="manage_woocommerce"/>
+				<element value="edit_shop_orders"/>
+				<element value="edit_shop_order"/>
 			</property>
 		</properties>
 	</rule>

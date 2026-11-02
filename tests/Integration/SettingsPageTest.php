@@ -40,7 +40,7 @@ final class SettingsPageTest extends WP_UnitTestCase {
 		$toggles = array_values(
 			array_filter(
 				$this->get_page()->get_settings_for_section( '' ),
-				static fn( array $setting ): bool => 'checkbox' === $setting['type']
+				static fn( array $setting ): bool => 'checkbox' === $setting['type'] && str_starts_with( $setting['id'], 'crkit_modules[' )
 			)
 		);
 

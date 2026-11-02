@@ -11,6 +11,7 @@ parameters:
 		- costa-rica-kit-for-woocommerce.php
 		- uninstall.php
 		- src/
+		- templates/
 	bootstrapFiles:
 		- tests/phpstan/bootstrap.php
 	scanFiles:

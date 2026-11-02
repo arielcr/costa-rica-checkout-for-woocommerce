@@ -9,25 +9,33 @@
 		"node": ">=22.22.2"
 	},
 	"scripts": {
-		"build": "wp-scripts build --webpack-src-dir=assets/src --output-path=assets/build",
-		"start": "wp-scripts start --webpack-src-dir=assets/src --output-path=assets/build",
-		"lint:js": "wp-scripts lint-js assets/src --no-error-on-unmatched-pattern",
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"lint:js": "wp-scripts lint-js assets/src tests/e2e bin playwright.config.js webpack.config.js eslint.config.cjs --no-error-on-unmatched-pattern",
 		"lint:php": "composer lint",
 		"analyze:php": "composer analyze",
 		"test:php": "npm run test:php:unit && npm run test:php:integration",
 		"test:php:unit": "composer test",
 		"test:php:integration": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce vendor/bin/phpunit -c phpunit-integration.xml.dist",
 		"test:php:integration:min": "wp-env run cli --config=.wp-env.min.json --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce vendor/bin/phpunit -c phpunit-integration.xml.dist",
+		"test:php:integration:storage": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash bin/test-integration-storage.sh",
+		"test:php:integration:storage:min": "wp-env run cli --config=.wp-env.min.json --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash bin/test-integration-storage.sh",
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
+		"seed": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash bin/seed.sh",
 		"env:start:min": "wp-env start --config=.wp-env.min.json",
 		"env:stop:min": "wp-env stop --config=.wp-env.min.json",
 		"zip": "bash bin/build-zip.sh",
 		"plugin-check": "npm run zip && wp-env run cli wp plugin check wp-content/plugins/costa-rica-kit-for-woocommerce/build/costa-rica-kit-for-woocommerce --slug=costa-rica-kit-for-woocommerce",
-		"i18n:pot": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce wp i18n make-pot . languages/costa-rica-kit-for-woocommerce.pot --exclude=assets/src,build,node_modules,tests,vendor"
+		"i18n:pot": "npm run build && wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce wp i18n make-pot . languages/costa-rica-kit-for-woocommerce.pot --exclude=assets/src,bin,build/costa-rica-kit-for-woocommerce,dist,node_modules,tests,vendor --headers='{\"Report-Msgid-Bugs-To\":\"https://wordpress.org/support/plugin/costa-rica-kit-for-woocommerce\"}'",
+		"i18n:compile": "wp-env run cli --env-cwd=wp-content/plugins/costa-rica-kit-for-woocommerce bash -c 'wp i18n make-mo languages && wp i18n make-json languages --no-purge'",
+		"test:e2e": "playwright test",
+		"test:e2e:matrix": "bash bin/e2e-matrix.sh"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.64.1",
+		"@woocommerce/dependency-extraction-webpack-plugin": "^5.1.0",
 		"@wordpress/env": "^12.0.0",
 		"@wordpress/scripts": "^37.0.0"
 	},

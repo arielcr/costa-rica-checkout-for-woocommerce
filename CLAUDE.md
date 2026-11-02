@@ -82,3 +82,8 @@ bin/ build-zip.sh · seed.sh (dev data) · docs/screenshots/fase-N/
 - WP/WC/Plugin Check versions are pinned in `.wp-env.json` (`woocommerce.zip` may serve a beta). Bump them together with `WC tested up to`.
 - Plugin Check runs on the built package (`npm run plugin-check`), not on the dev checkout.
 - Do not move `src/functions.php` to Composer `autoload.files`: its `ABSPATH` guard would stop PHPStan.
+- `npx wp-env run cli bash -c "…"` from the host: `$var` and `$(…)` are expanded by the **host** shell. Put loops in a script under `bin/` and run that script inside the container.
+- The WooCommerce mailer is created in the integration bootstrap; a mailer created inside a test loses its hooks after that test (WP_UnitTestCase restores hooks).
+- `.wp-env.json` maps a dev-only mail catcher (`tests/e2e/mu-plugins/crkit-dev-mail.php`); emails land in `wp-content/uploads/crkit-dev-mail/`. It is disabled inside the integration suite.
+- After a phase: `npm run seed` (USD, es_CR) leaves the review store ready; `npm run seed -- crc` switches to colones; a second argument sets the site language (`es_CR`, `es_ES`, `en_US`). `SITE_LOCALE=es_ES bin/e2e-matrix.sh` runs the matrix in another language.
+- Translations: `languages/` ships es_CR and es_ES with the same texts. After changing strings: `npm run i18n:pot`, update both `.po` files, `npm run i18n:compile`.

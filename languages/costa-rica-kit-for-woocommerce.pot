@@ -9,13 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T21:09:51+00:00\n"
+"POT-Creation-Date: 2026-10-31T23:51:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: costa-rica-kit-for-woocommerce.php
+#: src/Modules/SinpeMovil/Privacy.php:67
 msgid "Costa Rica Kit for WooCommerce"
 msgstr ""
 
@@ -38,20 +39,218 @@ msgid "Costa Rica"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:50
-#: src/Admin/SettingsPage.php:64
+#: src/Admin/SettingsPage.php:82
 msgid "Modules"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:65
+#: src/Admin/SettingsPage.php:83
 msgid "Enable only the features your store needs. Disabled modules add nothing to your store."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateModule.php:37
+#: src/Admin/SettingsPage.php:105
+msgid "Data"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:110
+msgid "Delete data on uninstall"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:111
+msgid "When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders. Settings are always deleted."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
+#: src/Modules/ExchangeRate/ExchangeRateModule.php:46
+#: src/Modules/ExchangeRate/ExchangeRateModule.php:111
+#: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateModule.php:44
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:90
+msgid "US dollar rate in colones, used to show the exact amount in colones when your store sells in dollars. It is updated in the background twice a day; customers never wait for it."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:95
+msgid "Current rate"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:100
+msgid "Source"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:107
+msgid "BCCR token"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:108
+msgid "Only for the BCCR source. Generate it in the BCCR economic indicators site, under My profile → Generate token."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:113
+#: src/Modules/ExchangeRate/ExchangeRateService.php:123
+msgid "Manual rate"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:114
+msgid "Use a fixed rate instead of the automatic source"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:120
+msgid "Manual rate (₡ per US$)"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:121
+msgid "Used for both buying and selling while the manual rate is on."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:130
+msgid "Maximum age (hours)"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:131
+msgid "If the automatic rate is older than this and there is no manual rate, a notice is shown and SINPE Móvil is hidden in stores that do not sell in colones."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:199
+msgid "You are not allowed to update the exchange rate."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:234
+msgid "No exchange rate yet."
+msgstr ""
+
+#. translators: 1: sell rate, 2: buy rate, both in colones.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:240
+#, php-format
+msgid "Sell: %1$s · Buy: %2$s"
+msgstr ""
+
+#. translators: 1: date of the rate, 2: source name, 3: date and time of the last update.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:250
+#, php-format
+msgid "Rate of %1$s from %2$s, updated %3$s."
+msgstr ""
+
+#. translators: %d: maximum age in hours.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:262
+#, php-format
+msgid "This rate is older than %d hour."
+msgid_plural "This rate is older than %d hours."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: date and time, 2: error message.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:275
+#, php-format
+msgid "Last update attempt (%1$s) failed: %2$s"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:284
+msgid "Update now"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:307
+msgid "Exchange rate updated."
+msgstr ""
+
+#. translators: %s: error message.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:315
+#, php-format
+msgid "The exchange rate could not be updated: %s The last good rate is kept."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:332
+msgid "Costa Rica Kit: there is no exchange rate yet."
+msgstr ""
+
+#. translators: %d: maximum age in hours.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:335
+#, php-format
+msgid "Costa Rica Kit: the exchange rate is older than %d hour."
+msgid_plural "Costa Rica Kit: the exchange rate is older than %d hours."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:340
+msgid "SINPE Móvil is hidden at checkout until a current rate is available."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:347
+msgid "Review the exchange rate settings"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:361
+msgid "the BCCR source needs a token."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:363
+msgid "the source rejected the request (400)."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:365
+msgid "the BCCR token is invalid or expired (401). Generate a new one."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:367
+msgid "the BCCR token has no access to this service (403). Check your subscription."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:369
+msgid "the service address was not found (404)."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:371
+msgid "too many requests (429). The next scheduled update will try again."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:373
+msgid "the service could not be reached. Check your server connection."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:375
+msgid "the service returned an unexpected response."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:377
+msgid "the service has no rate for the last days."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:382
+msgid "the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:386
+msgid "the service had an internal error. The next scheduled update will try again."
+msgstr ""
+
+#. translators: %s: HTTP status code.
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:391
+#, php-format
+msgid "the service answered with HTTP status %s."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:394
+msgid "unknown error."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateModule.php:53
 msgid "Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions."
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateService.php:125
+msgid "Ministerio de Hacienda"
+msgstr ""
+
+#: src/Modules/ExchangeRate/ExchangeRateService.php:127
+msgid "BCCR"
+msgstr ""
+
+#: src/Modules/ExchangeRate/Providers/BccrProvider.php:92
+msgid "Banco Central de Costa Rica (requires your BCCR token)"
+msgstr ""
+
+#: src/Modules/ExchangeRate/Providers/HaciendaProvider.php:45
+msgid "Ministerio de Hacienda (no credentials needed)"
 msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:37
@@ -70,14 +269,525 @@ msgstr ""
 msgid "Adds dependent canton and district fields to Costa Rican addresses at checkout."
 msgstr ""
 
-#: src/Modules/SinpeMovil/SinpeMovilModule.php:37
+#: src/Modules/SinpeMovil/AdminMetabox.php:66
+msgid "SINPE Móvil payment"
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:86
+msgid "This order has no SINPE Móvil payment data."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:93
+msgid "Amount to receive:"
+msgstr ""
+
+#. translators: 1: exchange rate, 2: source, 3: date of the rate.
+#: src/Modules/SinpeMovil/AdminMetabox.php:102
+#, php-format
+msgid "Exchange rate: %1$s (%2$s, %3$s)"
+msgstr ""
+
+#. translators: %s: payment reference.
+#: src/Modules/SinpeMovil/AdminMetabox.php:113
+#, php-format
+msgid "Reference: %s"
+msgstr ""
+
+#. translators: %s: SINPE Móvil number.
+#: src/Modules/SinpeMovil/AdminMetabox.php:119
+#, php-format
+msgid "Paid to: %s"
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:126
+msgid "No receipt uploaded yet."
+msgstr ""
+
+#. translators: %s: date and time of the upload.
+#: src/Modules/SinpeMovil/AdminMetabox.php:131
+#, php-format
+msgid "Receipt uploaded on %s."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:136
+msgid "View"
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:138
+msgid "Download"
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:144
+msgid "Confirm payment"
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:145
+msgid "Reject payment"
+msgstr ""
+
+#. translators: %s: user display name.
+#: src/Modules/SinpeMovil/AdminMetabox.php:209
+#, php-format
+msgid "SINPE Móvil payment confirmed by %s."
+msgstr ""
+
+#. translators: %s: user display name.
+#: src/Modules/SinpeMovil/AdminMetabox.php:246
+#, php-format
+msgid "SINPE Móvil payment rejected by %s."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:275
+msgid "SINPE Móvil payment confirmed."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:276
+msgid "SINPE Móvil payment rejected."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:277
+msgid "The order is no longer waiting for a SINPE Móvil payment."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:297
+msgid "You are not allowed to manage this order."
+msgstr ""
+
+#: src/Modules/SinpeMovil/AdminMetabox.php:303
+msgid "Order not found."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:35
+msgid "SINPE Móvil receipt uploaded"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:36
+msgid "Sent to the store when a customer uploads a SINPE Móvil payment receipt."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:58
+msgid "[{site_title}]: SINPE Móvil receipt for order #{order_number}"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:67
+msgid "Payment receipt received"
+msgstr ""
+
+#. translators: %s: list of available placeholders.
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:128
+#, php-format
+msgid "Available placeholders: %s"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:131
+#: src/Modules/SinpeMovil/Gateway.php:87
+msgid "Enable/Disable"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:133
+msgid "Enable this email notification"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:137
+msgid "Recipient(s)"
+msgstr ""
+
+#. translators: %s: admin email address.
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:140
+#, php-format
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:146
+msgid "Subject"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:154
+msgid "Email heading"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:162
+msgid "Additional content"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:163
+msgid "Text to appear below the main email content."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:165
+msgid "N/A"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:171
+msgid "Email type"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:173
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:187
+msgid "Thank you! We received your receipt and will confirm your payment soon."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:188
+msgid "Choose a file to upload."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:189
+msgid "The file is too large."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:190
+msgid "Upload a JPG, PNG, WEBP or PDF file."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:191
+msgid "The page expired. Reload it and try again."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:192
+msgid "You cannot upload a receipt for this order."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:193
+msgid "This order no longer accepts receipts."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Frontend.php:194
+msgid "The receipt could not be saved. Please try again or contact the store."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:41
+#: src/Modules/SinpeMovil/Gateway.php:96
+#: src/Modules/SinpeMovil/SinpeMovilModule.php:39
+#: assets/build/sinpe-movil-blocks.js:1
 msgid "SINPE Móvil"
 msgstr ""
 
-#: src/Modules/SinpeMovil/SinpeMovilModule.php:44
-msgid "Adds SINPE Móvil as a manual payment method with payment receipt uploads."
+#: src/Modules/SinpeMovil/Gateway.php:42
+msgid "Manual payments with SINPE Móvil. Customers pay from their bank app, see the exact amount in colones, and upload the receipt; you confirm the payment from the order screen."
 msgstr ""
 
-#: src/Plugin.php:200
+#: src/Modules/SinpeMovil/Gateway.php:63
+msgid "Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:89
+msgid "Enable SINPE Móvil"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:93
+msgid "Title"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:95
+msgid "Name of the payment method at checkout."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:100
+msgid "Description"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:102
+msgid "Shown at checkout when the customer selects SINPE Móvil."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:103
+msgid "Pay from your bank app with SINPE Móvil. After placing the order you will see the number and the exact amount in colones."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:107
+msgid "Extra instructions"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:109
+msgid "Optional text added to the payment steps on the order received page and in the on-hold email."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:114
+msgid "SINPE Móvil number"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:116
+msgid "8-digit number that receives the payments, e.g. 8888-8888. Required to offer the method."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:121
+msgid "Account holder"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:123
+msgid "Name the customer sees in their bank app before confirming, so they know they are paying the right person."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:127
+#: src/Modules/SinpeMovil/Privacy.php:134
+#: templates/sinpe-movil/receipt-form.php:28
+msgid "Payment receipt"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:129
+msgid "Ask the customer to upload the payment receipt"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:133
+msgid "Maximum receipt size (MB)"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:135
+msgid "Allowed formats: JPG, PNG, WEBP and PDF."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:143
+msgid "Maximum amount per order (₡)"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:145
+msgid "The method is not offered when the order total in colones is higher. Leave empty for no limit. The BCCR limits SINPE Móvil payments by SMS to ₡100,000 per day; the limit in bank apps depends on each bank (usually up to ₡500,000)."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:155
+msgid "Only for stores that do not sell in colones. Uses the rate from the Exchange rate module."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:158
+msgid "Sell rate"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:159
+msgid "Buy rate"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:163
+msgid "Exchange rate surcharge (%)"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:165
+msgid "Optional percentage added to the exchange rate, for stores that do not sell in colones."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:173
+msgid "Rejected payments"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:175
+msgid "Order status when you reject a payment from the order screen."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:178
+msgid "Failed (the customer can pay again)"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:179
+msgid "Cancelled"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:201
+msgid "The SINPE Móvil number must have 8 digits, for example 8888-8888."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Gateway.php:426
+msgid "SINPE Móvil is not available for this order right now. Please choose another payment method."
+msgstr ""
+
+#. translators: %s: amount in colones.
+#: src/Modules/SinpeMovil/Gateway.php:480
+#, php-format
+msgid "Awaiting SINPE Móvil payment of %s."
+msgstr ""
+
+#. translators: 1: amount in colones, 2: exchange rate, 3: rate source, 4: date of the rate.
+#: src/Modules/SinpeMovil/Gateway.php:485
+#, php-format
+msgid "Awaiting SINPE Móvil payment of %1$s (exchange rate %2$s from %3$s, %4$s)."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:63
+msgid "Suggested text for stores that accept SINPE Móvil:"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:64
+msgid "When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment, we store it privately with your order, and only store staff can see it. We keep it as long as we keep the order records."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:65
+msgid "To show prices in colones, the store gets the exchange rate from the Ministerio de Hacienda or the Banco Central de Costa Rica. Those requests do not include any of your data."
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:79
+#: src/Modules/SinpeMovil/Privacy.php:145
+msgid "SINPE Móvil payments"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:95
+msgid "SINPE Móvil payment receipts"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:123
+msgid "Order number"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:127
+msgid "Amount in colones"
+msgstr ""
+
+#: src/Modules/SinpeMovil/Privacy.php:138
+msgid "Receipt uploaded on"
+msgstr ""
+
+#. translators: %s: order number.
+#: src/Modules/SinpeMovil/Privacy.php:185
+#, php-format
+msgid "The SINPE Móvil receipt of order %s was retained, following the WooCommerce privacy settings."
+msgstr ""
+
+#. translators: %s: order number.
+#: src/Modules/SinpeMovil/Privacy.php:195
+#, php-format
+msgid "Removed the SINPE Móvil receipt of order %s."
+msgstr ""
+
+#: src/Modules/SinpeMovil/ReceiptController.php:242
+msgid "The customer uploaded the SINPE Móvil payment receipt."
+msgstr ""
+
+#: src/Modules/SinpeMovil/ReceiptController.php:243
+msgid "The customer replaced the SINPE Móvil payment receipt."
+msgstr ""
+
+#: src/Modules/SinpeMovil/ReceiptController.php:273
+msgid "This link has expired. Go back and try again."
+msgstr ""
+
+#: src/Modules/SinpeMovil/ReceiptController.php:279
+msgid "You are not allowed to view this receipt."
+msgstr ""
+
+#: src/Modules/SinpeMovil/ReceiptController.php:286
+msgid "Receipt not found."
+msgstr ""
+
+#: src/Modules/SinpeMovil/SinpeMovilModule.php:46
+msgid "Adds SINPE Móvil as a manual payment method with payment receipt uploads. Configure it in WooCommerce → Settings → Payments."
+msgstr ""
+
+#: src/Plugin.php:327
 msgid "Settings"
+msgstr ""
+
+#. translators: 1: order number, 2: customer name.
+#: templates/emails/admin-sinpe-receipt-uploaded.php:29
+#: templates/emails/plain/admin-sinpe-receipt-uploaded.php:28
+#, php-format
+msgid "The customer of order #%1$s (%2$s) uploaded the SINPE Móvil payment receipt."
+msgstr ""
+
+#. translators: 1: amount in colones, 2: payment reference.
+#: templates/emails/admin-sinpe-receipt-uploaded.php:39
+#: templates/emails/plain/admin-sinpe-receipt-uploaded.php:31
+#, php-format
+msgid "Check that your account received %1$s with the reference %2$s, then confirm or reject the payment from the order screen."
+msgstr ""
+
+#: templates/emails/admin-sinpe-receipt-uploaded.php:45
+#: templates/emails/plain/admin-sinpe-receipt-uploaded.php:33
+msgid "Review the order and the receipt"
+msgstr ""
+
+#: templates/sinpe-movil/instructions-plain.php:24
+#: templates/sinpe-movil/instructions.php:25
+msgid "How to pay with SINPE Móvil"
+msgstr ""
+
+#: templates/sinpe-movil/instructions-plain.php:26
+#: templates/sinpe-movil/instructions.php:27
+msgid "Open your bank app and choose SINPE Móvil."
+msgstr ""
+
+#. translators: 1: amount in colones, 2: phone number.
+#: templates/sinpe-movil/instructions-plain.php:29
+#: templates/sinpe-movil/instructions.php:32
+#, php-format
+msgid "Send exactly %1$s to the number %2$s."
+msgstr ""
+
+#. translators: %s: account holder name.
+#: templates/sinpe-movil/instructions-plain.php:32
+#: templates/sinpe-movil/instructions.php:40
+#, php-format
+msgid "Your bank app will show the name %s."
+msgstr ""
+
+#. translators: %s: payment reference (order number).
+#: templates/sinpe-movil/instructions-plain.php:37
+#: templates/sinpe-movil/instructions.php:50
+#, php-format
+msgid "Write %s in the payment description."
+msgstr ""
+
+#. translators: %s: URL of the page where the receipt is uploaded.
+#: templates/sinpe-movil/instructions-plain.php:42
+#, php-format
+msgid "Upload the payment receipt on your order page: %s"
+msgstr ""
+
+#: templates/sinpe-movil/instructions-plain.php:45
+#: templates/sinpe-movil/instructions.php:70
+msgid "We will process your order as soon as we confirm the payment."
+msgstr ""
+
+#. translators: 1: order total in the store currency, 2: exchange rate.
+#: templates/sinpe-movil/instructions-plain.php:51
+#: templates/sinpe-movil/instructions.php:78
+#, php-format
+msgid "Order total %1$s, converted with an exchange rate of %2$s."
+msgstr ""
+
+#. translators: %s: link to the page where the receipt is uploaded.
+#: templates/sinpe-movil/instructions.php:61
+#, php-format
+msgid "Upload the payment receipt on %s."
+msgstr ""
+
+#: templates/sinpe-movil/instructions.php:62
+msgid "your order page"
+msgstr ""
+
+#: templates/sinpe-movil/instructions.php:66
+msgid "Upload the payment receipt below."
+msgstr ""
+
+#. translators: %s: date and time of the upload.
+#: templates/sinpe-movil/receipt-form.php:43
+#, php-format
+msgid "Receipt received on %s."
+msgstr ""
+
+#: templates/sinpe-movil/receipt-form.php:48
+msgid "View receipt"
+msgstr ""
+
+#: templates/sinpe-movil/receipt-form.php:58
+msgid "Upload your receipt"
+msgstr ""
+
+#: templates/sinpe-movil/receipt-form.php:58
+msgid "Replace your receipt"
+msgstr ""
+
+#. translators: %s: maximum file size, e.g. "5 MB".
+#: templates/sinpe-movil/receipt-form.php:66
+#, php-format
+msgid "JPG, PNG, WEBP or PDF, up to %s."
+msgstr ""
+
+#: templates/sinpe-movil/receipt-form.php:78
+msgid "Send receipt"
+msgstr ""
+
+#. translators: %s: estimated amount in colones.
+#: assets/build/sinpe-movil-blocks.js:2
+#, js-format
+msgid "Amount to pay: about %s. You will see the exact amount in colones after placing the order."
 msgstr ""

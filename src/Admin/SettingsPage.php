@@ -46,9 +46,27 @@ final class SettingsPage extends WC_Settings_Page {
 	 * @return array<string, string>
 	 */
 	protected function get_own_sections(): array {
-		return array(
+		$sections = array(
 			'' => __( 'Modules', 'costa-rica-kit-for-woocommerce' ),
 		);
+
+		foreach ( $this->plugin->get_settings_sections() as $id => $section ) {
+			$sections[ $id ] = $section->get_settings_section_label();
+		}
+
+		return $sections;
+	}
+
+	/**
+	 * Settings of a module section.
+	 *
+	 * @param string $section_id Section id.
+	 * @return array<int, array<string, mixed>>
+	 */
+	protected function get_settings_for_section_core( $section_id ): array {
+		$sections = $this->plugin->get_settings_sections();
+
+		return isset( $sections[ $section_id ] ) ? $sections[ $section_id ]->get_settings_section_fields() : array();
 	}
 
 	/**
@@ -78,6 +96,23 @@ final class SettingsPage extends WC_Settings_Page {
 
 		$settings[] = array(
 			'id'   => 'crkit_modules_section',
+			'type' => 'sectionend',
+		);
+
+		$settings[] = array(
+			'id'    => 'crkit_data_section',
+			'type'  => 'title',
+			'title' => __( 'Data', 'costa-rica-kit-for-woocommerce' ),
+		);
+		$settings[] = array(
+			'id'      => Plugin::DELETE_DATA_OPTION,
+			'type'    => 'checkbox',
+			'title'   => __( 'Delete data on uninstall', 'costa-rica-kit-for-woocommerce' ),
+			'desc'    => __( 'When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders. Settings are always deleted.', 'costa-rica-kit-for-woocommerce' ),
+			'default' => 'no',
+		);
+		$settings[] = array(
+			'id'   => 'crkit_data_section',
 			'type' => 'sectionend',
 		);
 

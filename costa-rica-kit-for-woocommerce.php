@@ -43,5 +43,8 @@ if ( ! is_readable( CRKIT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 require_once CRKIT_PLUGIN_DIR . 'vendor/autoload.php';
 require_once CRKIT_PLUGIN_DIR . 'src/functions.php';
 
+register_activation_hook( __FILE__, 'crkit_activate' );
+register_deactivation_hook( __FILE__, 'crkit_deactivate' );
+
 add_action( 'before_woocommerce_init', array( CRKit\Plugin::class, 'declare_wc_compatibility' ) );
 add_action( 'woocommerce_loaded', 'crkit_boot' );
