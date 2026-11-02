@@ -109,4 +109,4 @@ The first es_ES run failed 4 times in "Blocks · guest" because of a WooCommerce
 
 - The classic theme thank-you template (`checkout/thankyou.php`): the e2e runs use a block theme. The hook it relies on (`woocommerce_thankyou_crkit_sinpe_movil`) is covered by an integration test.
 - PHP 8.4 in the e2e matrix (integration tests run on 8.4 in CI).
-- A real BCCR token: the BCCR provider is tested against fixtures and real error responses only.
+- ~~A real BCCR token~~: verified by the owner on 2026-11-02 with his production token through "Update now" (source `bccr`, rate of 2026-11-02, sell ₡456.04 / buy ₡449.70, same values as Hacienda, no error).
