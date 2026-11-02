@@ -207,6 +207,7 @@ final class IdentificationTest extends WP_UnitTestCase {
 		$html    = '<label for="crkit_electronic_invoice">I need an electronic invoice&nbsp;<span class="optional">(optional)</span></label>';
 
 		$this->assertSame( '<label for="crkit_electronic_invoice">I need an electronic invoice</label>', $classic->remove_optional_marker( $html, ClassicCheckout::INVOICE_KEY ) );
+		$this->assertSame( '<label for="crkit_electronic_invoice">I need an electronic invoice</label>', $classic->remove_optional_marker( $html, '_wc_other/crkit/electronic-invoice' ) );
 		$this->assertSame( $html, $classic->remove_optional_marker( $html, ClassicCheckout::NUMBER_KEY ) );
 	}
 

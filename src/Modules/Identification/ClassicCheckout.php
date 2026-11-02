@@ -124,14 +124,17 @@ final class ClassicCheckout {
 	}
 
 	/**
-	 * A checkbox is never "required": drop the "(optional)" marker WooCommerce adds to its label.
+	 * A checkbox is never "required": drop the "(optional)" marker WooCommerce adds to its label,
+	 * in the classic checkout and in My Account → Account details (the block checkout field).
 	 *
 	 * @param mixed $field Field HTML.
 	 * @param mixed $key   Field name.
 	 * @return mixed
 	 */
 	public function remove_optional_marker( mixed $field, mixed $key ): mixed {
-		if ( self::INVOICE_KEY !== $key || ! is_string( $field ) ) {
+		$keys = array( self::INVOICE_KEY, IdentificationStore::get_meta_key( IdentificationStore::INVOICE_FIELD ) );
+
+		if ( ! in_array( $key, $keys, true ) || ! is_string( $field ) ) {
 			return $field;
 		}
 
