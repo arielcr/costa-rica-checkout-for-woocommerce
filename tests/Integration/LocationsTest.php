@@ -160,7 +160,12 @@ final class LocationsTest extends WP_UnitTestCase {
 			$this->assertFalse( $fields[ $id ]['show_in_order_confirmation'] );
 		}
 
-		$this->assertSame( 'Carmen (San José)', $fields['crkit/district-sj']['options'][0]['label'] );
+		// Sorted by canton, then district, ignoring accents: Acosta comes first in San José.
+		$labels = wp_list_pluck( $fields['crkit/district-sj']['options'], 'label' );
+		$this->assertSame( 'Acosta — Cangrejal', $labels[0] );
+		$escazu = array_values( array_filter( $labels, static fn( string $label ): bool => str_starts_with( $label, 'Escazú — ' ) ) );
+		$this->assertSame( array( 'Escazú — Escazú', 'Escazú — San Antonio', 'Escazú — San Rafael' ), $escazu );
+		$this->assertSame( $escazu, array_slice( $labels, array_search( 'Escazú — Escazú', $labels, true ), 3 ), 'A canton\'s districts are contiguous.' );
 	}
 
 	public function test_block_district_fills_the_order_address(): void {

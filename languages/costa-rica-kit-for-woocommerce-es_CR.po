@@ -12,7 +12,7 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T22:58:19+00:00\n"
+"POT-Creation-Date: 2026-11-02T23:02:47+00:00\n"
 "PO-Revision-Date: 2026-11-01 10:00-0600\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -300,7 +300,7 @@ msgid "Canton"
 msgstr "Cantón"
 
 #: src/Modules/Locations/AddressFields.php:156
-#: src/Modules/Locations/BlocksCheckout.php:106
+#: src/Modules/Locations/BlocksCheckout.php:98
 #: src/Modules/Locations/ClassicCheckout.php:88
 msgid "District"
 msgstr "Distrito"
@@ -319,16 +319,16 @@ msgstr "%1$s, %2$s, %3$s"
 msgid "District (Costa Rica)"
 msgstr "Distrito (Costa Rica)"
 
-#. translators: 1: district name, 2: canton name.
-#: src/Modules/Locations/BlocksCheckout.php:97
-#, php-format
-msgctxt "district and canton"
-msgid "%1$s (%2$s)"
-msgstr "%1$s (%2$s)"
-
-#: src/Modules/Locations/BlocksCheckout.php:107
+#: src/Modules/Locations/BlocksCheckout.php:99
 msgid "Select a district"
 msgstr "Seleccione un distrito"
+
+#. translators: 1: canton name, 2: district name.
+#: src/Modules/Locations/BlocksCheckout.php:136
+#, php-format
+msgctxt "canton and district"
+msgid "%1$s — %2$s"
+msgstr "%1$s — %2$s"
 
 #: src/Modules/Locations/ClassicCheckout.php:81
 #: assets/build/locations-classic.js:1

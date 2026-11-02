@@ -58,7 +58,7 @@ test( 'block checkout: the district field follows the province', async ( {
 	);
 	await expect(
 		page.locator( '#shipping-crkit-district-l option[value="70102"]' )
-	).toHaveText( 'Valle La Estrella (Limón)' );
+	).toHaveText( 'Limón — Valle La Estrella' );
 } );
 
 test( 'My Account: the saved district shows in the address and prefills the block checkout', async ( {

@@ -89,15 +89,7 @@ final class BlocksCheckout {
 		}
 
 		foreach ( $this->locations->get_states() as $state ) {
-			$options = array();
-			foreach ( $this->locations->get_districts_in_state( $state ) as $postcode => $location ) {
-				$options[] = array(
-					'value' => (string) $postcode,
-					/* translators: 1: district name, 2: canton name. */
-					'label' => sprintf( _x( '%1$s (%2$s)', 'district and canton', 'costa-rica-kit-for-woocommerce' ), $location->district, $location->canton ),
-				);
-			}
-
+			$options = $this->get_district_options( $state );
 			$visible = $this->get_visibility_rule( $state );
 
 			woocommerce_register_additional_checkout_field(
@@ -114,6 +106,38 @@ final class BlocksCheckout {
 				)
 			);
 		}
+	}
+
+	/**
+	 * District options of a province, labelled "Canton — District" and sorted by canton, then district,
+	 * so that a native select (no search, e.g. on mobile) groups each canton's districts together.
+	 * See docs/DECISIONS.md, ADR-0045.
+	 *
+	 * @param string $state WooCommerce state code.
+	 * @return array<int, array{value: string, label: string}>
+	 */
+	public function get_district_options( string $state ): array {
+		$locations = $this->locations->get_districts_in_state( $state );
+
+		uasort(
+			$locations,
+			static function ( Location $a, Location $b ): int {
+				$by_canton = strcasecmp( remove_accents( $a->canton ), remove_accents( $b->canton ) );
+
+				return 0 !== $by_canton ? $by_canton : strcasecmp( remove_accents( $a->district ), remove_accents( $b->district ) );
+			}
+		);
+
+		$options = array();
+		foreach ( $locations as $postcode => $location ) {
+			$options[] = array(
+				'value' => (string) $postcode,
+				/* translators: 1: canton name, 2: district name. */
+				'label' => sprintf( _x( '%1$s — %2$s', 'canton and district', 'costa-rica-kit-for-woocommerce' ), $location->canton, $location->district ),
+			);
+		}
+
+		return $options;
 	}
 
 	/**
