@@ -160,7 +160,13 @@ Environment as in phase 2, with the ID module on (seeded, "required only for an 
 |---|---|
 | Classic: the invoice checkbox makes type and number required; "0-2345-6789" rejected (física starts with 0); "1-2345 6789" saved as 123456789 and shown with the billing address on the order received page and the order screen, with "Electronic invoice: Requested" | ✅ |
 | Blocks: "(optional)" disappears when the checkbox is checked; DIMEX with 10 digits rejected by the server; cédula jurídica "3-101-a00001" saved as 3101A00001 | ✅ |
-| My Account → Account details: saved ID shown, invalid number rejected, a 12-digit DIMEX saved and prefilled in the classic checkout | ✅ |
+| My Account → Account details: saved ID shown, invalid number rejected, a 12-digit DIMEX saved and prefilled in the classic and block checkouts | ✅ |
+
+The ID and Locations e2e specs (6 tests) pass with HPOS, posts storage and sync mode (PHP 8.1, USD).
+
+### SPEC §8 matrix with the ID module
+
+Same 60 checks as phases 1 and 2, with the ID module on ("required only for an electronic invoice", checkbox left unchecked; the logged-in customer has a saved cédula física): 60/60 on PHP 8.1 and 8.3 × CRC and USD × HPOS, posts and sync.
 
 Screenshots in `docs/screenshots/fase-3/` (`CRKIT_E2E_SCREENSHOTS=3 npx playwright test screenshots-fase-3`).
 
