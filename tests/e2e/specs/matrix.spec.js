@@ -61,6 +61,13 @@ for ( const checkout of [ 'classic', 'blocks' ] ) {
 				).toHaveText( texts.instructionsTitle );
 			}
 
+			if ( '0' !== process.env.CRKIT_E2E_LOCATIONS ) {
+				// Locations module: the order address shows "District, Canton, Province".
+				await expect( page.locator( 'body' ) ).toContainText(
+					u.DISTRICT_LINE[ user ]
+				);
+			}
+
 			await u.uploadReceipt( page );
 			const thanks = page.locator(
 				'#crkit-sinpe-receipt .woocommerce-message'

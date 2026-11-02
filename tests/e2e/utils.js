@@ -80,6 +80,18 @@ const GUEST = {
 	city: 'San José',
 	postcode: '10101',
 	phone: '88881111',
+	// Locations module: San José › San José › Carmen.
+	state: 'CR-SJ',
+	canton: '101',
+	district: '10101',
+};
+
+/**
+ * Expected district line of the formatted address ("District, Canton, Province").
+ */
+const DISTRICT_LINE = {
+	guest: 'Carmen, San José, San José',
+	customer: 'Escazú, Escazú, San José',
 };
 
 async function waitForBlockUi( page ) {
@@ -102,10 +114,22 @@ async function openClassicCheckout( page, guest ) {
 		await page.fill( '#billing_first_name', GUEST.first );
 		await page.fill( '#billing_last_name', GUEST.last );
 		await page.fill( '#billing_address_1', GUEST.address );
-		await page.fill( '#billing_city', GUEST.city );
-		await page.fill( '#billing_postcode', GUEST.postcode );
 		await page.fill( '#billing_phone', GUEST.phone );
 		await page.fill( '#billing_email', GUEST.email );
+
+		if ( await page.locator( '#billing_crkit_canton' ).isVisible() ) {
+			// Locations module: canton and district replace city and postcode.
+			await page.locator( '#billing_state' ).selectOption( GUEST.state );
+			await page
+				.locator( '#billing_crkit_canton' )
+				.selectOption( GUEST.canton );
+			await page
+				.locator( '#billing_crkit_district' )
+				.selectOption( GUEST.district );
+		} else {
+			await page.fill( '#billing_city', GUEST.city );
+			await page.fill( '#billing_postcode', GUEST.postcode );
+		}
 	}
 
 	await waitForBlockUi( page );
@@ -141,9 +165,18 @@ async function openBlockCheckout( page, guest ) {
 		await page.fill( '#shipping-first_name', GUEST.first );
 		await page.fill( '#shipping-last_name', GUEST.last );
 		await page.fill( '#shipping-address_1', GUEST.address );
-		await page.fill( '#shipping-city', GUEST.city );
-		await page.fill( '#shipping-postcode', GUEST.postcode );
 		await page.fill( '#shipping-phone', GUEST.phone );
+
+		if ( await page.locator( '#shipping-city' ).isVisible() ) {
+			await page.fill( '#shipping-city', GUEST.city );
+			await page.fill( '#shipping-postcode', GUEST.postcode );
+		} else {
+			// Locations module: one district select per province.
+			await page.locator( '#shipping-state' ).selectOption( GUEST.state );
+			await page
+				.locator( '#shipping-crkit-district-sj' )
+				.selectOption( GUEST.district );
+		}
 	}
 
 	// Wait for the Store API to settle after address changes.
@@ -221,6 +254,7 @@ function orderEditUrl( id ) {
 }
 
 module.exports = {
+	DISTRICT_LINE,
 	texts,
 	ADMIN,
 	CUSTOMER,
