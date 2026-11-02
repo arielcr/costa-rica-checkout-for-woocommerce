@@ -18,6 +18,10 @@ module.exports = {
 			__dirname,
 			'assets/src/locations-classic/index.js'
 		),
+		'exchange-rate-block': path.resolve(
+			__dirname,
+			'assets/src/exchange-rate-block/index.js'
+		),
 	},
 	output: {
 		...defaultConfig.output,
