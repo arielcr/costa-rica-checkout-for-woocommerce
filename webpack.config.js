@@ -14,6 +14,14 @@ module.exports = {
 			__dirname,
 			'assets/src/sinpe-movil-blocks/index.js'
 		),
+		'locations-classic': path.resolve(
+			__dirname,
+			'assets/src/locations-classic/index.js'
+		),
+		'exchange-rate-block': path.resolve(
+			__dirname,
+			'assets/src/exchange-rate-block/index.js'
+		),
 	},
 	output: {
 		...defaultConfig.output,

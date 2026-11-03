@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Locations module: official 2025 administrative division of Costa Rica (7 provinces, 84 cantons, 492 districts) in `data/cr-locations.json`, generated from the decree by `bin/extract-dta-2025.py`.
+- Classic checkout and My Account: dependent province → canton → district selects (selectWoo); the canton is saved as the city and the district code as the postcode.
+- Block checkout: one district field per province (Additional Checkout Fields API) shown only for the selected province, with options "Canton — District" sorted by canton; city and postcode filled on the server.
+- Order screen: searchable district field; addresses formatted as "District, Canton, Province" everywhere WooCommerce prints them.
+- `[crkit_exchange_rate]` shortcode and "Exchange rate (Costa Rica)" block (server-rendered); `hide_outdated` / "Hide when outdated" hides an outdated rate.
+- Uninstall removes the district meta of orders and customers when "Delete data on uninstall" is on.
+
 ## [0.1.0] - 2026-10-31
 
 ### Added

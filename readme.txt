@@ -8,7 +8,7 @@ Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SINPE Móvil payments with receipts and exact amounts in colones, plus Hacienda and BCCR exchange rates, for WooCommerce stores in Costa Rica.
+SINPE Móvil payments in colones, Hacienda and BCCR exchange rates, and provinces, cantons and districts for WooCommerce stores in Costa Rica.
 
 == Description ==
 
@@ -31,9 +31,20 @@ Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online st
 * If the source fails, the last good rate is kept. If it gets too old, you see a notice and SINPE Móvil is hidden in stores that sell in dollars.
 * Functions for developers: `crkit_get_exchange_rate()` and `crkit_convert_to_crc()`.
 
+**Provinces, cantons and districts**
+
+* Official 2025 administrative division (Decreto Ejecutivo 44882-MGP): 7 provinces, 84 cantons and 492 districts. The provinces are WooCommerce's own.
+* Classic checkout and My Account: dependent province → canton → district selects with search.
+* Block checkout: after the province, a district select that lists only that province's districts.
+* The canton is saved as the city and the postcode (5 digits) is filled in automatically, so shipping zones and other plugins keep working with standard address fields.
+* Addresses read "District, Canton, Province" in the order screen, emails and My Account.
+
+**Exchange rate on your pages**
+
+* `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"` and `hide_outdated="yes|no"`. An outdated rate is shown with its date unless you hide it.
+
 **Coming in future versions**
 
-* Provinces, cantons and districts in Costa Rican addresses.
 * ID number (cédula) at checkout, for electronic invoicing plugins.
 
 **Important:** this plugin does not process payments automatically. SINPE Móvil payments are confirmed manually by the store. It does not generate electronic invoices.
@@ -73,6 +84,22 @@ In `wp-content/uploads/crkit-receipts/`, with random file names. They are not in
 
 Yes. Copy the files from the plugin's `templates` folder to `yourtheme/costa-rica-kit-for-woocommerce/` and edit them there.
 
+= Where do the provinces, cantons and districts come from? =
+
+From the official 2025 administrative division of Costa Rica (Decreto Ejecutivo 44882-MGP, published in Alcance 12 to La Gaceta 17 on January 28, 2025). The postcode is the official code of the district: province (1 digit) + canton (2) + district (2).
+
+= Why is there no canton select in the block checkout? =
+
+The block checkout only allows extra fields that do not depend on each other. After the province, customers choose the district from a list of that province's districts, shown as "Canton — District" and sorted by canton (it is a regular dropdown without search); the canton is saved as the city automatically.
+
+= Can customers choose the district in the cart's shipping calculator? =
+
+No. For Costa Rican addresses the canton and district are chosen at checkout, where shipping is calculated again. The shipping calculator on the classic cart page does not show them, so rates that depend on the postcode are only exact at checkout. This is a known limitation.
+
+= Does it work with shipping plugins? =
+
+Yes. The canton is saved in the standard city field and the district code in the standard postcode field, so shipping zones by postcode and other plugins can use them. The district is also stored as order meta (`_billing_crkit_district` and `_shipping_crkit_district`).
+
 = Does it generate electronic invoices? =
 
 No. The future ID number module will store the customer's ID so that your electronic invoicing plugin can use it.
@@ -105,6 +132,9 @@ The exchange rate module connects to the services below to get the US dollar buy
 4. Block checkout with the estimated amount in colones.
 5. Payment steps and receipt upload on the order received page.
 6. SINPE Móvil box in the order screen, with the receipt and the confirm and reject buttons.
+7. Province, canton and district selects in the classic checkout.
+8. District select in the block checkout.
+9. Exchange rate shortcode and block on a page.
 
 == Changelog ==
 
@@ -112,6 +142,8 @@ The exchange rate module connects to the services below to get the US dollar buy
 * New: SINPE Móvil payment method with the amount in colones, receipt uploads, order screen actions and a store email.
 * New: exchange rate from the Ministerio de Hacienda, the BCCR or a manual rate, updated in the background.
 * New: WooCommerce → Settings → Costa Rica, with one toggle per module.
+* New: provinces, cantons and districts (official 2025 division) in the classic and block checkouts, My Account and the order screen.
+* New: `[crkit_exchange_rate]` shortcode and "Exchange rate (Costa Rica)" block.
 * New: Spanish translations (es_CR and es_ES).
 
 == Upgrade Notice ==

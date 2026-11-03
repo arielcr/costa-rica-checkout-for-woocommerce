@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T23:51:39+00:00\n"
+"POT-Creation-Date: 2026-11-02T23:02:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -56,12 +56,12 @@ msgid "Delete data on uninstall"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:111
-msgid "When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders. Settings are always deleted."
+msgid "When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders and customers. Settings are always deleted."
 msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:46
-#: src/Modules/ExchangeRate/ExchangeRateModule.php:111
+#: src/Modules/ExchangeRate/ExchangeRateModule.php:112
 #: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
 msgstr ""
@@ -253,6 +253,36 @@ msgstr ""
 msgid "Ministerio de Hacienda (no credentials needed)"
 msgstr ""
 
+#. translators: %s: sell exchange rate in colones.
+#: src/Modules/ExchangeRate/Shortcode.php:152
+#, php-format
+msgid "Sell: %s"
+msgstr ""
+
+#. translators: %s: buy exchange rate in colones.
+#: src/Modules/ExchangeRate/Shortcode.php:156
+#, php-format
+msgid "Buy: %s"
+msgstr ""
+
+#. translators: 1: date of the rate, 2: source name.
+#: src/Modules/ExchangeRate/Shortcode.php:162
+#, php-format
+msgid "Rate of %1$s, source: %2$s"
+msgstr ""
+
+#. translators: %s: date of the rate.
+#: src/Modules/ExchangeRate/Shortcode.php:165
+#, php-format
+msgid "Rate of %s"
+msgstr ""
+
+#. translators: %s: source name.
+#: src/Modules/ExchangeRate/Shortcode.php:168
+#, php-format
+msgid "Source: %s"
+msgstr ""
+
 #: src/Modules/Identification/IdentificationModule.php:37
 msgid "ID number (cédula)"
 msgstr ""
@@ -261,11 +291,65 @@ msgstr ""
 msgid "Collects the customer ID type and number at checkout for e-invoicing plugins."
 msgstr ""
 
-#: src/Modules/Locations/LocationsModule.php:37
-msgid "Provinces, cantons and districts"
+#: src/Modules/Locations/AddressFields.php:151
+#: src/Modules/Locations/ClassicCheckout.php:79
+msgid "Canton"
+msgstr ""
+
+#: src/Modules/Locations/AddressFields.php:156
+#: src/Modules/Locations/BlocksCheckout.php:98
+#: src/Modules/Locations/ClassicCheckout.php:88
+msgid "District"
+msgstr ""
+
+#: src/Modules/Locations/AdminFields.php:66
+msgid "— Not in Costa Rica —"
+msgstr ""
+
+#. translators: 1: district, 2: canton, 3: province.
+#: src/Modules/Locations/AdminFields.php:70
+#, php-format
+msgid "%1$s, %2$s, %3$s"
+msgstr ""
+
+#: src/Modules/Locations/AdminFields.php:74
+msgid "District (Costa Rica)"
+msgstr ""
+
+#: src/Modules/Locations/BlocksCheckout.php:99
+msgid "Select a district"
+msgstr ""
+
+#. translators: 1: canton name, 2: district name.
+#: src/Modules/Locations/BlocksCheckout.php:136
+#, php-format
+msgctxt "canton and district"
+msgid "%1$s — %2$s"
+msgstr ""
+
+#: src/Modules/Locations/ClassicCheckout.php:81
+#: assets/build/locations-classic.js:1
+msgid "Select a canton…"
+msgstr ""
+
+#: src/Modules/Locations/ClassicCheckout.php:90
+#: assets/build/locations-classic.js:1
+msgid "Select a district…"
+msgstr ""
+
+#: src/Modules/Locations/ClassicCheckout.php:347
+msgid "Select the district of the shipping address."
+msgstr ""
+
+#: src/Modules/Locations/ClassicCheckout.php:348
+msgid "Select the district of the billing address."
 msgstr ""
 
 #: src/Modules/Locations/LocationsModule.php:44
+msgid "Provinces, cantons and districts"
+msgstr ""
+
+#: src/Modules/Locations/LocationsModule.php:51
 msgid "Adds dependent canton and district fields to Costa Rican addresses at checkout."
 msgstr ""
 
@@ -673,6 +757,7 @@ msgid "Adds SINPE Móvil as a manual payment method with payment receipt uploads
 msgstr ""
 
 #: src/Plugin.php:327
+#: assets/build/exchange-rate-block.js:1
 msgid "Settings"
 msgstr ""
 
@@ -786,8 +871,75 @@ msgstr ""
 msgid "Send receipt"
 msgstr ""
 
+#: assets/build/exchange-rate-block.js:1
+msgid "Rate"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Sell and buy"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Sell"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Buy"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Show the date"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Hide when outdated"
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "When off, an outdated rate is shown with its date."
+msgstr ""
+
+#: assets/build/exchange-rate-block.js:1
+msgid "Show the source"
+msgstr ""
+
 #. translators: %s: estimated amount in colones.
 #: assets/build/sinpe-movil-blocks.js:2
 #, js-format
 msgid "Amount to pay: about %s. You will see the exact amount in colones after placing the order."
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block title"
+msgid "Exchange rate (Costa Rica)"
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block description"
+msgid "Shows the US dollar exchange rate in colones stored by Costa Rica Kit for WooCommerce."
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block keyword"
+msgid "tipo de cambio"
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block keyword"
+msgid "colones"
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block keyword"
+msgid "dólar"
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block keyword"
+msgid "BCCR"
+msgstr ""
+
+#: blocks/exchange-rate/block.json
+msgctxt "block keyword"
+msgid "Hacienda"
 msgstr ""

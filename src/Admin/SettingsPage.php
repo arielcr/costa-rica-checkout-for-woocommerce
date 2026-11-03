@@ -108,7 +108,7 @@ final class SettingsPage extends WC_Settings_Page {
 			'id'      => Plugin::DELETE_DATA_OPTION,
 			'type'    => 'checkbox',
 			'title'   => __( 'Delete data on uninstall', 'costa-rica-kit-for-woocommerce' ),
-			'desc'    => __( 'When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders. Settings are always deleted.', 'costa-rica-kit-for-woocommerce' ),
+			'desc'    => __( 'When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders and customers. Settings are always deleted.', 'costa-rica-kit-for-woocommerce' ),
 			'default' => 'no',
 		);
 		$settings[] = array(

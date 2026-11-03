@@ -138,9 +138,16 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 	}
 
 	public function test_uninstall_deletes_data_only_when_asked(): void {
-		$order   = $this->place_order();
-		$storage = new ReceiptStorage();
+		$customer = self::factory()->user->create( array( 'role' => 'customer' ) );
+		$order    = $this->place_order( $customer );
+		$storage  = new ReceiptStorage();
 		( new ReceiptController( $storage, false ) )->attach( $order, $this->store_png( $storage ) );
+		$order = wc_get_order( $order->get_id() );
+		$order->update_meta_data( '_billing_crkit_district', '10101' );
+		$order->update_meta_data( '_wc_billing/crkit/district-sj', '10101' );
+		$order->save();
+		update_user_meta( $customer, 'billing_crkit_district', '10101' );
+		update_user_meta( $customer, '_wc_billing/crkit/district-sj', '10101' );
 
 		update_option( 'crkit_delete_data_on_uninstall', 'yes' );
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -152,6 +159,10 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 		$order = wc_get_order( $order->get_id() );
 		$this->assertDirectoryDoesNotExist( $storage->get_dir() );
 		$this->assertNull( OrderData::get_payment( $order ) );
+		$this->assertSame( '', $order->get_meta( '_billing_crkit_district' ) );
+		$this->assertSame( '', $order->get_meta( '_wc_billing/crkit/district-sj' ) );
+		$this->assertSame( '', get_user_meta( $customer, 'billing_crkit_district', true ) );
+		$this->assertSame( '', get_user_meta( $customer, '_wc_billing/crkit/district-sj', true ) );
 		$this->assertFalse( get_option( 'woocommerce_crkit_sinpe_movil_settings' ) );
 	}
 

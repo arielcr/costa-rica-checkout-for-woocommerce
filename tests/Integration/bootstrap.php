@@ -40,6 +40,17 @@ require_once $crkit_tests_dir . '/includes/functions.php';
 tests_add_filter(
 	'muplugins_loaded',
 	static function (): void {
+		// Every module on, including the opt-in ones, so all hooks are registered at boot.
+		update_option(
+			'crkit_modules',
+			array(
+				'exchange_rate'  => 'yes',
+				'sinpe_movil'    => 'yes',
+				'locations'      => 'yes',
+				'identification' => 'yes',
+			)
+		);
+
 		require_once WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
 		require_once dirname( __DIR__, 2 ) . '/costa-rica-kit-for-woocommerce.php';
 	}

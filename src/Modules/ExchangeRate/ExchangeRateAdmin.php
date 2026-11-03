@@ -401,9 +401,7 @@ final class ExchangeRateAdmin {
 	 * @return string
 	 */
 	public static function format_date( string $date ): string {
-		$timestamp = strtotime( $date . ' 00:00:00 UTC' );
-
-		return false === $timestamp ? $date : (string) wp_date( (string) get_option( 'date_format' ), $timestamp, new \DateTimeZone( 'UTC' ) );
+		return RateFormatter::date( $date );
 	}
 
 	/**
@@ -413,7 +411,7 @@ final class ExchangeRateAdmin {
 	 * @return string
 	 */
 	public static function format_rate( float $rate ): string {
-		return '₡' . number_format( $rate, 2, wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
+		return RateFormatter::rate( $rate );
 	}
 
 	/**

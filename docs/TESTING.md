@@ -101,7 +101,7 @@ The first es_ES run failed 4 times in "Blocks · guest" because of a WooCommerce
 | Suite | Result |
 |---|---|
 | Unit (Brain Monkey), PHP 8.1 / 8.3 / 8.4 / 8.5 locally | 105 tests, 216 assertions, OK (incl. the real BCCR production response) |
-| Integration, wp-env PHP 8.1, HPOS / posts / sync | 68 tests, 276 assertions, OK on each storage |
+| Integration, wp-env PHP 8.1, HPOS / posts / sync | 68 tests, 276 assertions, OK on each storage (phase 1); 86 tests, 345 assertions (phase 2) |
 | Integration in CI | PHP 8.1, 8.3, 8.4 and the minimum versions (WP 6.7 + WC 10.0.0), each on the 3 storages |
 | Mutation checks (manual) | Removing the order owner check fails 2 receipt tests. Removing the second MIME check fails none: `wp_check_filetype_and_ext()` already rejects every invalid file in the suite (see ADR-0026). |
 
@@ -109,4 +109,43 @@ The first es_ES run failed 4 times in "Blocks · guest" because of a WooCommerce
 
 - The classic theme thank-you template (`checkout/thankyou.php`): the e2e runs use a block theme. The hook it relies on (`woocommerce_thankyou_crkit_sinpe_movil`) is covered by an integration test.
 - PHP 8.4 in the e2e matrix (integration tests run on 8.4 in CI).
-- A real BCCR token: the BCCR provider is tested against fixtures and real error responses only.
+- ~~A real BCCR token~~: verified by the owner on 2026-11-02 with his production token through "Update now" (source `bccr`, rate of 2026-11-02, sell ₡456.04 / buy ₡449.70, same values as Hacienda, no error).
+
+## Phase 2 evidence (2026-11-02)
+
+Environment as in phase 1, with the Locations module on (seeded), site in es_CR.
+
+### SPEC §8 matrix with the Locations module
+
+Same 60 checks as phase 1, now choosing the province, canton and district in both checkouts (guests) or using the saved district (logged-in customer), and asserting that the order received page shows the address as "District, Canton, Province" (e.g. "Carmen, San José, San José").
+
+| PHP | Currency | Order storage | Classic · guest | Classic · logged in | Blocks · guest | Blocks · logged in | Max. amount |
+|---|---|---|---|---|---|---|---|
+| 8.1 | CRC | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | CRC | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | CRC | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.1 | USD | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | CRC | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | hpos | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | posts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 8.3 | USD | sync | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+### Locations e2e (`tests/e2e/specs/locations.spec.js`)
+
+| Check | Result |
+|---|---|
+| Classic: province → canton → district options, hidden city/postcode filled (Barva, 40206), province change clears the district | ✅ |
+| Blocks: the district field follows the province (San José → Limón), "Limón — Valle La Estrella" listed | ✅ |
+| My Account: saving a district shows "San José de la Montaña, Barva, Heredia" and prefills the block checkout | ✅ |
+
+### Block checkout on mobile (390 px)
+
+The block district field is a native `<select>` (WooCommerce's own select component, like Country and Province): no search; phones open the system picker. San José has the longest list (123 districts). Options read "Canton — District" and are sorted by canton, then district (ADR-0045). Screenshots 11–14 in `docs/screenshots/fase-2/` (`CRKIT_E2E_SCREENSHOTS=2 npx playwright test screenshots-fase-2`); 14 renders the options as a list box because a screenshot cannot capture the system picker.
+
+### Dataset
+
+`data/cr-locations.json` is generated from the official PDF (see ADR-0039). Unit tests check 7 provinces, 84 cantons, 492 districts, the cantons and districts per province, unique five-digit postcodes, known districts, the vacant codes (203 06, 601 09, 607 02) and the cantons that replaced them (216, 612, 613). The per-province counts in the tests come from the same extraction; the decree has no summary table to compare against, so a manual spot check against the PDF is still recommended.

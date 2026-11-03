@@ -7,8 +7,12 @@ const defaultConfig = require( '@wordpress/scripts/config/eslint.config.cjs' );
 const runtimePackages = [
 	'@woocommerce/blocks-registry',
 	'@woocommerce/settings',
+	'@wordpress/block-editor',
+	'@wordpress/blocks',
+	'@wordpress/components',
 	'@wordpress/html-entities',
 	'@wordpress/i18n',
+	'@wordpress/server-side-render',
 ];
 
 module.exports = [

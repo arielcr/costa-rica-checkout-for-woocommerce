@@ -49,19 +49,33 @@ if ( $crkit_delete_data ) {
 	}
 
 	/*
-	 * Order meta added by the plugin (`_crkit_*`), in both order storages: the WooCommerce
-	 * order tables (HPOS) and the posts meta table (legacy storage and sync mode). The CRUD
-	 * cannot be used for a bulk delete without loading every order.
+	 * Order meta added by the plugin, in both order storages: the WooCommerce order tables (HPOS)
+	 * and the posts meta table (legacy storage and sync mode). The CRUD cannot be used for a bulk
+	 * delete without loading every order. Customer meta lives in the users meta table.
+	 *
+	 * - `_crkit_*`: SINPE Móvil payment data and receipts.
+	 * - `_billing_crkit_*`, `_shipping_crkit_*`: Costa Rican district of order addresses.
+	 * - `_wc_billing/crkit/*`, `_wc_shipping/crkit/*`: block checkout district fields.
 	 */
 	global $wpdb;
-	$crkit_like = $wpdb->esc_like( '_crkit_' ) . '%';
-
-	// phpcs:disable WordPress.DB.DirectDatabaseQuery -- One-off cleanup on uninstall; nothing to cache.
-	$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s", $crkit_like ) );
+	$crkit_order_meta = array( '_crkit_', '_billing_crkit_', '_shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/' );
+	$crkit_user_meta  = array( 'billing_crkit_', 'shipping_crkit_', '_wc_billing/crkit/', '_wc_shipping/crkit/' );
 
 	$crkit_orders_meta = $wpdb->prefix . 'wc_orders_meta';
-	if ( $crkit_orders_meta === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $crkit_orders_meta ) ) ) ) {
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE meta_key LIKE %s', $crkit_orders_meta, $crkit_like ) );
+	// phpcs:disable WordPress.DB.DirectDatabaseQuery -- One-off cleanup on uninstall; nothing to cache.
+	$crkit_has_hpos = $crkit_orders_meta === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $crkit_orders_meta ) ) );
+
+	foreach ( $crkit_order_meta as $crkit_prefix ) {
+		$crkit_like = $wpdb->esc_like( $crkit_prefix ) . '%';
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s", $crkit_like ) );
+
+		if ( $crkit_has_hpos ) {
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE meta_key LIKE %s', $crkit_orders_meta, $crkit_like ) );
+		}
+	}
+
+	foreach ( $crkit_user_meta as $crkit_prefix ) {
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE %s", $wpdb->esc_like( $crkit_prefix ) . '%' ) );
 	}
 	// phpcs:enable WordPress.DB.DirectDatabaseQuery
 }

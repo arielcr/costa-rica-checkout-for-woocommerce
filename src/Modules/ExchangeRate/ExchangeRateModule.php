@@ -81,6 +81,7 @@ final class ExchangeRateModule implements ModuleInterface, LifecycleInterface, S
 
 		// Not limited to is_admin(): settings can also be saved through the REST API.
 		( new ExchangeRateAdmin( $this->get_service() ) )->register();
+		( new Shortcode( $this->get_service() ) )->register();
 	}
 
 	/**
