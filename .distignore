@@ -4,6 +4,8 @@
 # Version control and CI
 /.git
 /.github
+# WordPress.org directory assets (banners, icons, screenshots) live in SVN /assets, not in the plugin
+/.wordpress-org
 /.gitignore
 /.gitattributes
 /.distignore
