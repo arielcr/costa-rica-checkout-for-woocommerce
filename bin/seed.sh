@@ -26,6 +26,9 @@ case "${LOCALE}" in
 		;;
 esac
 
+# wp-env mounts the plugin through a mapping (.wp-env.json), which does not activate it.
+wp plugin activate costa-rica-checkout-for-woocommerce --quiet
+
 echo "== Store (${SCENARIO})"
 wp option update blogname "Tienda Demo Costa Rica" --quiet
 wp option update woocommerce_coming_soon no --quiet
@@ -57,7 +60,7 @@ else
 	wp language plugin install woocommerce "${LOCALE}" --quiet || true
 fi
 
-echo "== Costa Rica Kit settings"
+echo "== Costa Rica Checkout settings"
 wp option update crkit_modules '{"exchange_rate":"yes","sinpe_movil":"yes","locations":"yes","identification":"yes"}' --format=json --quiet
 wp option update crkit_identification_settings '{"requirement":"invoice"}' --format=json --quiet
 wp option update crkit_exchange_rate_settings '{"source":"hacienda","bccr_token":"","manual_enabled":"no","manual_rate":"","max_age_hours":"48"}' --format=json --quiet

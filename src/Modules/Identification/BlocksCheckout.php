@@ -82,9 +82,9 @@ final class BlocksCheckout {
 			$required = $this->get_required_rule( true );
 			$fields[] = array(
 				'id'                         => IdentificationStore::INVOICE_FIELD,
-				'label'                      => __( 'I need an electronic invoice', 'costa-rica-kit-for-woocommerce' ),
+				'label'                      => __( 'I need an electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
 				// A checkbox is never "required": without this WooCommerce adds "(optional)" to the label.
-				'optionalLabel'              => __( 'I need an electronic invoice', 'costa-rica-kit-for-woocommerce' ),
+				'optionalLabel'              => __( 'I need an electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
 				'location'                   => 'contact',
 				'type'                       => 'checkbox',
 				'show_in_order_confirmation' => false,
@@ -101,8 +101,8 @@ final class BlocksCheckout {
 
 		$fields[] = array(
 			'id'                         => IdentificationStore::TYPE_FIELD,
-			'label'                      => __( 'ID type', 'costa-rica-kit-for-woocommerce' ),
-			'placeholder'                => __( 'Select an ID type', 'costa-rica-kit-for-woocommerce' ),
+			'label'                      => __( 'ID type', 'costa-rica-checkout-for-woocommerce' ),
+			'placeholder'                => __( 'Select an ID type', 'costa-rica-checkout-for-woocommerce' ),
 			'location'                   => 'contact',
 			'type'                       => 'select',
 			'options'                    => $options,
@@ -112,7 +112,7 @@ final class BlocksCheckout {
 
 		$fields[] = array(
 			'id'                         => IdentificationStore::NUMBER_FIELD,
-			'label'                      => __( 'ID number', 'costa-rica-kit-for-woocommerce' ),
+			'label'                      => __( 'ID number', 'costa-rica-checkout-for-woocommerce' ),
 			'location'                   => 'contact',
 			'type'                       => 'text',
 			'required'                   => $required,

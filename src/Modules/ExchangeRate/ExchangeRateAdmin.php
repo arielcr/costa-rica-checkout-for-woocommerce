@@ -86,39 +86,39 @@ final class ExchangeRateAdmin {
 			array(
 				'id'    => 'crkit_exchange_rate_section',
 				'type'  => 'title',
-				'title' => __( 'Exchange rate', 'costa-rica-kit-for-woocommerce' ),
-				'desc'  => __( 'US dollar rate in colones, used to show the exact amount in colones when your store sells in dollars. It is updated in the background twice a day; customers never wait for it.', 'costa-rica-kit-for-woocommerce' ),
+				'title' => __( 'Exchange rate', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'  => __( 'US dollar rate in colones, used to show the exact amount in colones when your store sells in dollars. It is updated in the background twice a day; customers never wait for it.', 'costa-rica-checkout-for-woocommerce' ),
 			),
 			array(
 				'id'    => 'crkit_exchange_rate_current',
 				'type'  => self::STATUS_FIELD_TYPE,
-				'title' => __( 'Current rate', 'costa-rica-kit-for-woocommerce' ),
+				'title' => __( 'Current rate', 'costa-rica-checkout-for-woocommerce' ),
 			),
 			array(
 				'id'      => $option . '[source]',
 				'type'    => 'select',
-				'title'   => __( 'Source', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'Source', 'costa-rica-checkout-for-woocommerce' ),
 				'options' => $sources,
 				'default' => HaciendaProvider::ID,
 			),
 			array(
 				'id'    => $option . '[bccr_token]',
 				'type'  => 'password',
-				'title' => __( 'BCCR token', 'costa-rica-kit-for-woocommerce' ),
-				'desc'  => __( 'Only for the BCCR source. Generate it in the BCCR economic indicators site, under My profile → Generate token.', 'costa-rica-kit-for-woocommerce' ),
+				'title' => __( 'BCCR token', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'  => __( 'Only for the BCCR source. Generate it in the BCCR economic indicators site, under My profile → Generate token.', 'costa-rica-checkout-for-woocommerce' ),
 			),
 			array(
 				'id'      => $option . '[manual_enabled]',
 				'type'    => 'checkbox',
-				'title'   => __( 'Manual rate', 'costa-rica-kit-for-woocommerce' ),
-				'desc'    => __( 'Use a fixed rate instead of the automatic source', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'Manual rate', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'    => __( 'Use a fixed rate instead of the automatic source', 'costa-rica-checkout-for-woocommerce' ),
 				'default' => 'no',
 			),
 			array(
 				'id'                => $option . '[manual_rate]',
 				'type'              => 'number',
-				'title'             => __( 'Manual rate (₡ per US$)', 'costa-rica-kit-for-woocommerce' ),
-				'desc'              => __( 'Used for both buying and selling while the manual rate is on.', 'costa-rica-kit-for-woocommerce' ),
+				'title'             => __( 'Manual rate (₡ per US$)', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'              => __( 'Used for both buying and selling while the manual rate is on.', 'costa-rica-checkout-for-woocommerce' ),
 				'custom_attributes' => array(
 					'min'  => '0',
 					'step' => '0.01',
@@ -127,8 +127,8 @@ final class ExchangeRateAdmin {
 			array(
 				'id'                => $option . '[max_age_hours]',
 				'type'              => 'number',
-				'title'             => __( 'Maximum age (hours)', 'costa-rica-kit-for-woocommerce' ),
-				'desc'              => __( 'If the automatic rate is older than this and there is no manual rate, a notice is shown and SINPE Móvil is hidden in stores that do not sell in colones.', 'costa-rica-kit-for-woocommerce' ),
+				'title'             => __( 'Maximum age (hours)', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'              => __( 'If the automatic rate is older than this and there is no manual rate, a notice is shown and SINPE Móvil is hidden in stores that do not sell in colones.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'           => (string) ExchangeRateSettings::DEFAULT_MAX_AGE_HOURS,
 				'custom_attributes' => array(
 					'min'  => '1',
@@ -196,7 +196,7 @@ final class ExchangeRateAdmin {
 	 */
 	public function handle_refresh(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You are not allowed to update the exchange rate.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You are not allowed to update the exchange rate.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( self::REFRESH_ACTION );
@@ -231,13 +231,13 @@ final class ExchangeRateAdmin {
 			<th scope="row" class="titledesc"><?php echo esc_html( $title ); ?></th>
 			<td class="forminp">
 				<?php if ( null === $rate ) : ?>
-					<p><?php esc_html_e( 'No exchange rate yet.', 'costa-rica-kit-for-woocommerce' ); ?></p>
+					<p><?php esc_html_e( 'No exchange rate yet.', 'costa-rica-checkout-for-woocommerce' ); ?></p>
 				<?php else : ?>
 					<p>
 						<?php
 						printf(
 							/* translators: 1: sell rate, 2: buy rate, both in colones. */
-							esc_html__( 'Sell: %1$s · Buy: %2$s', 'costa-rica-kit-for-woocommerce' ),
+							esc_html__( 'Sell: %1$s · Buy: %2$s', 'costa-rica-checkout-for-woocommerce' ),
 							'<strong>' . esc_html( self::format_rate( $rate->sell ) ) . '</strong>',
 							'<strong>' . esc_html( self::format_rate( $rate->buy ) ) . '</strong>'
 						);
@@ -247,7 +247,7 @@ final class ExchangeRateAdmin {
 						<?php
 						printf(
 							/* translators: 1: date of the rate, 2: source name, 3: date and time of the last update. */
-							esc_html__( 'Rate of %1$s from %2$s, updated %3$s.', 'costa-rica-kit-for-woocommerce' ),
+							esc_html__( 'Rate of %1$s from %2$s, updated %3$s.', 'costa-rica-checkout-for-woocommerce' ),
 							esc_html( self::format_date( $rate->date ) ),
 							esc_html( $this->service->get_source_label( $rate->source ) ),
 							esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $rate->fetched_at ) )
@@ -259,7 +259,7 @@ final class ExchangeRateAdmin {
 							<?php
 							printf(
 								/* translators: %d: maximum age in hours. */
-								esc_html( _n( 'This rate is older than %d hour.', 'This rate is older than %d hours.', $this->service->get_settings()->get_max_age_hours(), 'costa-rica-kit-for-woocommerce' ) ),
+								esc_html( _n( 'This rate is older than %d hour.', 'This rate is older than %d hours.', $this->service->get_settings()->get_max_age_hours(), 'costa-rica-checkout-for-woocommerce' ) ),
 								(int) $this->service->get_settings()->get_max_age_hours()
 							);
 							?>
@@ -272,7 +272,7 @@ final class ExchangeRateAdmin {
 						<?php
 						printf(
 							/* translators: 1: date and time, 2: error message. */
-							esc_html__( 'Last update attempt (%1$s) failed: %2$s', 'costa-rica-kit-for-woocommerce' ),
+							esc_html__( 'Last update attempt (%1$s) failed: %2$s', 'costa-rica-checkout-for-woocommerce' ),
 							esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $status['attempted_at'] ) ),
 							esc_html( self::get_error_message( $status['error_code'], $status['source'] ) )
 						);
@@ -281,7 +281,7 @@ final class ExchangeRateAdmin {
 				<?php endif; ?>
 
 				<p>
-					<a class="button" href="<?php echo esc_url( self::get_refresh_url() ); ?>"><?php esc_html_e( 'Update now', 'costa-rica-kit-for-woocommerce' ); ?></a>
+					<a class="button" href="<?php echo esc_url( self::get_refresh_url() ); ?>"><?php esc_html_e( 'Update now', 'costa-rica-checkout-for-woocommerce' ); ?></a>
 				</p>
 			</td>
 		</tr>
@@ -304,7 +304,7 @@ final class ExchangeRateAdmin {
 		$result = $on_section && isset( $_GET[ self::RESULT_ARG ] ) ? sanitize_key( wp_unslash( $_GET[ self::RESULT_ARG ] ) ) : '';
 
 		if ( 'success' === $result ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__( 'Exchange rate updated.', 'costa-rica-kit-for-woocommerce' ) );
+			printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__( 'Exchange rate updated.', 'costa-rica-checkout-for-woocommerce' ) );
 		} elseif ( 'error' === $result ) {
 			$status = $this->service->get_repository()->get_status();
 			printf(
@@ -312,7 +312,7 @@ final class ExchangeRateAdmin {
 				esc_html(
 					sprintf(
 						/* translators: %s: error message. */
-						__( 'The exchange rate could not be updated: %s The last good rate is kept.', 'costa-rica-kit-for-woocommerce' ),
+						__( 'The exchange rate could not be updated: %s The last good rate is kept.', 'costa-rica-checkout-for-woocommerce' ),
 						self::get_error_message( $status['error_code'], $status['source'] )
 					)
 				)
@@ -329,22 +329,22 @@ final class ExchangeRateAdmin {
 		}
 
 		$message = null === $this->service->get_current()
-			? __( 'Costa Rica Kit: there is no exchange rate yet.', 'costa-rica-kit-for-woocommerce' )
+			? __( 'Costa Rica Checkout: there is no exchange rate yet.', 'costa-rica-checkout-for-woocommerce' )
 			: sprintf(
 				/* translators: %d: maximum age in hours. */
-				_n( 'Costa Rica Kit: the exchange rate is older than %d hour.', 'Costa Rica Kit: the exchange rate is older than %d hours.', $this->service->get_settings()->get_max_age_hours(), 'costa-rica-kit-for-woocommerce' ),
+				_n( 'Costa Rica Checkout: the exchange rate is older than %d hour.', 'Costa Rica Checkout: the exchange rate is older than %d hours.', $this->service->get_settings()->get_max_age_hours(), 'costa-rica-checkout-for-woocommerce' ),
 				$this->service->get_settings()->get_max_age_hours()
 			);
 
 		if ( 'CRC' !== get_woocommerce_currency() ) {
-			$message .= ' ' . __( 'SINPE Móvil is hidden at checkout until a current rate is available.', 'costa-rica-kit-for-woocommerce' );
+			$message .= ' ' . __( 'SINPE Móvil is hidden at checkout until a current rate is available.', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		printf(
 			'<div class="notice notice-warning"><p>%1$s <a href="%2$s">%3$s</a></p></div>',
 			esc_html( $message ),
 			esc_url( Plugin::get_settings_url( self::SECTION ) ),
-			esc_html__( 'Review the exchange rate settings', 'costa-rica-kit-for-woocommerce' )
+			esc_html__( 'Review the exchange rate settings', 'costa-rica-checkout-for-woocommerce' )
 		);
 	}
 
@@ -358,40 +358,40 @@ final class ExchangeRateAdmin {
 	public static function get_error_message( string $code, string $source = '' ): string {
 		switch ( $code ) {
 			case 'missing_token':
-				return __( 'the BCCR source needs a token.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the BCCR source needs a token.', 'costa-rica-checkout-for-woocommerce' );
 			case 'http_400':
-				return __( 'the source rejected the request (400).', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the source rejected the request (400).', 'costa-rica-checkout-for-woocommerce' );
 			case 'http_401':
-				return __( 'the BCCR token is invalid or expired (401). Generate a new one.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the BCCR token is invalid or expired (401). Generate a new one.', 'costa-rica-checkout-for-woocommerce' );
 			case 'http_403':
-				return __( 'the BCCR token has no access to this service (403). Check your subscription.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the BCCR token has no access to this service (403). Check your subscription.', 'costa-rica-checkout-for-woocommerce' );
 			case 'http_404':
-				return __( 'the service address was not found (404).', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the service address was not found (404).', 'costa-rica-checkout-for-woocommerce' );
 			case 'http_429':
-				return __( 'too many requests (429). The next scheduled update will try again.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'too many requests (429). The next scheduled update will try again.', 'costa-rica-checkout-for-woocommerce' );
 			case 'network':
-				return __( 'the service could not be reached. Check your server connection.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the service could not be reached. Check your server connection.', 'costa-rica-checkout-for-woocommerce' );
 			case 'invalid_response':
-				return __( 'the service returned an unexpected response.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the service returned an unexpected response.', 'costa-rica-checkout-for-woocommerce' );
 			case 'no_data':
-				return __( 'the service has no rate for the last days.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'the service has no rate for the last days.', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		if ( str_starts_with( $code, 'http_5' ) && BccrProvider::ID === $source ) {
 			// The BCCR API answers HTTP 500 both for an invalid token and for its own failures.
-			return __( 'the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again.', 'costa-rica-kit-for-woocommerce' );
+			return __( 'the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again.', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		if ( str_starts_with( $code, 'http_5' ) ) {
-			return __( 'the service had an internal error. The next scheduled update will try again.', 'costa-rica-kit-for-woocommerce' );
+			return __( 'the service had an internal error. The next scheduled update will try again.', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		if ( str_starts_with( $code, 'http_' ) ) {
 			/* translators: %s: HTTP status code. */
-			return sprintf( __( 'the service answered with HTTP status %s.', 'costa-rica-kit-for-woocommerce' ), substr( $code, 5 ) );
+			return sprintf( __( 'the service answered with HTTP status %s.', 'costa-rica-checkout-for-woocommerce' ), substr( $code, 5 ) );
 		}
 
-		return __( 'unknown error.', 'costa-rica-kit-for-woocommerce' );
+		return __( 'unknown error.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

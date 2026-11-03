@@ -14,7 +14,7 @@
 		"SCRIPT_DEBUG": true
 	},
 	"mappings": {
-		"wp-content/plugins/costa-rica-kit-for-woocommerce": ".",
+		"wp-content/plugins/costa-rica-checkout-for-woocommerce": ".",
 		"wp-content/mu-plugins": "./tests/e2e/mu-plugins"
 	}
 }

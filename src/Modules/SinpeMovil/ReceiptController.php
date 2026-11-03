@@ -239,8 +239,8 @@ final class ReceiptController {
 		OrderData::set_receipt( $order, $receipt );
 		$order->add_order_note(
 			null === $previous
-				? __( 'The customer uploaded the SINPE Móvil payment receipt.', 'costa-rica-kit-for-woocommerce' )
-				: __( 'The customer replaced the SINPE Móvil payment receipt.', 'costa-rica-kit-for-woocommerce' )
+				? __( 'The customer uploaded the SINPE Móvil payment receipt.', 'costa-rica-checkout-for-woocommerce' )
+				: __( 'The customer replaced the SINPE Móvil payment receipt.', 'costa-rica-checkout-for-woocommerce' )
 		);
 		$order->save();
 
@@ -270,20 +270,20 @@ final class ReceiptController {
 		$nonce    = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, self::DOWNLOAD_ACTION . '_' . $order_id ) ) {
-			wp_die( esc_html__( 'This link has expired. Go back and try again.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'This link has expired. Go back and try again.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
 		$order = wc_get_order( $order_id );
 
 		if ( ! $order instanceof WC_Order || ! self::can_view( $order ) ) {
-			wp_die( esc_html__( 'You are not allowed to view this receipt.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You are not allowed to view this receipt.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
 		$receipt = OrderData::get_receipt( $order );
 		$path    = null === $receipt ? null : $this->storage->get_path( $receipt['file'] );
 
 		if ( null === $receipt || null === $path ) {
-			wp_die( esc_html__( 'Receipt not found.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'Receipt not found.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 404 ) );
 		}
 
 		$download  = isset( $_GET['download'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Verified above.

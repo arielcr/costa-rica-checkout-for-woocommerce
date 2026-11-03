@@ -63,7 +63,7 @@ const fillDistricts = ( group ) => {
 	setOptions(
 		$district,
 		cantonData ? cantonData.districts : {},
-		__( 'Select a district…', 'costa-rica-kit-for-woocommerce' ),
+		__( 'Select a district…', 'costa-rica-checkout-for-woocommerce' ),
 		$district.val()
 	);
 };
@@ -81,7 +81,7 @@ const fillCantons = ( group ) => {
 	setOptions(
 		$canton,
 		cantons,
-		__( 'Select a canton…', 'costa-rica-kit-for-woocommerce' ),
+		__( 'Select a canton…', 'costa-rica-checkout-for-woocommerce' ),
 		$canton.val()
 	);
 	fillDistricts( group );

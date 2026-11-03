@@ -22,9 +22,9 @@ defined( 'ABSPATH' ) || exit;
 final class Frontend {
 
 	/**
-	 * Template folder inside a theme: `yourtheme/costa-rica-kit-for-woocommerce/`.
+	 * Template folder inside a theme: `yourtheme/costa-rica-checkout-for-woocommerce/`.
 	 */
-	public const TEMPLATE_PATH = 'costa-rica-kit-for-woocommerce/';
+	public const TEMPLATE_PATH = 'costa-rica-checkout-for-woocommerce/';
 
 	/**
 	 * Registers hooks.
@@ -184,14 +184,14 @@ final class Frontend {
 		}
 
 		$messages = array(
-			'uploaded'     => __( 'Thank you! We received your receipt and will confirm your payment soon.', 'costa-rica-kit-for-woocommerce' ),
-			'no_file'      => __( 'Choose a file to upload.', 'costa-rica-kit-for-woocommerce' ),
-			'too_large'    => __( 'The file is too large.', 'costa-rica-kit-for-woocommerce' ),
-			'invalid_type' => __( 'Upload a JPG, PNG, WEBP or PDF file.', 'costa-rica-kit-for-woocommerce' ),
-			'expired'      => __( 'The page expired. Reload it and try again.', 'costa-rica-kit-for-woocommerce' ),
-			'not_allowed'  => __( 'You cannot upload a receipt for this order.', 'costa-rica-kit-for-woocommerce' ),
-			'closed'       => __( 'This order no longer accepts receipts.', 'costa-rica-kit-for-woocommerce' ),
-			'storage'      => __( 'The receipt could not be saved. Please try again or contact the store.', 'costa-rica-kit-for-woocommerce' ),
+			'uploaded'     => __( 'Thank you! We received your receipt and will confirm your payment soon.', 'costa-rica-checkout-for-woocommerce' ),
+			'no_file'      => __( 'Choose a file to upload.', 'costa-rica-checkout-for-woocommerce' ),
+			'too_large'    => __( 'The file is too large.', 'costa-rica-checkout-for-woocommerce' ),
+			'invalid_type' => __( 'Upload a JPG, PNG, WEBP or PDF file.', 'costa-rica-checkout-for-woocommerce' ),
+			'expired'      => __( 'The page expired. Reload it and try again.', 'costa-rica-checkout-for-woocommerce' ),
+			'not_allowed'  => __( 'You cannot upload a receipt for this order.', 'costa-rica-checkout-for-woocommerce' ),
+			'closed'       => __( 'This order no longer accepts receipts.', 'costa-rica-checkout-for-woocommerce' ),
+			'storage'      => __( 'The receipt could not be saved. Please try again or contact the store.', 'costa-rica-checkout-for-woocommerce' ),
 		);
 
 		return array(

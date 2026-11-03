@@ -43,14 +43,14 @@ final class ExchangeRateModule implements ModuleInterface, LifecycleInterface, S
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Exchange rate', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Exchange rate', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
-		return __( 'Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions.', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ final class ExchangeRateModule implements ModuleInterface, LifecycleInterface, S
 	 * {@inheritDoc}
 	 */
 	public function get_settings_section_label(): string {
-		return __( 'Exchange rate', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Exchange rate', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

@@ -15,7 +15,7 @@
 | Static analysis | `composer analyze` | — |
 | JS lint / build | `npm run lint:js` / `npm run build` | Node 22 |
 | Plugin Check (on the built package) | `npm run plugin-check` | wp-env running |
-| Distributable zip | `npm run zip` → `dist/costa-rica-kit-for-woocommerce-<version>.zip` | rsync, zip, composer |
+| Distributable zip | `npm run zip` → `dist/costa-rica-checkout-for-woocommerce-<version>.zip` | rsync, zip, composer |
 
 ### Test database isolation
 

@@ -42,7 +42,7 @@ final class HaciendaProvider extends AbstractHttpProvider {
 	 * {@inheritDoc}
 	 */
 	public function get_name(): string {
-		return __( 'Ministerio de Hacienda (no credentials needed)', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Ministerio de Hacienda (no credentials needed)', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

@@ -1,4 +1,4 @@
-# SPEC: Costa Rica Kit for WooCommerce
+# SPEC: Costa Rica Checkout for WooCommerce
 
 > Documento de especificación para Claude Code. Guardalo en la raíz del repo como `docs/SPEC.md`.
 > Estado del ecosistema verificado al 31 de octubre de 2026.
@@ -52,8 +52,8 @@ Nombre provisional (Ariel puede cambiarlo antes de la Fase 0):
 
 | Campo | Valor |
 |---|---|
-| Plugin Name | Costa Rica Kit for WooCommerce |
-| Slug / carpeta / text domain | `costa-rica-kit-for-woocommerce` |
+| Plugin Name | Costa Rica Checkout for WooCommerce |
+| Slug / carpeta / text domain | `costa-rica-checkout-for-woocommerce` |
 | Prefijo global (funciones, opciones, hooks, meta, handles) | `crkit_` / `crkit-` |
 | Namespace PHP | `CRKit\` |
 | Autor | Ariel Orozco |
@@ -64,7 +64,7 @@ Nota de marca: el nombre no puede **empezar** con "WooCommerce" ni "Woo"; el suf
 ### Cabecera del archivo principal
 
 ```
-Plugin Name:          Costa Rica Kit for WooCommerce
+Plugin Name:          Costa Rica Checkout for WooCommerce
 Description:          SINPE Móvil, tipo de cambio, provincias/cantones/distritos y cédula para tiendas WooCommerce en Costa Rica.
 Version:              0.1.0
 Requires at least:    6.8
@@ -73,7 +73,7 @@ Requires Plugins:     woocommerce
 Author:               Ariel Orozco
 License:              GPL-2.0-or-later
 License URI:          https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:          costa-rica-kit-for-woocommerce
+Text Domain:          costa-rica-checkout-for-woocommerce
 Domain Path:          /languages
 WC requires at least: (definir en Fase 0, mínimo 9.0)
 WC tested up to:      (la última estable al momento de la release)
@@ -218,8 +218,8 @@ Servicio interno que usan los otros módulos. Además expone un shortcode en la 
 ## 5. Estructura del repositorio
 
 ```
-costa-rica-kit-for-woocommerce/
-├── costa-rica-kit-for-woocommerce.php   # Solo cabecera, constantes y bootstrap
+costa-rica-checkout-for-woocommerce/
+├── costa-rica-checkout-for-woocommerce.php   # Solo cabecera, constantes y bootstrap
 ├── uninstall.php
 ├── readme.txt
 ├── composer.json / composer.lock
@@ -258,7 +258,7 @@ costa-rica-kit-for-woocommerce/
 ## 6. Herramientas y entorno
 
 - **wp-env** (Docker) con WordPress 7.1, la última WooCommerce estable y el plugin **Plugin Check (PCP)**. Scripts npm: `env:start`, `env:stop`, `test:php`, `lint:php`, `lint:js`, `build`, `plugin-check`, `zip`.
-- Plugin Check por CLI dentro de wp-env: `wp plugin check costa-rica-kit-for-woocommerce`.
+- Plugin Check por CLI dentro de wp-env: `wp plugin check costa-rica-checkout-for-woocommerce`.
 - **CI en GitHub Actions:** phpcs, phpstan, phpunit (matriz PHP 8.1, 8.3 y 8.4), build de JS y Plugin Check (existe la action oficial `wordpress/plugin-check-action`; verificá su versión vigente).
 - Script `zip` que produzca un zip limpio respetando `.distignore`: sin tests, sin `node_modules`, sin configs de desarrollo, y con `assets/build`, `vendor/autoload` y `languages`.
 

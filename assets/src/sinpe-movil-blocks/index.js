@@ -14,7 +14,7 @@ const currencySettings = getSetting( 'currency', {} );
 
 const title =
 	decodeEntities( settings.title || '' ) ||
-	__( 'SINPE Móvil', 'costa-rica-kit-for-woocommerce' );
+	__( 'SINPE Móvil', 'costa-rica-checkout-for-woocommerce' );
 
 /**
  * Amount in whole colones for a cart total, or null if it cannot be converted.
@@ -74,7 +74,7 @@ const Content = ( { billing } ) => {
 						/* translators: %s: estimated amount in colones. */
 						__(
 							'Amount to pay: about %s. You will see the exact amount in colones after placing the order.',
-							'costa-rica-kit-for-woocommerce'
+							'costa-rica-checkout-for-woocommerce'
 						),
 						formatColones( colones )
 					) }

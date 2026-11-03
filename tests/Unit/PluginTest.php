@@ -22,7 +22,7 @@ use Mockery\MockInterface;
  */
 final class PluginTest extends TestCase {
 
-	private const BASENAME = 'costa-rica-kit-for-woocommerce/costa-rica-kit-for-woocommerce.php';
+	private const BASENAME = 'costa-rica-checkout-for-woocommerce/costa-rica-checkout-for-woocommerce.php';
 
 	public function test_module_uses_its_default_when_no_toggle_is_saved(): void {
 		Functions\when( 'get_option' )->justReturn( array() );

@@ -1,294 +1,291 @@
-# Spanish (Costa Rica) translation of Costa Rica Kit for WooCommerce.
 # Copyright (C) 2026 Ariel Orozco
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Costa Rica Kit for WooCommerce 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/costa-rica-kit-for-woocommerce\n"
-"Last-Translator: Ariel Orozco\n"
-"Language-Team: Spanish (Costa Rica)\n"
+"Project-Id-Version: Costa Rica Checkout for WooCommerce 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/costa-rica-checkout-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: es_CR\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T01:43:01+00:00\n"
-"PO-Revision-Date: 2026-11-01 10:00-0600\n"
+"POT-Creation-Date: 2026-11-03T02:00:40+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: costa-rica-kit-for-woocommerce\n"
+"X-Domain: costa-rica-checkout-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 #: src/Modules/SinpeMovil/Privacy.php:67
-msgid "Costa Rica Kit for WooCommerce"
-msgstr "Costa Rica Kit for WooCommerce"
+msgid "Costa Rica Checkout for WooCommerce"
+msgstr ""
 
 #. Description of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 msgid "SINPE Móvil payments, exchange rates, provinces/cantons/districts and ID numbers for WooCommerce stores in Costa Rica."
-msgstr "Pagos con SINPE Móvil, tipo de cambio, provincias/cantones/distritos y número de cédula para tiendas WooCommerce en Costa Rica."
+msgstr ""
 
 #. Author of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 msgid "Ariel Orozco"
-msgstr "Ariel Orozco"
+msgstr ""
 
-#: costa-rica-kit-for-woocommerce.php:36
-msgid "Costa Rica Kit for WooCommerce is missing its autoloader. Run \"composer install\" or install the plugin from its release package."
-msgstr "A Costa Rica Kit for WooCommerce le falta el autocargador. Ejecute \"composer install\" o instale el plugin desde su paquete de distribución."
+#: costa-rica-checkout-for-woocommerce.php:36
+msgid "Costa Rica Checkout for WooCommerce is missing its autoloader. Run \"composer install\" or install the plugin from its release package."
+msgstr ""
 
 #: src/Admin/SettingsPage.php:38
 msgid "Costa Rica"
-msgstr "Costa Rica"
+msgstr ""
 
 #: src/Admin/SettingsPage.php:50
 #: src/Admin/SettingsPage.php:82
 msgid "Modules"
-msgstr "Módulos"
+msgstr ""
 
 #: src/Admin/SettingsPage.php:83
 msgid "Enable only the features your store needs. Disabled modules add nothing to your store."
-msgstr "Active solo las funciones que su tienda necesita. Los módulos desactivados no agregan nada a su tienda."
+msgstr ""
 
 #: src/Admin/SettingsPage.php:105
 msgid "Data"
-msgstr "Datos"
+msgstr ""
 
 #: src/Admin/SettingsPage.php:110
 msgid "Delete data on uninstall"
-msgstr "Borrar datos al desinstalar"
+msgstr ""
 
 #: src/Admin/SettingsPage.php:111
 msgid "When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders and customers. Settings are always deleted."
-msgstr "Al borrar el plugin, eliminar también los comprobantes de pago de SINPE Móvil y los datos que este plugin agregó a pedidos y clientes. Los ajustes se borran siempre."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:46
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:112
 #: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
-msgstr "Tipo de cambio"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:90
 msgid "US dollar rate in colones, used to show the exact amount in colones when your store sells in dollars. It is updated in the background twice a day; customers never wait for it."
-msgstr "Tipo de cambio del dólar en colones, usado para mostrar el monto exacto en colones cuando su tienda vende en dólares. Se actualiza en segundo plano dos veces al día; los clientes nunca esperan por él."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:95
 msgid "Current rate"
-msgstr "Tipo de cambio actual"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:100
 msgid "Source"
-msgstr "Fuente"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:107
 msgid "BCCR token"
-msgstr "Token del BCCR"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:108
 msgid "Only for the BCCR source. Generate it in the BCCR economic indicators site, under My profile → Generate token."
-msgstr "Solo para la fuente BCCR. Genérelo en el sitio de Indicadores Económicos del BCCR, en Mi perfil → Generar token."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:113
 #: src/Modules/ExchangeRate/ExchangeRateService.php:123
 msgid "Manual rate"
-msgstr "Tipo de cambio manual"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:114
 msgid "Use a fixed rate instead of the automatic source"
-msgstr "Usar un tipo de cambio fijo en lugar de la fuente automática"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:120
 msgid "Manual rate (₡ per US$)"
-msgstr "Tipo de cambio manual (₡ por US$)"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:121
 msgid "Used for both buying and selling while the manual rate is on."
-msgstr "Se usa tanto para compra como para venta mientras el tipo de cambio manual esté activo."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:130
 msgid "Maximum age (hours)"
-msgstr "Antigüedad máxima (horas)"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:131
 msgid "If the automatic rate is older than this and there is no manual rate, a notice is shown and SINPE Móvil is hidden in stores that do not sell in colones."
-msgstr "Si el tipo de cambio automático es más antiguo que esto y no hay tipo de cambio manual, se muestra un aviso y SINPE Móvil se oculta en las tiendas que no venden en colones."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:199
 msgid "You are not allowed to update the exchange rate."
-msgstr "No tiene permiso para actualizar el tipo de cambio."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:234
 msgid "No exchange rate yet."
-msgstr "Todavía no hay tipo de cambio."
+msgstr ""
 
 #. translators: 1: sell rate, 2: buy rate, both in colones.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:240
 #, php-format
 msgid "Sell: %1$s · Buy: %2$s"
-msgstr "Venta: %1$s · Compra: %2$s"
+msgstr ""
 
 #. translators: 1: date of the rate, 2: source name, 3: date and time of the last update.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:250
 #, php-format
 msgid "Rate of %1$s from %2$s, updated %3$s."
-msgstr "Tipo de cambio del %1$s (fuente: %2$s), actualizado el %3$s."
+msgstr ""
 
 #. translators: %d: maximum age in hours.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:262
 #, php-format
 msgid "This rate is older than %d hour."
 msgid_plural "This rate is older than %d hours."
-msgstr[0] "Este tipo de cambio tiene más de %d hora."
-msgstr[1] "Este tipo de cambio tiene más de %d horas."
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: 1: date and time, 2: error message.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:275
 #, php-format
 msgid "Last update attempt (%1$s) failed: %2$s"
-msgstr "El último intento de actualización (%1$s) falló: %2$s"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:284
 msgid "Update now"
-msgstr "Actualizar ahora"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:307
 msgid "Exchange rate updated."
-msgstr "Tipo de cambio actualizado."
+msgstr ""
 
 #. translators: %s: error message.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:315
 #, php-format
 msgid "The exchange rate could not be updated: %s The last good rate is kept."
-msgstr "No se pudo actualizar el tipo de cambio: %s Se conserva el último tipo de cambio válido."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:332
-msgid "Costa Rica Kit: there is no exchange rate yet."
-msgstr "Costa Rica Kit: todavía no hay tipo de cambio."
+msgid "Costa Rica Checkout: there is no exchange rate yet."
+msgstr ""
 
 #. translators: %d: maximum age in hours.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:335
 #, php-format
-msgid "Costa Rica Kit: the exchange rate is older than %d hour."
-msgid_plural "Costa Rica Kit: the exchange rate is older than %d hours."
-msgstr[0] "Costa Rica Kit: el tipo de cambio tiene más de %d hora."
-msgstr[1] "Costa Rica Kit: el tipo de cambio tiene más de %d horas."
+msgid "Costa Rica Checkout: the exchange rate is older than %d hour."
+msgid_plural "Costa Rica Checkout: the exchange rate is older than %d hours."
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:340
 msgid "SINPE Móvil is hidden at checkout until a current rate is available."
-msgstr "SINPE Móvil se oculta en el checkout hasta que haya un tipo de cambio vigente."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:347
 msgid "Review the exchange rate settings"
-msgstr "Revisar los ajustes del tipo de cambio"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:361
 msgid "the BCCR source needs a token."
-msgstr "la fuente BCCR necesita un token."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:363
 msgid "the source rejected the request (400)."
-msgstr "la fuente rechazó la solicitud (400)."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:365
 msgid "the BCCR token is invalid or expired (401). Generate a new one."
-msgstr "el token del BCCR no es válido o venció (401). Genere uno nuevo."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:367
 msgid "the BCCR token has no access to this service (403). Check your subscription."
-msgstr "el token del BCCR no tiene acceso a este servicio (403). Revise su suscripción."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:369
 msgid "the service address was not found (404)."
-msgstr "no se encontró la dirección del servicio (404)."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:371
 msgid "too many requests (429). The next scheduled update will try again."
-msgstr "demasiadas solicitudes (429). La próxima actualización programada lo intentará de nuevo."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:373
 msgid "the service could not be reached. Check your server connection."
-msgstr "no se pudo conectar con el servicio. Revise la conexión de su servidor."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:375
 msgid "the service returned an unexpected response."
-msgstr "el servicio devolvió una respuesta inesperada."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:377
 msgid "the service has no rate for the last days."
-msgstr "el servicio no tiene tipo de cambio para los últimos días."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:382
 msgid "the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again."
-msgstr "el BCCR respondió con un error interno (HTTP 500). Puede ser que el token no sea válido o que el servicio del BCCR esté fallando. Revise el token; si es correcto, la próxima actualización programada lo intentará de nuevo."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:386
 msgid "the service had an internal error. The next scheduled update will try again."
-msgstr "el servicio tuvo un error interno. La próxima actualización programada lo intentará de nuevo."
+msgstr ""
 
 #. translators: %s: HTTP status code.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:391
 #, php-format
 msgid "the service answered with HTTP status %s."
-msgstr "el servicio respondió con el código HTTP %s."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:394
 msgid "unknown error."
-msgstr "error desconocido."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:53
 msgid "Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions."
-msgstr "Mantiene actualizado el tipo de cambio del dólar (Ministerio de Hacienda, BCCR o manual) para las conversiones a colones."
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateService.php:125
 msgid "Ministerio de Hacienda"
-msgstr "Ministerio de Hacienda"
+msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateService.php:127
 msgid "BCCR"
-msgstr "BCCR"
+msgstr ""
 
 #: src/Modules/ExchangeRate/Providers/BccrProvider.php:92
 msgid "Banco Central de Costa Rica (requires your BCCR token)"
-msgstr "Banco Central de Costa Rica (requiere su token del BCCR)"
+msgstr ""
 
 #: src/Modules/ExchangeRate/Providers/HaciendaProvider.php:45
 msgid "Ministerio de Hacienda (no credentials needed)"
-msgstr "Ministerio de Hacienda (no requiere credenciales)"
+msgstr ""
 
 #. translators: %s: sell exchange rate in colones.
 #: src/Modules/ExchangeRate/Shortcode.php:152
 #, php-format
 msgid "Sell: %s"
-msgstr "Venta: %s"
+msgstr ""
 
 #. translators: %s: buy exchange rate in colones.
 #: src/Modules/ExchangeRate/Shortcode.php:156
 #, php-format
 msgid "Buy: %s"
-msgstr "Compra: %s"
+msgstr ""
 
 #. translators: 1: date of the rate, 2: source name.
 #: src/Modules/ExchangeRate/Shortcode.php:162
 #, php-format
 msgid "Rate of %1$s, source: %2$s"
-msgstr "Tipo de cambio del %1$s, fuente: %2$s"
+msgstr ""
 
 #. translators: %s: date of the rate.
 #: src/Modules/ExchangeRate/Shortcode.php:165
 #, php-format
 msgid "Rate of %s"
-msgstr "Tipo de cambio del %s"
+msgstr ""
 
 #. translators: %s: source name.
 #: src/Modules/ExchangeRate/Shortcode.php:168
 #, php-format
 msgid "Source: %s"
-msgstr "Fuente: %s"
+msgstr ""
 
 #: src/Modules/Identification/AccountDetails.php:69
 msgid "Add your ID number to speed up your next purchases."
-msgstr "Agregue su número de identificación para agilizar sus próximas compras."
+msgstr ""
 
 #. translators: %s: field label.
 #: src/Modules/Identification/AdminFields.php:85
@@ -297,11 +294,11 @@ msgstr "Agregue su número de identificación para agilizar sus próximas compra
 #: src/Modules/Identification/ClassicCheckout.php:203
 #: src/Modules/Identification/Privacy.php:62
 msgid "ID type"
-msgstr "Tipo de identificación"
+msgstr ""
 
 #: src/Modules/Identification/AdminFields.php:87
 msgid "None"
-msgstr "Ninguno"
+msgstr ""
 
 #. translators: %s: field label.
 #: src/Modules/Identification/AdminFields.php:95
@@ -311,805 +308,805 @@ msgstr "Ninguno"
 #: src/Modules/Identification/IdentificationModule.php:80
 #: src/Modules/Identification/Privacy.php:66
 msgid "ID number"
-msgstr "Número de identificación"
+msgstr ""
 
 #: src/Modules/Identification/AdminFields.php:105
 #: src/Modules/Identification/Privacy.php:73
 msgid "Electronic invoice"
-msgstr "Factura electrónica"
+msgstr ""
 
 #: src/Modules/Identification/AdminFields.php:108
 msgid "Not requested"
-msgstr "No solicitada"
+msgstr ""
 
 #: src/Modules/Identification/AdminFields.php:109
 #: src/Modules/Identification/AdminFields.php:112
 #: src/Modules/Identification/Privacy.php:74
 msgid "Requested"
-msgstr "Solicitada"
+msgstr ""
 
 #. translators: %s: validation error.
 #: src/Modules/Identification/AdminFields.php:165
 #, php-format
 msgid "The ID number was not saved: %s"
-msgstr "No se guardó el número de identificación: %s"
+msgstr ""
 
 #: src/Modules/Identification/BlocksCheckout.php:85
 #: src/Modules/Identification/BlocksCheckout.php:87
 #: src/Modules/Identification/ClassicCheckout.php:90
 msgid "I need an electronic invoice"
-msgstr "Necesito factura electrónica"
+msgstr ""
 
 #: src/Modules/Identification/BlocksCheckout.php:105
 #: src/Modules/Identification/ClassicCheckout.php:102
 msgid "Select an ID type"
-msgstr "Seleccione un tipo de identificación"
+msgstr ""
 
 #. translators: %s: field label.
 #: src/Modules/Identification/ClassicCheckout.php:203
 #: src/Modules/Identification/ClassicCheckout.php:207
 #, php-format
 msgid "%s is required for an electronic invoice."
-msgstr "%s es obligatorio para la factura electrónica."
+msgstr ""
 
 #: src/Modules/Identification/ClassicCheckout.php:217
 #: src/Modules/Identification/IdentificationType.php:123
 #: src/Modules/Identification/IdentificationType.php:141
 msgid "Select the ID type."
-msgstr "Seleccione el tipo de identificación."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:38
 #: src/Modules/Identification/IdentificationModule.php:91
 msgid "ID number (cédula)"
-msgstr "Número de identificación (cédula)"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:45
 msgid "Collects the customer ID type and number at checkout for e-invoicing plugins."
-msgstr "Solicita el tipo y número de identificación del cliente en el checkout, para plugins de factura electrónica."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:92
 msgid "Customers choose the ID type (cédula física, cédula jurídica, DIMEX or NITE) and type the number. The number is checked against the format Hacienda sets for its type; there is no public check digit, so it is not looked up in any registry. E-invoicing plugins can read it with crkit_get_order_identification()."
-msgstr "Los clientes eligen el tipo de identificación (cédula física, cédula jurídica, DIMEX o NITE) y escriben el número. El número se revisa contra el formato que Hacienda define para su tipo; no existe un dígito verificador público, así que no se consulta en ningún registro. Los plugins de factura electrónica pueden leerlo con crkit_get_order_identification()."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:97
 msgid "ID number at checkout"
-msgstr "Identificación en el checkout"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:100
 msgid "With \"Required only if the customer asks for an electronic invoice\", checkout shows an \"I need an electronic invoice\" checkbox."
-msgstr "Con «Obligatoria solo si el cliente solicita factura electrónica», el checkout muestra la casilla «Necesito factura electrónica»."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationSettings.php:46
 msgid "Required only if the customer asks for an electronic invoice"
-msgstr "Obligatoria solo si el cliente solicita factura electrónica"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationSettings.php:47
 msgid "Optional"
-msgstr "Opcional"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationSettings.php:48
 msgid "Required"
-msgstr "Obligatoria"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:58
 msgid "Cédula física"
-msgstr "Cédula física"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:59
 msgid "Cédula jurídica"
-msgstr "Cédula jurídica"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:60
 msgid "DIMEX"
-msgstr "DIMEX"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:61
 msgid "NITE"
-msgstr "NITE"
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:115
 msgid "A cédula física has 9 digits and does not start with 0."
-msgstr "La cédula física tiene 9 dígitos y no empieza con 0."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:117
 msgid "A cédula jurídica has 10 characters (digits, or digits and letters)."
-msgstr "La cédula jurídica tiene 10 caracteres (dígitos, o dígitos y letras)."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:119
 msgid "A DIMEX has 11 or 12 digits and does not start with 0."
-msgstr "El DIMEX tiene 11 o 12 dígitos y no empieza con 0."
+msgstr ""
 
 #: src/Modules/Identification/IdentificationType.php:121
 msgid "A NITE has 10 digits."
-msgstr "El NITE tiene 10 dígitos."
+msgstr ""
 
 #. translators: 1: ID type, e.g. "Cédula física", 2: ID number.
 #: src/Modules/Identification/OrderDisplay.php:72
 #, php-format
 msgctxt "ID type and number"
 msgid "%1$s: %2$s"
-msgstr "%1$s: %2$s"
+msgstr ""
 
 #. translators: 1: ID type, e.g. "Cédula física", 2: ID number.
 #: src/Modules/Identification/OrderDisplay.php:88
 #, php-format
 msgctxt "ID type and number in a sentence"
 msgid "%1$s %2$s"
-msgstr "%1$s %2$s"
+msgstr ""
 
 #: src/Modules/Identification/OrderDisplay.php:114
 msgid "The customer asked for an electronic invoice"
-msgstr "El cliente solicitó factura electrónica"
+msgstr ""
 
 #: src/Modules/Identification/OrderDisplay.php:115
 msgid "Electronic invoice requested in the name of"
-msgstr "Factura electrónica solicitada a nombre de"
+msgstr ""
 
 #: src/Modules/Identification/Privacy.php:47
 msgid "Suggested text for stores that ask for an ID number at checkout:"
-msgstr "Texto sugerido para tiendas que solicitan el número de identificación en el checkout:"
+msgstr ""
 
 #: src/Modules/Identification/Privacy.php:48
 msgid "At checkout we ask for your ID type and number (cédula física, cédula jurídica, DIMEX or NITE) to issue the electronic invoice that Costa Rican tax law requires. We store it with your order and, if you have an account, in your account so you do not have to type it again. We keep it as long as we keep the order records, and you can change it in your account."
-msgstr "En el checkout le pedimos su tipo y número de identificación (cédula física, cédula jurídica, DIMEX o NITE) para emitir la factura electrónica que exige la normativa tributaria de Costa Rica. Lo guardamos con su pedido y, si tiene una cuenta, en su cuenta para que no tenga que escribirlo de nuevo. Lo conservamos mientras conservemos los registros del pedido, y puede cambiarlo en su cuenta."
+msgstr ""
 
 #: src/Modules/Identification/Privacy.php:50
-msgid "Costa Rica Kit for WooCommerce: ID number"
-msgstr "Costa Rica Kit for WooCommerce: número de identificación"
+msgid "Costa Rica Checkout for WooCommerce: ID number"
+msgstr ""
 
 #: src/Modules/Identification/Privacy.php:123
 msgid "Removed the customer ID number."
-msgstr "Se eliminó el número de identificación del cliente."
+msgstr ""
 
 #: src/Modules/Locations/AddressFields.php:151
 #: src/Modules/Locations/ClassicCheckout.php:79
 msgid "Canton"
-msgstr "Cantón"
+msgstr ""
 
 #: src/Modules/Locations/AddressFields.php:156
 #: src/Modules/Locations/BlocksCheckout.php:98
 #: src/Modules/Locations/ClassicCheckout.php:88
 msgid "District"
-msgstr "Distrito"
+msgstr ""
 
 #: src/Modules/Locations/AdminFields.php:66
 msgid "— Not in Costa Rica —"
-msgstr "— Fuera de Costa Rica —"
+msgstr ""
 
 #. translators: 1: district, 2: canton, 3: province.
 #: src/Modules/Locations/AdminFields.php:70
 #, php-format
 msgid "%1$s, %2$s, %3$s"
-msgstr "%1$s, %2$s, %3$s"
+msgstr ""
 
 #: src/Modules/Locations/AdminFields.php:74
 msgid "District (Costa Rica)"
-msgstr "Distrito (Costa Rica)"
+msgstr ""
 
 #: src/Modules/Locations/BlocksCheckout.php:99
 msgid "Select a district"
-msgstr "Seleccione un distrito"
+msgstr ""
 
 #. translators: 1: canton name, 2: district name.
 #: src/Modules/Locations/BlocksCheckout.php:136
 #, php-format
 msgctxt "canton and district"
 msgid "%1$s — %2$s"
-msgstr "%1$s — %2$s"
+msgstr ""
 
 #: src/Modules/Locations/ClassicCheckout.php:81
 #: assets/build/locations-classic.js:1
 msgid "Select a canton…"
-msgstr "Seleccione un cantón…"
+msgstr ""
 
 #: src/Modules/Locations/ClassicCheckout.php:90
 #: assets/build/locations-classic.js:1
 msgid "Select a district…"
-msgstr "Seleccione un distrito…"
+msgstr ""
 
 #: src/Modules/Locations/ClassicCheckout.php:347
 msgid "Select the district of the shipping address."
-msgstr "Seleccione el distrito de la dirección de envío."
+msgstr ""
 
 #: src/Modules/Locations/ClassicCheckout.php:348
 msgid "Select the district of the billing address."
-msgstr "Seleccione el distrito de la dirección de facturación."
+msgstr ""
 
 #: src/Modules/Locations/LocationsModule.php:44
 msgid "Provinces, cantons and districts"
-msgstr "Provincias, cantones y distritos"
+msgstr ""
 
 #: src/Modules/Locations/LocationsModule.php:51
 msgid "Adds dependent canton and district fields to Costa Rican addresses at checkout."
-msgstr "Agrega campos dependientes de cantón y distrito a las direcciones de Costa Rica en el checkout."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:66
 msgid "SINPE Móvil payment"
-msgstr "Pago con SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:86
 msgid "This order has no SINPE Móvil payment data."
-msgstr "Este pedido no tiene datos de pago de SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:93
 msgid "Amount to receive:"
-msgstr "Monto a recibir:"
+msgstr ""
 
 #. translators: 1: exchange rate, 2: source, 3: date of the rate.
 #: src/Modules/SinpeMovil/AdminMetabox.php:102
 #, php-format
 msgid "Exchange rate: %1$s (%2$s, %3$s)"
-msgstr "Tipo de cambio: %1$s (%2$s, %3$s)"
+msgstr ""
 
 #. translators: %s: payment reference.
 #: src/Modules/SinpeMovil/AdminMetabox.php:113
 #, php-format
 msgid "Reference: %s"
-msgstr "Referencia: %s"
+msgstr ""
 
 #. translators: %s: SINPE Móvil number.
 #: src/Modules/SinpeMovil/AdminMetabox.php:119
 #, php-format
 msgid "Paid to: %s"
-msgstr "Pagado a: %s"
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:126
 msgid "No receipt uploaded yet."
-msgstr "Todavía no se ha subido el comprobante."
+msgstr ""
 
 #. translators: %s: date and time of the upload.
 #: src/Modules/SinpeMovil/AdminMetabox.php:131
 #, php-format
 msgid "Receipt uploaded on %s."
-msgstr "Comprobante subido el %s."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:136
 msgid "View"
-msgstr "Ver"
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:138
 msgid "Download"
-msgstr "Descargar"
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:144
 msgid "Confirm payment"
-msgstr "Confirmar pago"
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:145
 msgid "Reject payment"
-msgstr "Rechazar pago"
+msgstr ""
 
 #. translators: %s: user display name.
 #: src/Modules/SinpeMovil/AdminMetabox.php:209
 #, php-format
 msgid "SINPE Móvil payment confirmed by %s."
-msgstr "Pago con SINPE Móvil confirmado por %s."
+msgstr ""
 
 #. translators: %s: user display name.
 #: src/Modules/SinpeMovil/AdminMetabox.php:246
 #, php-format
 msgid "SINPE Móvil payment rejected by %s."
-msgstr "Pago con SINPE Móvil rechazado por %s."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:275
 msgid "SINPE Móvil payment confirmed."
-msgstr "Pago con SINPE Móvil confirmado."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:276
 msgid "SINPE Móvil payment rejected."
-msgstr "Pago con SINPE Móvil rechazado."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:277
 msgid "The order is no longer waiting for a SINPE Móvil payment."
-msgstr "El pedido ya no está esperando un pago con SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:297
 msgid "You are not allowed to manage this order."
-msgstr "No tiene permiso para gestionar este pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/AdminMetabox.php:303
 msgid "Order not found."
-msgstr "No se encontró el pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:35
 msgid "SINPE Móvil receipt uploaded"
-msgstr "Comprobante de SINPE Móvil recibido"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:36
 msgid "Sent to the store when a customer uploads a SINPE Móvil payment receipt."
-msgstr "Se envía a la tienda cuando un cliente sube un comprobante de pago de SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:58
 msgid "[{site_title}]: SINPE Móvil receipt for order #{order_number}"
-msgstr "[{site_title}]: comprobante de SINPE Móvil del pedido #{order_number}"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:67
 msgid "Payment receipt received"
-msgstr "Comprobante de pago recibido"
+msgstr ""
 
 #. translators: %s: list of available placeholders.
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:128
 #, php-format
 msgid "Available placeholders: %s"
-msgstr "Marcadores disponibles: %s"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:131
 #: src/Modules/SinpeMovil/Gateway.php:87
 msgid "Enable/Disable"
-msgstr "Activar/desactivar"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:133
 msgid "Enable this email notification"
-msgstr "Activar esta notificación por correo"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:137
 msgid "Recipient(s)"
-msgstr "Destinatario(s)"
+msgstr ""
 
 #. translators: %s: admin email address.
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:140
 #, php-format
 msgid "Enter recipients (comma separated) for this email. Defaults to %s."
-msgstr "Indique los destinatarios de este correo, separados por comas. Por defecto: %s."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:146
 msgid "Subject"
-msgstr "Asunto"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:154
 msgid "Email heading"
-msgstr "Encabezado del correo"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:162
 msgid "Additional content"
-msgstr "Contenido adicional"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:163
 msgid "Text to appear below the main email content."
-msgstr "Texto que aparece debajo del contenido principal del correo."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:165
 msgid "N/A"
-msgstr "N/D"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:171
 msgid "Email type"
-msgstr "Tipo de correo"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Emails/ReceiptUploadedEmail.php:173
 msgid "Choose which format of email to send."
-msgstr "Elija el formato del correo."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:187
 msgid "Thank you! We received your receipt and will confirm your payment soon."
-msgstr "¡Gracias! Recibimos su comprobante y confirmaremos su pago pronto."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:188
 msgid "Choose a file to upload."
-msgstr "Elija un archivo para subir."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:189
 msgid "The file is too large."
-msgstr "El archivo es demasiado grande."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:190
 msgid "Upload a JPG, PNG, WEBP or PDF file."
-msgstr "Suba un archivo JPG, PNG, WEBP o PDF."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:191
 msgid "The page expired. Reload it and try again."
-msgstr "La página expiró. Recárguela e intente de nuevo."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:192
 msgid "You cannot upload a receipt for this order."
-msgstr "No puede subir un comprobante para este pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:193
 msgid "This order no longer accepts receipts."
-msgstr "Este pedido ya no acepta comprobantes."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Frontend.php:194
 msgid "The receipt could not be saved. Please try again or contact the store."
-msgstr "No se pudo guardar el comprobante. Intente de nuevo o contacte a la tienda."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:41
 #: src/Modules/SinpeMovil/Gateway.php:96
 #: src/Modules/SinpeMovil/SinpeMovilModule.php:39
 #: assets/build/sinpe-movil-blocks.js:1
 msgid "SINPE Móvil"
-msgstr "SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:42
 msgid "Manual payments with SINPE Móvil. Customers pay from their bank app, see the exact amount in colones, and upload the receipt; you confirm the payment from the order screen."
-msgstr "Pagos manuales con SINPE Móvil. Los clientes pagan desde la app de su banco, ven el monto exacto en colones y suben el comprobante; usted confirma el pago desde la pantalla del pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:63
 msgid "Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica."
-msgstr "Su tienda no vende en colones y el módulo Tipo de cambio está desactivado, así que SINPE Móvil no se ofrece en el checkout. Actívelo en WooCommerce → Ajustes → Costa Rica."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:89
 msgid "Enable SINPE Móvil"
-msgstr "Activar SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:93
 msgid "Title"
-msgstr "Título"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:95
 msgid "Name of the payment method at checkout."
-msgstr "Nombre del método de pago en el checkout."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:100
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:102
 msgid "Shown at checkout when the customer selects SINPE Móvil."
-msgstr "Se muestra en el checkout cuando el cliente elige SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:103
 msgid "Pay from your bank app with SINPE Móvil. After placing the order you will see the number and the exact amount in colones."
-msgstr "Pague desde la app de su banco con SINPE Móvil. Después de hacer el pedido verá el número y el monto exacto en colones."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:107
 msgid "Extra instructions"
-msgstr "Instrucciones adicionales"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:109
 msgid "Optional text added to the payment steps on the order received page and in the on-hold email."
-msgstr "Texto opcional que se agrega a los pasos de pago en la página de pedido recibido y en el correo de pedido en espera."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:114
 msgid "SINPE Móvil number"
-msgstr "Número de SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:116
 msgid "8-digit number that receives the payments, e.g. 8888-8888. Required to offer the method."
-msgstr "Número de 8 dígitos que recibe los pagos, por ejemplo 8888-8888. Es obligatorio para ofrecer el método."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:121
 msgid "Account holder"
-msgstr "Titular de la cuenta"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:123
 msgid "Name the customer sees in their bank app before confirming, so they know they are paying the right person."
-msgstr "Nombre que el cliente ve en la app de su banco antes de confirmar, para que sepa que le paga a la persona correcta."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:127
 #: src/Modules/SinpeMovil/Privacy.php:134
 #: templates/sinpe-movil/receipt-form.php:28
 msgid "Payment receipt"
-msgstr "Comprobante de pago"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:129
 msgid "Ask the customer to upload the payment receipt"
-msgstr "Pedir al cliente que suba el comprobante de pago"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:133
 msgid "Maximum receipt size (MB)"
-msgstr "Tamaño máximo del comprobante (MB)"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:135
 msgid "Allowed formats: JPG, PNG, WEBP and PDF."
-msgstr "Formatos permitidos: JPG, PNG, WEBP y PDF."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:143
 msgid "Maximum amount per order (₡)"
-msgstr "Monto máximo por pedido (₡)"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:145
 msgid "The method is not offered when the order total in colones is higher. Leave empty for no limit. The BCCR limits SINPE Móvil payments by SMS to ₡100,000 per day; the limit in bank apps depends on each bank (usually up to ₡500,000)."
-msgstr "El método no se ofrece cuando el total del pedido en colones es mayor. Déjelo vacío para no tener límite. El BCCR limita los pagos de SINPE Móvil por SMS a ₡100.000 diarios; el límite en las apps bancarias depende de cada banco (en general, hasta ₡500.000)."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:155
 msgid "Only for stores that do not sell in colones. Uses the rate from the Exchange rate module."
-msgstr "Solo para tiendas que no venden en colones. Usa el tipo de cambio del módulo Tipo de cambio."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:158
 msgid "Sell rate"
-msgstr "Tipo de cambio de venta"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:159
 msgid "Buy rate"
-msgstr "Tipo de cambio de compra"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:163
 msgid "Exchange rate surcharge (%)"
-msgstr "Recargo sobre el tipo de cambio (%)"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:165
 msgid "Optional percentage added to the exchange rate, for stores that do not sell in colones."
-msgstr "Porcentaje opcional que se suma al tipo de cambio, para tiendas que no venden en colones."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:173
 msgid "Rejected payments"
-msgstr "Pagos rechazados"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:175
 msgid "Order status when you reject a payment from the order screen."
-msgstr "Estado del pedido cuando rechaza un pago desde la pantalla del pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:178
 msgid "Failed (the customer can pay again)"
-msgstr "Fallido (el cliente puede pagar de nuevo)"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:179
 msgid "Cancelled"
-msgstr "Cancelado"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:201
 msgid "The SINPE Móvil number must have 8 digits, for example 8888-8888."
-msgstr "El número de SINPE Móvil debe tener 8 dígitos, por ejemplo 8888-8888."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Gateway.php:426
 msgid "SINPE Móvil is not available for this order right now. Please choose another payment method."
-msgstr "SINPE Móvil no está disponible para este pedido en este momento. Elija otro método de pago."
+msgstr ""
 
 #. translators: %s: amount in colones.
 #: src/Modules/SinpeMovil/Gateway.php:480
 #, php-format
 msgid "Awaiting SINPE Móvil payment of %s."
-msgstr "Esperando el pago con SINPE Móvil de %s."
+msgstr ""
 
 #. translators: 1: amount in colones, 2: exchange rate, 3: rate source, 4: date of the rate.
 #: src/Modules/SinpeMovil/Gateway.php:485
 #, php-format
 msgid "Awaiting SINPE Móvil payment of %1$s (exchange rate %2$s from %3$s, %4$s)."
-msgstr "Esperando el pago con SINPE Móvil de %1$s (tipo de cambio %2$s de %3$s, %4$s)."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:63
 msgid "Suggested text for stores that accept SINPE Móvil:"
-msgstr "Texto sugerido para tiendas que aceptan SINPE Móvil:"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:64
 msgid "When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment, we store it privately with your order, and only store staff can see it. We keep it as long as we keep the order records."
-msgstr "Cuando paga con SINPE Móvil, le pedimos subir el comprobante de pago que emite su banco. El comprobante puede incluir su nombre, número de teléfono, banco y número de transacción. Lo usamos solo para confirmar su pago, lo guardamos de forma privada con su pedido y solo el personal de la tienda puede verlo. Lo conservamos mientras conservemos los registros del pedido."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:65
 msgid "To show prices in colones, the store gets the exchange rate from the Ministerio de Hacienda or the Banco Central de Costa Rica. Those requests do not include any of your data."
-msgstr "Para mostrar precios en colones, la tienda obtiene el tipo de cambio del Ministerio de Hacienda o del Banco Central de Costa Rica. Esas consultas no incluyen ninguno de sus datos."
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:79
 #: src/Modules/SinpeMovil/Privacy.php:145
 msgid "SINPE Móvil payments"
-msgstr "Pagos con SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:95
 msgid "SINPE Móvil payment receipts"
-msgstr "Comprobantes de pago de SINPE Móvil"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:123
 msgid "Order number"
-msgstr "Número de pedido"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:127
 msgid "Amount in colones"
-msgstr "Monto en colones"
+msgstr ""
 
 #: src/Modules/SinpeMovil/Privacy.php:138
 msgid "Receipt uploaded on"
-msgstr "Comprobante subido el"
+msgstr ""
 
 #. translators: %s: order number.
 #: src/Modules/SinpeMovil/Privacy.php:185
 #, php-format
 msgid "The SINPE Móvil receipt of order %s was retained, following the WooCommerce privacy settings."
-msgstr "Se conservó el comprobante de SINPE Móvil del pedido %s, según los ajustes de privacidad de WooCommerce."
+msgstr ""
 
 #. translators: %s: order number.
 #: src/Modules/SinpeMovil/Privacy.php:195
 #, php-format
 msgid "Removed the SINPE Móvil receipt of order %s."
-msgstr "Se eliminó el comprobante de SINPE Móvil del pedido %s."
+msgstr ""
 
 #: src/Modules/SinpeMovil/ReceiptController.php:242
 msgid "The customer uploaded the SINPE Móvil payment receipt."
-msgstr "El cliente subió el comprobante de pago de SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/ReceiptController.php:243
 msgid "The customer replaced the SINPE Móvil payment receipt."
-msgstr "El cliente reemplazó el comprobante de pago de SINPE Móvil."
+msgstr ""
 
 #: src/Modules/SinpeMovil/ReceiptController.php:273
 msgid "This link has expired. Go back and try again."
-msgstr "Este enlace expiró. Regrese e intente de nuevo."
+msgstr ""
 
 #: src/Modules/SinpeMovil/ReceiptController.php:279
 msgid "You are not allowed to view this receipt."
-msgstr "No tiene permiso para ver este comprobante."
+msgstr ""
 
 #: src/Modules/SinpeMovil/ReceiptController.php:286
 msgid "Receipt not found."
-msgstr "No se encontró el comprobante."
+msgstr ""
 
 #: src/Modules/SinpeMovil/SinpeMovilModule.php:46
 msgid "Adds SINPE Móvil as a manual payment method with payment receipt uploads. Configure it in WooCommerce → Settings → Payments."
-msgstr "Agrega SINPE Móvil como método de pago manual con carga de comprobantes. Configúrelo en WooCommerce → Ajustes → Pagos."
+msgstr ""
 
 #: src/Plugin.php:327
 #: assets/build/exchange-rate-block.js:1
 msgid "Settings"
-msgstr "Ajustes"
+msgstr ""
 
 #. translators: 1: order number, 2: customer name.
 #: templates/emails/admin-sinpe-receipt-uploaded.php:29
 #: templates/emails/plain/admin-sinpe-receipt-uploaded.php:28
 #, php-format
 msgid "The customer of order #%1$s (%2$s) uploaded the SINPE Móvil payment receipt."
-msgstr "El cliente del pedido #%1$s (%2$s) subió el comprobante de pago de SINPE Móvil."
+msgstr ""
 
 #. translators: 1: amount in colones, 2: payment reference.
 #: templates/emails/admin-sinpe-receipt-uploaded.php:39
 #: templates/emails/plain/admin-sinpe-receipt-uploaded.php:31
 #, php-format
 msgid "Check that your account received %1$s with the reference %2$s, then confirm or reject the payment from the order screen."
-msgstr "Verifique que su cuenta recibió %1$s con la referencia %2$s y luego confirme o rechace el pago desde la pantalla del pedido."
+msgstr ""
 
 #: templates/emails/admin-sinpe-receipt-uploaded.php:45
 #: templates/emails/plain/admin-sinpe-receipt-uploaded.php:33
 msgid "Review the order and the receipt"
-msgstr "Revisar el pedido y el comprobante"
+msgstr ""
 
 #: templates/sinpe-movil/instructions-plain.php:24
 #: templates/sinpe-movil/instructions.php:25
 msgid "How to pay with SINPE Móvil"
-msgstr "Cómo pagar con SINPE Móvil"
+msgstr ""
 
 #: templates/sinpe-movil/instructions-plain.php:26
 #: templates/sinpe-movil/instructions.php:27
 msgid "Open your bank app and choose SINPE Móvil."
-msgstr "Abra la app de su banco y elija SINPE Móvil."
+msgstr ""
 
 #. translators: 1: amount in colones, 2: phone number.
 #: templates/sinpe-movil/instructions-plain.php:29
 #: templates/sinpe-movil/instructions.php:32
 #, php-format
 msgid "Send exactly %1$s to the number %2$s."
-msgstr "Envíe exactamente %1$s al número %2$s."
+msgstr ""
 
 #. translators: %s: account holder name.
 #: templates/sinpe-movil/instructions-plain.php:32
 #: templates/sinpe-movil/instructions.php:40
 #, php-format
 msgid "Your bank app will show the name %s."
-msgstr "La app de su banco mostrará el nombre %s."
+msgstr ""
 
 #. translators: %s: payment reference (order number).
 #: templates/sinpe-movil/instructions-plain.php:37
 #: templates/sinpe-movil/instructions.php:50
 #, php-format
 msgid "Write %s in the payment description."
-msgstr "Escriba %s en la descripción del pago."
+msgstr ""
 
 #. translators: %s: URL of the page where the receipt is uploaded.
 #: templates/sinpe-movil/instructions-plain.php:42
 #, php-format
 msgid "Upload the payment receipt on your order page: %s"
-msgstr "Suba el comprobante de pago en la página de su pedido: %s"
+msgstr ""
 
 #: templates/sinpe-movil/instructions-plain.php:45
 #: templates/sinpe-movil/instructions.php:70
 msgid "We will process your order as soon as we confirm the payment."
-msgstr "Procesaremos su pedido apenas confirmemos el pago."
+msgstr ""
 
 #. translators: 1: order total in the store currency, 2: exchange rate.
 #: templates/sinpe-movil/instructions-plain.php:51
 #: templates/sinpe-movil/instructions.php:78
 #, php-format
 msgid "Order total %1$s, converted with an exchange rate of %2$s."
-msgstr "Total del pedido %1$s, convertido con un tipo de cambio de %2$s."
+msgstr ""
 
 #. translators: %s: link to the page where the receipt is uploaded.
 #: templates/sinpe-movil/instructions.php:61
 #, php-format
 msgid "Upload the payment receipt on %s."
-msgstr "Suba el comprobante de pago en %s."
+msgstr ""
 
 #: templates/sinpe-movil/instructions.php:62
 msgid "your order page"
-msgstr "la página de su pedido"
+msgstr ""
 
 #: templates/sinpe-movil/instructions.php:66
 msgid "Upload the payment receipt below."
-msgstr "Suba el comprobante de pago aquí abajo."
+msgstr ""
 
 #. translators: %s: date and time of the upload.
 #: templates/sinpe-movil/receipt-form.php:43
 #, php-format
 msgid "Receipt received on %s."
-msgstr "Comprobante recibido el %s."
+msgstr ""
 
 #: templates/sinpe-movil/receipt-form.php:48
 msgid "View receipt"
-msgstr "Ver comprobante"
+msgstr ""
 
 #: templates/sinpe-movil/receipt-form.php:58
 msgid "Upload your receipt"
-msgstr "Suba su comprobante"
+msgstr ""
 
 #: templates/sinpe-movil/receipt-form.php:58
 msgid "Replace your receipt"
-msgstr "Reemplace su comprobante"
+msgstr ""
 
 #. translators: %s: maximum file size, e.g. "5 MB".
 #: templates/sinpe-movil/receipt-form.php:66
 #, php-format
 msgid "JPG, PNG, WEBP or PDF, up to %s."
-msgstr "JPG, PNG, WEBP o PDF, hasta %s."
+msgstr ""
 
 #: templates/sinpe-movil/receipt-form.php:78
 msgid "Send receipt"
-msgstr "Enviar comprobante"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Rate"
-msgstr "Tipo de cambio"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Sell and buy"
-msgstr "Venta y compra"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Sell"
-msgstr "Venta"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Buy"
-msgstr "Compra"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Show the date"
-msgstr "Mostrar la fecha"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Hide when outdated"
-msgstr "Ocultar si está vencido"
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "When off, an outdated rate is shown with its date."
-msgstr "Si está desactivado, un tipo de cambio vencido se muestra con su fecha."
+msgstr ""
 
 #: assets/build/exchange-rate-block.js:1
 msgid "Show the source"
-msgstr "Mostrar la fuente"
+msgstr ""
 
 #. translators: %s: estimated amount in colones.
 #: assets/build/sinpe-movil-blocks.js:2
 #, js-format
 msgid "Amount to pay: about %s. You will see the exact amount in colones after placing the order."
-msgstr "Monto a pagar: aproximadamente %s. Verá el monto exacto en colones después de hacer el pedido."
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block title"
 msgid "Exchange rate (Costa Rica)"
-msgstr "Tipo de cambio (Costa Rica)"
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block description"
-msgid "Shows the US dollar exchange rate in colones stored by Costa Rica Kit for WooCommerce."
-msgstr "Muestra el tipo de cambio del dólar en colones guardado por Costa Rica Kit for WooCommerce."
+msgid "Shows the US dollar exchange rate in colones stored by Costa Rica Checkout for WooCommerce."
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block keyword"
 msgid "tipo de cambio"
-msgstr "tipo de cambio"
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block keyword"
 msgid "colones"
-msgstr "colones"
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block keyword"
 msgid "dólar"
-msgstr "dólar"
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block keyword"
 msgid "BCCR"
-msgstr "BCCR"
+msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block keyword"
 msgid "Hacienda"
-msgstr "Hacienda"
+msgstr ""

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Plugin renamed to "Costa Rica Checkout for WooCommerce" (slug and text domain `costa-rica-checkout-for-woocommerce`). Settings, order data and hooks are unchanged.
+
 ### Added
 - Locations module: official 2025 administrative division of Costa Rica (7 provinces, 84 cantons, 492 districts) in `data/cr-locations.json`, generated from the decree by `bin/extract-dta-2025.py`.
 - Classic checkout and My Account: dependent province → canton → district selects (selectWoo); the canton is saved as the city and the district code as the postcode.

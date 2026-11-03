@@ -120,11 +120,11 @@ final class ExchangeRateService {
 	public function get_source_label( string $source ): string {
 		switch ( $source ) {
 			case self::MANUAL_SOURCE:
-				return __( 'Manual rate', 'costa-rica-kit-for-woocommerce' );
+				return __( 'Manual rate', 'costa-rica-checkout-for-woocommerce' );
 			case HaciendaProvider::ID:
-				return __( 'Ministerio de Hacienda', 'costa-rica-kit-for-woocommerce' );
+				return __( 'Ministerio de Hacienda', 'costa-rica-checkout-for-woocommerce' );
 			case BccrProvider::ID:
-				return __( 'BCCR', 'costa-rica-kit-for-woocommerce' );
+				return __( 'BCCR', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		$providers = $this->get_providers();

@@ -55,10 +55,10 @@ final class IdentificationType {
 	 */
 	public static function get_labels(): array {
 		return array(
-			self::PHYSICAL => __( 'Cédula física', 'costa-rica-kit-for-woocommerce' ),
-			self::LEGAL    => __( 'Cédula jurídica', 'costa-rica-kit-for-woocommerce' ),
-			self::DIMEX    => __( 'DIMEX', 'costa-rica-kit-for-woocommerce' ),
-			self::NITE     => __( 'NITE', 'costa-rica-kit-for-woocommerce' ),
+			self::PHYSICAL => __( 'Cédula física', 'costa-rica-checkout-for-woocommerce' ),
+			self::LEGAL    => __( 'Cédula jurídica', 'costa-rica-checkout-for-woocommerce' ),
+			self::DIMEX    => __( 'DIMEX', 'costa-rica-checkout-for-woocommerce' ),
+			self::NITE     => __( 'NITE', 'costa-rica-checkout-for-woocommerce' ),
 		);
 	}
 
@@ -112,15 +112,15 @@ final class IdentificationType {
 	public static function get_format_error( string $type ): string {
 		switch ( $type ) {
 			case self::PHYSICAL:
-				return __( 'A cédula física has 9 digits and does not start with 0.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'A cédula física has 9 digits and does not start with 0.', 'costa-rica-checkout-for-woocommerce' );
 			case self::LEGAL:
-				return __( 'A cédula jurídica has 10 characters (digits, or digits and letters).', 'costa-rica-kit-for-woocommerce' );
+				return __( 'A cédula jurídica has 10 characters (digits, or digits and letters).', 'costa-rica-checkout-for-woocommerce' );
 			case self::DIMEX:
-				return __( 'A DIMEX has 11 or 12 digits and does not start with 0.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'A DIMEX has 11 or 12 digits and does not start with 0.', 'costa-rica-checkout-for-woocommerce' );
 			case self::NITE:
-				return __( 'A NITE has 10 digits.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'A NITE has 10 digits.', 'costa-rica-checkout-for-woocommerce' );
 			default:
-				return __( 'Select the ID type.', 'costa-rica-kit-for-woocommerce' );
+				return __( 'Select the ID type.', 'costa-rica-checkout-for-woocommerce' );
 		}
 	}
 
@@ -138,7 +138,7 @@ final class IdentificationType {
 		}
 
 		if ( ! self::exists( $type ) ) {
-			return array( 'crkit_id_type_missing' => __( 'Select the ID type.', 'costa-rica-kit-for-woocommerce' ) );
+			return array( 'crkit_id_type_missing' => __( 'Select the ID type.', 'costa-rica-checkout-for-woocommerce' ) );
 		}
 
 		if ( ! self::is_valid( $type, $number ) ) {

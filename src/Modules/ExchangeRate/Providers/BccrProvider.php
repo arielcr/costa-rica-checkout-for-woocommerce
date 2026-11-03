@@ -89,7 +89,7 @@ final class BccrProvider extends AbstractHttpProvider {
 	 * {@inheritDoc}
 	 */
 	public function get_name(): string {
-		return __( 'Banco Central de Costa Rica (requires your BCCR token)', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Banco Central de Costa Rica (requires your BCCR token)', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

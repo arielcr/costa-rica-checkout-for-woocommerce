@@ -76,18 +76,18 @@ final class ClassicCheckout {
 		$fields = is_array( $fields ) ? $fields : array();
 
 		$fields[ AddressFields::CANTON ] = array(
-			'label'    => __( 'Canton', 'costa-rica-kit-for-woocommerce' ),
+			'label'    => __( 'Canton', 'costa-rica-checkout-for-woocommerce' ),
 			'type'     => 'select',
-			'options'  => array( '' => __( 'Select a canton…', 'costa-rica-kit-for-woocommerce' ) ),
+			'options'  => array( '' => __( 'Select a canton…', 'costa-rica-checkout-for-woocommerce' ) ),
 			'required' => false,
 			'class'    => array( 'form-row-wide', 'address-field', 'crkit-canton-field' ),
 			'priority' => 81,
 		);
 
 		$fields[ AddressFields::DISTRICT ] = array(
-			'label'    => __( 'District', 'costa-rica-kit-for-woocommerce' ),
+			'label'    => __( 'District', 'costa-rica-checkout-for-woocommerce' ),
 			'type'     => 'select',
-			'options'  => array( '' => __( 'Select a district…', 'costa-rica-kit-for-woocommerce' ) ),
+			'options'  => array( '' => __( 'Select a district…', 'costa-rica-checkout-for-woocommerce' ) ),
 			'required' => false,
 			'class'    => array( 'form-row-wide', 'address-field', 'crkit-district-field' ),
 			'priority' => 82,
@@ -294,7 +294,7 @@ final class ClassicCheckout {
 			true
 		);
 		wp_add_inline_script( self::SCRIPT_HANDLE, 'window.crkitLocations = ' . wp_json_encode( $this->get_script_data() ) . ';', 'before' );
-		wp_set_script_translations( self::SCRIPT_HANDLE, 'costa-rica-kit-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::SCRIPT_HANDLE, 'costa-rica-checkout-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
 	}
 
 	/**
@@ -344,7 +344,7 @@ final class ClassicCheckout {
 		}
 
 		return 'shipping' === $group
-			? __( 'Select the district of the shipping address.', 'costa-rica-kit-for-woocommerce' )
-			: __( 'Select the district of the billing address.', 'costa-rica-kit-for-woocommerce' );
+			? __( 'Select the district of the shipping address.', 'costa-rica-checkout-for-woocommerce' )
+			: __( 'Select the district of the billing address.', 'costa-rica-checkout-for-woocommerce' );
 	}
 }

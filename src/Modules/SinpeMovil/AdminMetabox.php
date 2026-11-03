@@ -63,7 +63,7 @@ final class AdminMetabox {
 			return;
 		}
 
-		add_meta_box( 'crkit-sinpe-movil', __( 'SINPE Móvil payment', 'costa-rica-kit-for-woocommerce' ), array( $this, 'render' ), $screen, 'side', 'high' );
+		add_meta_box( 'crkit-sinpe-movil', __( 'SINPE Móvil payment', 'costa-rica-checkout-for-woocommerce' ), array( $this, 'render' ), $screen, 'side', 'high' );
 	}
 
 	/**
@@ -83,14 +83,14 @@ final class AdminMetabox {
 		$receipt = OrderData::get_receipt( $order );
 
 		if ( null === $payment ) {
-			echo '<p>' . esc_html__( 'This order has no SINPE Móvil payment data.', 'costa-rica-kit-for-woocommerce' ) . '</p>';
+			echo '<p>' . esc_html__( 'This order has no SINPE Móvil payment data.', 'costa-rica-checkout-for-woocommerce' ) . '</p>';
 			return;
 		}
 
 		$rates = crkit_exchange_rate_service();
 		?>
 		<p class="crkit-sinpe-amount">
-			<?php esc_html_e( 'Amount to receive:', 'costa-rica-kit-for-woocommerce' ); ?>
+			<?php esc_html_e( 'Amount to receive:', 'costa-rica-checkout-for-woocommerce' ); ?>
 			<strong><?php echo wp_kses_post( Formatter::crc_html( $payment['amount_crc'] ) ); ?></strong>
 		</p>
 		<ul class="crkit-sinpe-details">
@@ -99,7 +99,7 @@ final class AdminMetabox {
 					<?php
 					printf(
 						/* translators: 1: exchange rate, 2: source, 3: date of the rate. */
-						esc_html__( 'Exchange rate: %1$s (%2$s, %3$s)', 'costa-rica-kit-for-woocommerce' ),
+						esc_html__( 'Exchange rate: %1$s (%2$s, %3$s)', 'costa-rica-checkout-for-woocommerce' ),
 						esc_html( Formatter::rate( $payment['rate'], $payment['surcharge'] ) ),
 						esc_html( null === $rates ? $payment['rate_source'] : $rates->get_source_label( $payment['rate_source'] ) ),
 						esc_html( $payment['rate_date'] )
@@ -110,39 +110,39 @@ final class AdminMetabox {
 			<li>
 				<?php
 				/* translators: %s: payment reference. */
-				printf( esc_html__( 'Reference: %s', 'costa-rica-kit-for-woocommerce' ), '<strong>' . esc_html( $payment['reference'] ) . '</strong>' );
+				printf( esc_html__( 'Reference: %s', 'costa-rica-checkout-for-woocommerce' ), '<strong>' . esc_html( $payment['reference'] ) . '</strong>' );
 				?>
 			</li>
 			<li>
 				<?php
 				/* translators: %s: SINPE Móvil number. */
-				printf( esc_html__( 'Paid to: %s', 'costa-rica-kit-for-woocommerce' ), esc_html( trim( Phone::format( $payment['phone'] ) . ' ' . $payment['holder'] ) ) );
+				printf( esc_html__( 'Paid to: %s', 'costa-rica-checkout-for-woocommerce' ), esc_html( trim( Phone::format( $payment['phone'] ) . ' ' . $payment['holder'] ) ) );
 				?>
 			</li>
 		</ul>
 
 		<p class="crkit-sinpe-receipt">
 			<?php if ( null === $receipt ) : ?>
-				<?php esc_html_e( 'No receipt uploaded yet.', 'costa-rica-kit-for-woocommerce' ); ?>
+				<?php esc_html_e( 'No receipt uploaded yet.', 'costa-rica-checkout-for-woocommerce' ); ?>
 			<?php else : ?>
 				<?php
 				printf(
 					/* translators: %s: date and time of the upload. */
-					esc_html__( 'Receipt uploaded on %s.', 'costa-rica-kit-for-woocommerce' ),
+					esc_html__( 'Receipt uploaded on %s.', 'costa-rica-checkout-for-woocommerce' ),
 					esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $receipt['uploaded_at'] ) )
 				);
 				?>
 				<br />
-				<a href="<?php echo esc_url( ReceiptController::get_view_url( $order ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View', 'costa-rica-kit-for-woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( ReceiptController::get_view_url( $order ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View', 'costa-rica-checkout-for-woocommerce' ); ?></a>
 				|
-				<a href="<?php echo esc_url( ReceiptController::get_view_url( $order, true ) ); ?>"><?php esc_html_e( 'Download', 'costa-rica-kit-for-woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( ReceiptController::get_view_url( $order, true ) ); ?>"><?php esc_html_e( 'Download', 'costa-rica-checkout-for-woocommerce' ); ?></a>
 			<?php endif; ?>
 		</p>
 
 		<?php if ( $order->has_status( 'on-hold' ) && current_user_can( 'edit_shop_orders' ) ) : ?>
 			<p class="crkit-sinpe-actions">
-				<a class="button button-primary" href="<?php echo esc_url( self::get_action_url( self::CONFIRM_ACTION, $order ) ); ?>"><?php esc_html_e( 'Confirm payment', 'costa-rica-kit-for-woocommerce' ); ?></a>
-				<a class="button" href="<?php echo esc_url( self::get_action_url( self::REJECT_ACTION, $order ) ); ?>"><?php esc_html_e( 'Reject payment', 'costa-rica-kit-for-woocommerce' ); ?></a>
+				<a class="button button-primary" href="<?php echo esc_url( self::get_action_url( self::CONFIRM_ACTION, $order ) ); ?>"><?php esc_html_e( 'Confirm payment', 'costa-rica-checkout-for-woocommerce' ); ?></a>
+				<a class="button" href="<?php echo esc_url( self::get_action_url( self::REJECT_ACTION, $order ) ); ?>"><?php esc_html_e( 'Reject payment', 'costa-rica-checkout-for-woocommerce' ); ?></a>
 			</p>
 		<?php endif; ?>
 		<?php
@@ -206,7 +206,7 @@ final class AdminMetabox {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %s: user display name. */
-				__( 'SINPE Móvil payment confirmed by %s.', 'costa-rica-kit-for-woocommerce' ),
+				__( 'SINPE Móvil payment confirmed by %s.', 'costa-rica-checkout-for-woocommerce' ),
 				wp_get_current_user()->display_name
 			)
 		);
@@ -243,7 +243,7 @@ final class AdminMetabox {
 			$status,
 			sprintf(
 				/* translators: %s: user display name. */
-				__( 'SINPE Móvil payment rejected by %s.', 'costa-rica-kit-for-woocommerce' ),
+				__( 'SINPE Móvil payment rejected by %s.', 'costa-rica-checkout-for-woocommerce' ),
 				wp_get_current_user()->display_name
 			)
 		);
@@ -272,9 +272,9 @@ final class AdminMetabox {
 		$result = isset( $_GET[ self::RESULT_ARG ] ) ? sanitize_key( wp_unslash( $_GET[ self::RESULT_ARG ] ) ) : '';
 
 		$messages = array(
-			'confirmed' => array( 'success', __( 'SINPE Móvil payment confirmed.', 'costa-rica-kit-for-woocommerce' ) ),
-			'rejected'  => array( 'warning', __( 'SINPE Móvil payment rejected.', 'costa-rica-kit-for-woocommerce' ) ),
-			'error'     => array( 'error', __( 'The order is no longer waiting for a SINPE Móvil payment.', 'costa-rica-kit-for-woocommerce' ) ),
+			'confirmed' => array( 'success', __( 'SINPE Móvil payment confirmed.', 'costa-rica-checkout-for-woocommerce' ) ),
+			'rejected'  => array( 'warning', __( 'SINPE Móvil payment rejected.', 'costa-rica-checkout-for-woocommerce' ) ),
+			'error'     => array( 'error', __( 'The order is no longer waiting for a SINPE Móvil payment.', 'costa-rica-checkout-for-woocommerce' ) ),
 		);
 
 		if ( isset( $messages[ $result ] ) && current_user_can( 'edit_shop_orders' ) ) {
@@ -294,13 +294,13 @@ final class AdminMetabox {
 		check_admin_referer( $action . '_' . $order_id );
 
 		if ( ! current_user_can( 'edit_shop_orders' ) ) {
-			wp_die( esc_html__( 'You are not allowed to manage this order.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You are not allowed to manage this order.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
 		$order = wc_get_order( $order_id );
 
 		if ( ! $order instanceof WC_Order ) {
-			wp_die( esc_html__( 'Order not found.', 'costa-rica-kit-for-woocommerce' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'Order not found.', 'costa-rica-checkout-for-woocommerce' ), '', array( 'response' => 404 ) );
 		}
 
 		return $order;

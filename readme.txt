@@ -1,4 +1,4 @@
-=== Costa Rica Kit for WooCommerce ===
+=== Costa Rica Checkout for WooCommerce ===
 Contributors: arielcr
 Tags: costa rica, sinpe movil, payment gateway, exchange rate, woocommerce
 Requires at least: 6.7
@@ -12,7 +12,7 @@ SINPE Móvil payments in colones, Hacienda and BCCR exchange rates, and province
 
 == Description ==
 
-Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online store together in one well-maintained plugin. Each feature is a module that you can enable or disable in **WooCommerce → Settings → Costa Rica**.
+Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican online store together in one well-maintained plugin. Each feature is a module that you can enable or disable in **WooCommerce → Settings → Costa Rica**.
 
 **SINPE Móvil payments**
 
@@ -87,7 +87,7 @@ In `wp-content/uploads/crkit-receipts/`, with random file names. They are not in
 
 = Can I change the payment instructions or the email layout? =
 
-Yes. Copy the files from the plugin's `templates` folder to `yourtheme/costa-rica-kit-for-woocommerce/` and edit them there.
+Yes. Copy the files from the plugin's `templates` folder to `yourtheme/costa-rica-checkout-for-woocommerce/` and edit them there.
 
 = Where do the provinces, cantons and districts come from? =
 

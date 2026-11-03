@@ -69,7 +69,7 @@ final class BlocksSupport extends AbstractPaymentMethodType {
 			isset( $asset['version'] ) && is_string( $asset['version'] ) ? $asset['version'] : CRKIT_VERSION,
 			true
 		);
-		wp_set_script_translations( self::SCRIPT_HANDLE, 'costa-rica-kit-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::SCRIPT_HANDLE, 'costa-rica-checkout-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
 
 		return array( self::SCRIPT_HANDLE );
 	}

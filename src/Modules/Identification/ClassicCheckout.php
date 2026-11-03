@@ -87,7 +87,7 @@ final class ClassicCheckout {
 		if ( IdentificationSettings::INVOICE === $requirement ) {
 			$billing[ self::INVOICE_KEY ] = array(
 				'type'     => 'checkbox',
-				'label'    => __( 'I need an electronic invoice', 'costa-rica-kit-for-woocommerce' ),
+				'label'    => __( 'I need an electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
 				'required' => false,
 				'class'    => array( 'form-row-wide' ),
 				'priority' => 120,
@@ -98,8 +98,8 @@ final class ClassicCheckout {
 
 		$billing[ self::TYPE_KEY ] = array(
 			'type'     => 'select',
-			'label'    => __( 'ID type', 'costa-rica-kit-for-woocommerce' ),
-			'options'  => array( '' => __( 'Select an ID type', 'costa-rica-kit-for-woocommerce' ) ) + IdentificationType::get_labels(),
+			'label'    => __( 'ID type', 'costa-rica-checkout-for-woocommerce' ),
+			'options'  => array( '' => __( 'Select an ID type', 'costa-rica-checkout-for-woocommerce' ) ) + IdentificationType::get_labels(),
 			'required' => $required,
 			'class'    => array( 'form-row-first' ),
 			'priority' => 121,
@@ -107,7 +107,7 @@ final class ClassicCheckout {
 
 		$billing[ self::NUMBER_KEY ] = array(
 			'type'              => 'text',
-			'label'             => __( 'ID number', 'costa-rica-kit-for-woocommerce' ),
+			'label'             => __( 'ID number', 'costa-rica-checkout-for-woocommerce' ),
 			'required'          => $required,
 			'class'             => array( 'form-row-last' ),
 			'autocomplete'      => 'off',
@@ -200,11 +200,11 @@ final class ClassicCheckout {
 		if ( $required && IdentificationSettings::INVOICE === $this->settings->get_requirement() ) {
 			if ( '' === $type ) {
 				/* translators: %s: field label. */
-				$errors->add( 'crkit_id_type_required', sprintf( __( '%s is required for an electronic invoice.', 'costa-rica-kit-for-woocommerce' ), '<strong>' . esc_html__( 'ID type', 'costa-rica-kit-for-woocommerce' ) . '</strong>' ), array( 'id' => self::TYPE_KEY ) );
+				$errors->add( 'crkit_id_type_required', sprintf( __( '%s is required for an electronic invoice.', 'costa-rica-checkout-for-woocommerce' ), '<strong>' . esc_html__( 'ID type', 'costa-rica-checkout-for-woocommerce' ) . '</strong>' ), array( 'id' => self::TYPE_KEY ) );
 			}
 			if ( '' === IdentificationType::normalize( $number ) ) {
 				/* translators: %s: field label. */
-				$errors->add( 'crkit_id_number_required', sprintf( __( '%s is required for an electronic invoice.', 'costa-rica-kit-for-woocommerce' ), '<strong>' . esc_html__( 'ID number', 'costa-rica-kit-for-woocommerce' ) . '</strong>' ), array( 'id' => self::NUMBER_KEY ) );
+				$errors->add( 'crkit_id_number_required', sprintf( __( '%s is required for an electronic invoice.', 'costa-rica-checkout-for-woocommerce' ), '<strong>' . esc_html__( 'ID number', 'costa-rica-checkout-for-woocommerce' ) . '</strong>' ), array( 'id' => self::NUMBER_KEY ) );
 			}
 		}
 
@@ -214,7 +214,7 @@ final class ClassicCheckout {
 		}
 
 		if ( '' !== $type && ! IdentificationType::exists( $type ) ) {
-			$messages['crkit_id_type_missing'] = __( 'Select the ID type.', 'costa-rica-kit-for-woocommerce' );
+			$messages['crkit_id_type_missing'] = __( 'Select the ID type.', 'costa-rica-checkout-for-woocommerce' );
 		}
 
 		foreach ( $messages as $code => $message ) {

@@ -82,9 +82,9 @@ final class AdminFields {
 
 		$fields['crkit_id_type'] = array(
 			'id'              => self::TYPE_ID,
-			'label'           => __( 'ID type', 'costa-rica-kit-for-woocommerce' ),
+			'label'           => __( 'ID type', 'costa-rica-checkout-for-woocommerce' ),
 			'type'            => 'select',
-			'options'         => array( '' => __( 'None', 'costa-rica-kit-for-woocommerce' ) ) + IdentificationType::get_labels(),
+			'options'         => array( '' => __( 'None', 'costa-rica-checkout-for-woocommerce' ) ) + IdentificationType::get_labels(),
 			'value'           => (string) $order->get_meta( IdentificationStore::get_meta_key( IdentificationStore::TYPE_FIELD ) ),
 			'show'            => false,
 			'update_callback' => array( $this, 'update_type' ),
@@ -92,7 +92,7 @@ final class AdminFields {
 
 		$fields['crkit_id_number'] = array(
 			'id'              => self::NUMBER_ID,
-			'label'           => __( 'ID number', 'costa-rica-kit-for-woocommerce' ),
+			'label'           => __( 'ID number', 'costa-rica-checkout-for-woocommerce' ),
 			'value'           => null === $identification ? '' : $identification->number,
 			'show'            => false,
 			'wrapper_class'   => 'last',
@@ -102,14 +102,14 @@ final class AdminFields {
 		if ( $wants_invoice || IdentificationSettings::INVOICE === $this->settings->get_requirement() ) {
 			$fields['crkit_electronic_invoice'] = array(
 				'id'              => self::INVOICE_ID,
-				'label'           => __( 'Electronic invoice', 'costa-rica-kit-for-woocommerce' ),
+				'label'           => __( 'Electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
 				'type'            => 'select',
 				'options'         => array(
-					''  => __( 'Not requested', 'costa-rica-kit-for-woocommerce' ),
-					'1' => __( 'Requested', 'costa-rica-kit-for-woocommerce' ),
+					''  => __( 'Not requested', 'costa-rica-checkout-for-woocommerce' ),
+					'1' => __( 'Requested', 'costa-rica-checkout-for-woocommerce' ),
 				),
 				'value'           => 'view' === $context
-					? ( $wants_invoice ? __( 'Requested', 'costa-rica-kit-for-woocommerce' ) : '' )
+					? ( $wants_invoice ? __( 'Requested', 'costa-rica-checkout-for-woocommerce' ) : '' )
 					: ( $wants_invoice ? '1' : '' ),
 				'show'            => $wants_invoice,
 				'wrapper_class'   => 'form-field-wide',
@@ -162,7 +162,7 @@ final class AdminFields {
 			if ( class_exists( WC_Admin_Meta_Boxes::class ) ) {
 				foreach ( $errors as $message ) {
 					/* translators: %s: validation error. */
-					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The ID number was not saved: %s', 'costa-rica-kit-for-woocommerce' ), $message ) );
+					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The ID number was not saved: %s', 'costa-rica-checkout-for-woocommerce' ), $message ) );
 				}
 			}
 			return;

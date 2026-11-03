@@ -41,14 +41,14 @@ final class LocationsModule implements ModuleInterface {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Provinces, cantons and districts', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Provinces, cantons and districts', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
-		return __( 'Adds dependent canton and district fields to Costa Rican addresses at checkout.', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Adds dependent canton and district fields to Costa Rican addresses at checkout.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

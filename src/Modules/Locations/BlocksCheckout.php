@@ -95,8 +95,8 @@ final class BlocksCheckout {
 			woocommerce_register_additional_checkout_field(
 				array(
 					'id'                         => self::get_field_id( $state ),
-					'label'                      => __( 'District', 'costa-rica-kit-for-woocommerce' ),
-					'placeholder'                => __( 'Select a district', 'costa-rica-kit-for-woocommerce' ),
+					'label'                      => __( 'District', 'costa-rica-checkout-for-woocommerce' ),
+					'placeholder'                => __( 'Select a district', 'costa-rica-checkout-for-woocommerce' ),
 					'location'                   => 'address',
 					'type'                       => 'select',
 					'options'                    => $options,
@@ -133,7 +133,7 @@ final class BlocksCheckout {
 			$options[] = array(
 				'value' => (string) $postcode,
 				/* translators: 1: canton name, 2: district name. */
-				'label' => sprintf( _x( '%1$s — %2$s', 'canton and district', 'costa-rica-kit-for-woocommerce' ), $location->canton, $location->district ),
+				'label' => sprintf( _x( '%1$s — %2$s', 'canton and district', 'costa-rica-checkout-for-woocommerce' ), $location->canton, $location->district ),
 			);
 		}
 

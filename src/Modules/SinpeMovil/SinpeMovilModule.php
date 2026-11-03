@@ -36,14 +36,14 @@ final class SinpeMovilModule implements ModuleInterface {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'SINPE Móvil', 'costa-rica-kit-for-woocommerce' );
+		return __( 'SINPE Móvil', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
-		return __( 'Adds SINPE Móvil as a manual payment method with payment receipt uploads. Configure it in WooCommerce → Settings → Payments.', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Adds SINPE Móvil as a manual payment method with payment receipt uploads. Configure it in WooCommerce → Settings → Payments.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**

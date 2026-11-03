@@ -1,16 +1,16 @@
-# CLAUDE.md — Costa Rica Kit for WooCommerce
+# CLAUDE.md — Costa Rica Checkout for WooCommerce
 
 Permanent rules for this repo. Full spec: `docs/SPEC.md`. Design decisions: `docs/DECISIONS.md`.
 
 ## Identity
-- Slug / folder / text domain: `costa-rica-kit-for-woocommerce` (text domain always **literal**).
+- Slug / folder / text domain: `costa-rica-checkout-for-woocommerce` (text domain always **literal**).
 - Prefix: `crkit_` (functions, options, hooks, meta) / `crkit-` (handles, CSS). Namespace: `CRKit\`.
 - `Version` header, `CRKIT_VERSION` and readme `Stable tag` must always match.
 - Requires: WP 6.7+ (the minimum of WooCommerce 10.0), PHP 8.1+, WooCommerce 10.0+. Both minimums are tested in CI (`.wp-env.min.json`).
 
 ## Workflow
 - Work **by phases** (SPEC §9). At the end of each phase: stop, deliver the report (SPEC §11), wait for explicit approval.
-- **One branch per phase** (`phase/N-name`) and **one PR per phase** into `main` (private repo `arielcr/costa-rica-kit-for-woocommerce`). Ariel merges; never merge or push to `main` yourself. CI must be green on the PR before reporting.
+- **One branch per phase** (`phase/N-name`) and **one PR per phase** into `main` (private repo `arielcr/costa-rica-checkout-for-woocommerce`). Ariel merges; never merge or push to `main` yourself. CI must be green on the PR before reporting.
 - Never invent external API shapes. Verify with a real request and save it as a fixture in `tests/fixtures/`. No network → code against a fixture and flag it in the report.
 - **No runtime dependencies** (Composer or npm) without asking. Dev dependencies are fine.
 - Small, frequent commits, Conventional Commits (`feat(sinpe): …`, `test(rates): …`, `chore(ci): …`).
@@ -54,7 +54,7 @@ Before delivering a phase report, leave wp-env ready for Ariel to review:
 
 ## Repository layout
 ```
-costa-rica-kit-for-woocommerce.php  header, constants, bootstrap only
+costa-rica-checkout-for-woocommerce.php  header, constants, bootstrap only
 uninstall.php · readme.txt · CHANGELOG.md (Keep a Changelog)
 composer.json · package.json · phpcs.xml.dist · phpstan.neon.dist · phpunit*.xml.dist
 .wp-env.json (WP 7.1 + WooCommerce + Plugin Check) · .wp-env.min.json (minimum versions) · .distignore
@@ -78,6 +78,7 @@ bin/ build-zip.sh · seed.sh (dev data) · docs/screenshots/fase-N/
 - `npm run zip` builds a clean zip honoring `.distignore` (no tests, node_modules or dev configs; includes `assets/build`, `vendor/autoload` and `languages`).
 
 ## Gotchas (see `docs/DECISIONS.md`)
+- wp-env mounts the plugin with a mapping (`wp-content/plugins/costa-rica-checkout-for-woocommerce` → `.`), so the folder name inside WordPress does not depend on the local checkout folder. Mapped plugins are not activated automatically: `npm run env:start` and `bin/seed.sh` activate it.
 - Integration tests use their own database (`crkit_tests`, `tests/Integration/wp-tests-config.php`). Never point them to `wordpress`: the test installer drops every table of its database.
 - WP/WC/Plugin Check versions are pinned in `.wp-env.json` (`woocommerce.zip` may serve a beta). Bump them together with `WC tested up to`.
 - Plugin Check runs on the built package (`npm run plugin-check`), not on the dev checkout.

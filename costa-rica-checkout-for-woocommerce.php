@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:          Costa Rica Kit for WooCommerce
+ * Plugin Name:          Costa Rica Checkout for WooCommerce
  * Description:          SINPE Móvil payments, exchange rates, provinces/cantons/districts and ID numbers for WooCommerce stores in Costa Rica.
  * Version:              0.1.0
  * Requires at least:    6.7
@@ -9,7 +9,7 @@
  * Author:               Ariel Orozco
  * License:              GPL-2.0-or-later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:          costa-rica-kit-for-woocommerce
+ * Text Domain:          costa-rica-checkout-for-woocommerce
  * Domain Path:          /languages
  * WC requires at least: 10.0
  * WC tested up to:      11.2
@@ -33,7 +33,7 @@ if ( ! is_readable( CRKIT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 			}
 			printf(
 				'<div class="notice notice-error"><p>%s</p></div>',
-				esc_html__( 'Costa Rica Kit for WooCommerce is missing its autoloader. Run "composer install" or install the plugin from its release package.', 'costa-rica-kit-for-woocommerce' )
+				esc_html__( 'Costa Rica Checkout for WooCommerce is missing its autoloader. Run "composer install" or install the plugin from its release package.', 'costa-rica-checkout-for-woocommerce' )
 			);
 		}
 	);

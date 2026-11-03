@@ -43,9 +43,9 @@ final class IdentificationSettings {
 	 */
 	public static function get_requirement_options(): array {
 		return array(
-			self::INVOICE  => __( 'Required only if the customer asks for an electronic invoice', 'costa-rica-kit-for-woocommerce' ),
-			self::OPTIONAL => __( 'Optional', 'costa-rica-kit-for-woocommerce' ),
-			self::REQUIRED => __( 'Required', 'costa-rica-kit-for-woocommerce' ),
+			self::INVOICE  => __( 'Required only if the customer asks for an electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
+			self::OPTIONAL => __( 'Optional', 'costa-rica-checkout-for-woocommerce' ),
+			self::REQUIRED => __( 'Required', 'costa-rica-checkout-for-woocommerce' ),
 		);
 	}
 

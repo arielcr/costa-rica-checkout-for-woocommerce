@@ -66,7 +66,7 @@ final class AccountDetails {
 	 */
 	public function print_reminder(): void {
 		if ( $this->needs_reminder() && function_exists( 'wc_print_notice' ) ) {
-			wc_print_notice( esc_html__( 'Add your ID number to speed up your next purchases.', 'costa-rica-kit-for-woocommerce' ), 'notice' );
+			wc_print_notice( esc_html__( 'Add your ID number to speed up your next purchases.', 'costa-rica-checkout-for-woocommerce' ), 'notice' );
 		}
 	}
 
