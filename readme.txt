@@ -65,6 +65,8 @@ Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican onli
 
 Compatible with WooCommerce High-Performance Order Storage (HPOS) and the block checkout. Includes Spanish translations for Costa Rica (es_CR) and Spain (es_ES).
 
+Development happens on GitHub: https://github.com/arielcr/costa-rica-checkout-for-woocommerce. Bug reports and pull requests are welcome.
+
 == Installation ==
 
 1. Install and activate WooCommerce.
@@ -128,7 +130,7 @@ Yes, without asking for an electronic invoice. Checkout offers the four ID types
 
 = Where is the source code of the scripts? =
 
-The minified JavaScript in `assets/build` is built with `@wordpress/scripts` from the readable sources in `assets/src`, which ship with the plugin. The PHP code is not minified.
+The minified JavaScript in `assets/build` is built with `@wordpress/scripts` from the readable sources in `assets/src`, which ship with the plugin. The PHP code is not minified. The full source, build tools and tests are on GitHub: https://github.com/arielcr/costa-rica-checkout-for-woocommerce
 
 = Is the ID number verified with Hacienda? =
 
