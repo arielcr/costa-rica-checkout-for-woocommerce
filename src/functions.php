@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
 use CRKit\Modules\ExchangeRate\ExchangeRate;
 use CRKit\Modules\ExchangeRate\ExchangeRateModule;
 use CRKit\Modules\ExchangeRate\ExchangeRateService;
+use CRKit\Modules\Identification\OrderIdentification;
 use CRKit\Plugin;
 
 /**
@@ -98,4 +99,19 @@ function crkit_convert_to_crc( float $amount, string $currency ): ?float {
 	}
 
 	return $service->convert_to_crc( $amount, $currency );
+}
+
+/**
+ * Customer identification of an order, for e-invoicing plugins. Available even if the ID module is
+ * disabled later, as long as the order has an ID.
+ *
+ * @param WC_Order|int $order Order or order id.
+ * @return array{type: string, type_label: string, number: string, electronic_invoice: bool}|null
+ *         `type` is Hacienda's code (01 física, 02 jurídica, 03 DIMEX, 04 NITE), `number` has no
+ *         spaces or hyphens. Null if the order has no ID.
+ */
+function crkit_get_order_identification( $order ): ?array {
+	$order = $order instanceof WC_Order ? $order : wc_get_order( absint( $order ) );
+
+	return $order instanceof WC_Order ? OrderIdentification::get( $order ) : null;
 }

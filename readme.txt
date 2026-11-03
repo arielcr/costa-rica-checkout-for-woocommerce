@@ -43,9 +43,14 @@ Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online st
 
 * `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"` and `hide_outdated="yes|no"`. An outdated rate is shown with its date unless you hide it.
 
-**Coming in future versions**
+**ID number (cédula)**
 
-* ID number (cédula) at checkout, for electronic invoicing plugins.
+* ID type (cédula física, cédula jurídica, DIMEX or NITE) and number in the classic and block checkouts.
+* The number is checked against the format Hacienda sets for each type (for example, a cédula física has 9 digits and does not start with 0). Hyphens and spaces are removed. Cédulas jurídicas with letters, announced by the Registro Nacional, are accepted.
+* Choose whether the ID is optional, required, or required only when the customer checks "I need an electronic invoice".
+* Shown with the billing address in the order screen, emails, the order received page and My Account. Customers can change it in My Account → Account details, where it is always optional; with "Required", customers without one see a reminder there.
+* When the customer asks for an electronic invoice, the store's emails say so with the ID, and the customer's emails show the ID the invoice will be issued to, so typing mistakes are caught early.
+* For developers: `crkit_get_order_identification( $order )`, the `crkit_order_identification` filter and the `crkit_order_identification_saved` action.
 
 **Important:** this plugin does not process payments automatically. SINPE Móvil payments are confirmed manually by the store. It does not generate electronic invoices.
 
@@ -102,7 +107,19 @@ Yes. The canton is saved in the standard city field and the district code in the
 
 = Does it generate electronic invoices? =
 
-No. The future ID number module will store the customer's ID so that your electronic invoicing plugin can use it.
+No. The ID number module stores the customer's ID type and number so that your electronic invoicing plugin can use them.
+
+= How does an electronic invoicing plugin read the customer's ID? =
+
+With `crkit_get_order_identification( $order )`, which returns `type` (Hacienda's code: 01 cédula física, 02 cédula jurídica, 03 DIMEX, 04 NITE), `type_label`, `number` (without hyphens or spaces) and `electronic_invoice` (whether the customer asked for one), or null. The `crkit_order_identification_saved` action fires when a customer places an order with an ID. The values are stored as order meta `_wc_other/crkit/id-type`, `_wc_other/crkit/id-number` and `_wc_other/crkit/electronic-invoice`.
+
+= Can customers from abroad buy? =
+
+Yes, without asking for an electronic invoice. Checkout offers the four ID types that people and companies in Costa Rica use: cédula física, cédula jurídica, DIMEX and NITE. Hacienda's "Extranjero No Domiciliado" and "No Contribuyente" types are only valid on specific receipts, so they are not offered. If you sell abroad, keep the ID as "Required only if the customer asks for an electronic invoice" or "Optional": with "Required", a customer without one of these IDs cannot place an order.
+
+= Is the ID number verified with Hacienda? =
+
+No. There is no public check digit, so the plugin only checks the format of each type. It does not look the number up in any registry.
 
 == External services ==
 
@@ -135,6 +152,8 @@ The exchange rate module connects to the services below to get the US dollar buy
 7. Province, canton and district selects in the classic checkout.
 8. District select in the block checkout.
 9. Exchange rate shortcode and block on a page.
+10. ID type and number in the block checkout, with the electronic invoice checkbox.
+11. ID number with the billing address in the order screen.
 
 == Changelog ==
 
@@ -144,6 +163,7 @@ The exchange rate module connects to the services below to get the US dollar buy
 * New: WooCommerce → Settings → Costa Rica, with one toggle per module.
 * New: provinces, cantons and districts (official 2025 division) in the classic and block checkouts, My Account and the order screen.
 * New: `[crkit_exchange_rate]` shortcode and "Exchange rate (Costa Rica)" block.
+* New: ID type and number (cédula física, cédula jurídica, DIMEX, NITE) in both checkouts, with an optional "I need an electronic invoice" checkbox, for electronic invoicing plugins.
 * New: Spanish translations (es_CR and es_ES).
 
 == Upgrade Notice ==

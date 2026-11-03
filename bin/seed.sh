@@ -58,7 +58,8 @@ else
 fi
 
 echo "== Costa Rica Kit settings"
-wp option update crkit_modules '{"exchange_rate":"yes","sinpe_movil":"yes","locations":"yes","identification":"no"}' --format=json --quiet
+wp option update crkit_modules '{"exchange_rate":"yes","sinpe_movil":"yes","locations":"yes","identification":"yes"}' --format=json --quiet
+wp option update crkit_identification_settings '{"requirement":"invoice"}' --format=json --quiet
 wp option update crkit_exchange_rate_settings '{"source":"hacienda","bccr_token":"","manual_enabled":"no","manual_rate":"","max_age_hours":"48"}' --format=json --quiet
 wp option update woocommerce_crkit_sinpe_movil_settings '{"enabled":"yes","title":"SINPE Móvil","description":"Pague desde la app de su banco con SINPE Móvil. Después de hacer el pedido verá el número y el monto exacto en colones.","instructions":"Si tiene dudas, escríbanos por WhatsApp al 8888-0000.","phone":"88887777","holder":"Tienda Demo S.A.","require_receipt":"yes","max_upload_mb":"5","max_amount_crc":"500000","rate_type":"sell","surcharge":"","reject_status":"failed"}' --format=json --quiet
 wp option update woocommerce_bacs_settings '{"enabled":"yes","title":"Transferencia bancaria","description":"Transfiera a nuestra cuenta IBAN.","instructions":"","account_details":""}' --format=json --quiet

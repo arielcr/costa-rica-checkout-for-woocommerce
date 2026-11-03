@@ -145,9 +145,12 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 		$order = wc_get_order( $order->get_id() );
 		$order->update_meta_data( '_billing_crkit_district', '10101' );
 		$order->update_meta_data( '_wc_billing/crkit/district-sj', '10101' );
+		$order->update_meta_data( '_wc_other/crkit/id-number', '112340567' );
 		$order->save();
 		update_user_meta( $customer, 'billing_crkit_district', '10101' );
 		update_user_meta( $customer, '_wc_billing/crkit/district-sj', '10101' );
+		update_user_meta( $customer, '_wc_other/crkit/id-number', '112340567' );
+		update_option( 'crkit_identification_settings', array( 'requirement' => 'required' ) );
 
 		update_option( 'crkit_delete_data_on_uninstall', 'yes' );
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -163,7 +166,10 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 		$this->assertSame( '', $order->get_meta( '_wc_billing/crkit/district-sj' ) );
 		$this->assertSame( '', get_user_meta( $customer, 'billing_crkit_district', true ) );
 		$this->assertSame( '', get_user_meta( $customer, '_wc_billing/crkit/district-sj', true ) );
+		$this->assertSame( '', $order->get_meta( '_wc_other/crkit/id-number' ) );
+		$this->assertSame( '', get_user_meta( $customer, '_wc_other/crkit/id-number', true ) );
 		$this->assertFalse( get_option( 'woocommerce_crkit_sinpe_movil_settings' ) );
+		$this->assertFalse( get_option( 'crkit_identification_settings' ) );
 	}
 
 	/**

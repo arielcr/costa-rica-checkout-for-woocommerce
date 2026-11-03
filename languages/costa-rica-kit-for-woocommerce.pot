@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T23:02:47+00:00\n"
+"POT-Creation-Date: 2026-11-03T01:43:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -283,12 +283,179 @@ msgstr ""
 msgid "Source: %s"
 msgstr ""
 
-#: src/Modules/Identification/IdentificationModule.php:37
+#: src/Modules/Identification/AccountDetails.php:69
+msgid "Add your ID number to speed up your next purchases."
+msgstr ""
+
+#. translators: %s: field label.
+#: src/Modules/Identification/AdminFields.php:85
+#: src/Modules/Identification/BlocksCheckout.php:104
+#: src/Modules/Identification/ClassicCheckout.php:101
+#: src/Modules/Identification/ClassicCheckout.php:203
+#: src/Modules/Identification/Privacy.php:62
+msgid "ID type"
+msgstr ""
+
+#: src/Modules/Identification/AdminFields.php:87
+msgid "None"
+msgstr ""
+
+#. translators: %s: field label.
+#: src/Modules/Identification/AdminFields.php:95
+#: src/Modules/Identification/BlocksCheckout.php:115
+#: src/Modules/Identification/ClassicCheckout.php:110
+#: src/Modules/Identification/ClassicCheckout.php:207
+#: src/Modules/Identification/IdentificationModule.php:80
+#: src/Modules/Identification/Privacy.php:66
+msgid "ID number"
+msgstr ""
+
+#: src/Modules/Identification/AdminFields.php:105
+#: src/Modules/Identification/Privacy.php:73
+msgid "Electronic invoice"
+msgstr ""
+
+#: src/Modules/Identification/AdminFields.php:108
+msgid "Not requested"
+msgstr ""
+
+#: src/Modules/Identification/AdminFields.php:109
+#: src/Modules/Identification/AdminFields.php:112
+#: src/Modules/Identification/Privacy.php:74
+msgid "Requested"
+msgstr ""
+
+#. translators: %s: validation error.
+#: src/Modules/Identification/AdminFields.php:165
+#, php-format
+msgid "The ID number was not saved: %s"
+msgstr ""
+
+#: src/Modules/Identification/BlocksCheckout.php:85
+#: src/Modules/Identification/BlocksCheckout.php:87
+#: src/Modules/Identification/ClassicCheckout.php:90
+msgid "I need an electronic invoice"
+msgstr ""
+
+#: src/Modules/Identification/BlocksCheckout.php:105
+#: src/Modules/Identification/ClassicCheckout.php:102
+msgid "Select an ID type"
+msgstr ""
+
+#. translators: %s: field label.
+#: src/Modules/Identification/ClassicCheckout.php:203
+#: src/Modules/Identification/ClassicCheckout.php:207
+#, php-format
+msgid "%s is required for an electronic invoice."
+msgstr ""
+
+#: src/Modules/Identification/ClassicCheckout.php:217
+#: src/Modules/Identification/IdentificationType.php:123
+#: src/Modules/Identification/IdentificationType.php:141
+msgid "Select the ID type."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationModule.php:38
+#: src/Modules/Identification/IdentificationModule.php:91
 msgid "ID number (cédula)"
 msgstr ""
 
-#: src/Modules/Identification/IdentificationModule.php:44
+#: src/Modules/Identification/IdentificationModule.php:45
 msgid "Collects the customer ID type and number at checkout for e-invoicing plugins."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationModule.php:92
+msgid "Customers choose the ID type (cédula física, cédula jurídica, DIMEX or NITE) and type the number. The number is checked against the format Hacienda sets for its type; there is no public check digit, so it is not looked up in any registry. E-invoicing plugins can read it with crkit_get_order_identification()."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationModule.php:97
+msgid "ID number at checkout"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationModule.php:100
+msgid "With \"Required only if the customer asks for an electronic invoice\", checkout shows an \"I need an electronic invoice\" checkbox."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationSettings.php:46
+msgid "Required only if the customer asks for an electronic invoice"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationSettings.php:47
+msgid "Optional"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationSettings.php:48
+msgid "Required"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:58
+msgid "Cédula física"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:59
+msgid "Cédula jurídica"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:60
+msgid "DIMEX"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:61
+msgid "NITE"
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:115
+msgid "A cédula física has 9 digits and does not start with 0."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:117
+msgid "A cédula jurídica has 10 characters (digits, or digits and letters)."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:119
+msgid "A DIMEX has 11 or 12 digits and does not start with 0."
+msgstr ""
+
+#: src/Modules/Identification/IdentificationType.php:121
+msgid "A NITE has 10 digits."
+msgstr ""
+
+#. translators: 1: ID type, e.g. "Cédula física", 2: ID number.
+#: src/Modules/Identification/OrderDisplay.php:72
+#, php-format
+msgctxt "ID type and number"
+msgid "%1$s: %2$s"
+msgstr ""
+
+#. translators: 1: ID type, e.g. "Cédula física", 2: ID number.
+#: src/Modules/Identification/OrderDisplay.php:88
+#, php-format
+msgctxt "ID type and number in a sentence"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: src/Modules/Identification/OrderDisplay.php:114
+msgid "The customer asked for an electronic invoice"
+msgstr ""
+
+#: src/Modules/Identification/OrderDisplay.php:115
+msgid "Electronic invoice requested in the name of"
+msgstr ""
+
+#: src/Modules/Identification/Privacy.php:47
+msgid "Suggested text for stores that ask for an ID number at checkout:"
+msgstr ""
+
+#: src/Modules/Identification/Privacy.php:48
+msgid "At checkout we ask for your ID type and number (cédula física, cédula jurídica, DIMEX or NITE) to issue the electronic invoice that Costa Rican tax law requires. We store it with your order and, if you have an account, in your account so you do not have to type it again. We keep it as long as we keep the order records, and you can change it in your account."
+msgstr ""
+
+#: src/Modules/Identification/Privacy.php:50
+msgid "Costa Rica Kit for WooCommerce: ID number"
+msgstr ""
+
+#: src/Modules/Identification/Privacy.php:123
+msgid "Removed the customer ID number."
 msgstr ""
 
 #: src/Modules/Locations/AddressFields.php:151
