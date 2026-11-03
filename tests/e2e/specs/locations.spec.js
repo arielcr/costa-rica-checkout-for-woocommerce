@@ -87,6 +87,13 @@ test( 'My Account: the saved district shows in the address and prefills the bloc
 	await u.addToCart( page, 'CRK-COFFEE' );
 	await page.goto( '/checkout/' );
 	await page.waitForSelector( '.wc-block-checkout__form' );
+	// Address cards are formatted in the browser, which only knows the standard tokens.
+	await expect(
+		page.locator( '.wc-block-components-address-card' ).first()
+	).toBeVisible();
+	await expect(
+		page.locator( '.wc-block-checkout__form' )
+	).not.toContainText( '{crkit' );
 	// The saved address shows as a summary; open the billing form if it is collapsed.
 	const edit = page.locator(
 		'.wc-block-checkout__billing-fields .wc-block-components-address-card__edit'

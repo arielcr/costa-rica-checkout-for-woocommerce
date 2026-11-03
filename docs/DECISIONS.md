@@ -223,7 +223,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0041: Costa Rican address format "District, Canton, Province"
 
-- **Decision:** `woocommerce_localisation_address_formats` for `CR` puts `{crkit_district}{city}, {state}` on one line, followed by the postcode. The district name comes from the stored district (`_billing_crkit_district` / `_shipping_crkit_district` on orders, `billing_crkit_district` / `shipping_crkit_district` on customers).
+- **Decision:** `woocommerce_localisation_address_formats` for `CR` puts `{city}, {state}` on one line, followed by the postcode, and `woocommerce_formatted_address_replacements` turns `{city}` into "District, Canton" when the address has a district. (Until 1.0.0 the format used a custom `{crkit_district}` token; the block checkout formats address cards in the browser with standard tokens only and printed it literally. Found while taking the WordPress.org screenshots; the Locations e2e now checks it.) The district name comes from the stored district (`_billing_crkit_district` / `_shipping_crkit_district` on orders, `billing_crkit_district` / `shipping_crkit_district` on customers).
 - **Why:** it is how addresses are written in Costa Rica, and one filter covers the order screen, emails, My Account and the order received page. The block fields are registered with `show_in_order_confirmation => false` so the district is not printed twice.
 
 ## ADR-0042: Classic canton and district fields through the country locale
