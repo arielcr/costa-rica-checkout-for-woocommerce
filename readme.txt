@@ -126,19 +126,30 @@ With `crkit_get_order_identification( $order )`, which returns `type` (Hacienda'
 
 Yes, without asking for an electronic invoice. Checkout offers the four ID types that people and companies in Costa Rica use: cédula física, cédula jurídica, DIMEX and NITE. Hacienda's "Extranjero No Domiciliado" and "No Contribuyente" types are only valid on specific receipts, so they are not offered. If you sell abroad, keep the ID as "Required only if the customer asks for an electronic invoice" or "Optional": with "Required", a customer without one of these IDs cannot place an order.
 
+= Where is the source code of the scripts? =
+
+The minified JavaScript in `assets/build` is built with `@wordpress/scripts` from the readable sources in `assets/src`, which ship with the plugin. The PHP code is not minified.
+
 = Is the ID number verified with Hacienda? =
 
 No. There is no public check digit, so the plugin only checks the format of each type. It does not look the number up in any registry.
 
 == External services ==
 
-The exchange rate module connects to the services below to get the US dollar buy and sell rates. Requests run in the background on a schedule (twice a day) or when an administrator clicks "Update now"; they never run while a customer browses the store or checks out. No personal data about customers or orders is sent.
+The exchange rate module connects to the services below to get the US dollar buy and sell rates. Requests are made:
+
+* in the background right after the plugin is activated or the exchange rate module is enabled (the module is on by default and the Ministerio de Hacienda is the default source), and then every 12 hours;
+* when an administrator changes the source or the BCCR token in the settings;
+* when an administrator clicks "Update now".
+
+They never run while a customer browses the store or checks out: the store always reads the saved rate. No personal data about customers or orders is sent. Each request identifies the plugin in its User-Agent header (plugin name, version and its WordPress.org page); the service also sees the server's IP address, as with any web request. The site address is not sent. To stop all requests, disable the exchange rate module.
 
 **Ministerio de Hacienda de Costa Rica (default source)**
 
 * Request: `GET https://api.hacienda.go.cr/indicadores/tc`.
 * Sends: only the request for the current exchange rate. No credentials and no personal data.
-* API documentation: https://api.hacienda.go.cr/docs/
+* API documentation, with its usage policy and limits: https://api.hacienda.go.cr/docs/
+* Terms of use: the Ministerio de Hacienda does not publish separate terms of use for this API; the usage policy is in the API documentation above.
 * Privacy policy: https://www.hacienda.go.cr/docs/PoliticadePrivacidadDirectrizN.DM-009-2021.pdf
 
 **Banco Central de Costa Rica (BCCR) economic indicators API (optional)**
