@@ -54,6 +54,13 @@ function crkit_seed_simple( string $sku, string $name, string $price, string $de
 	return $product->save();
 }
 
+// WooCommerce's placeholder image (product thumbnails) can point to a missing file in a wp-env site;
+// without the option WooCommerce uses the placeholder bundled with the plugin.
+$crkit_placeholder = (int) get_option( 'woocommerce_placeholder_image', 0 );
+if ( $crkit_placeholder && ! file_exists( (string) get_attached_file( $crkit_placeholder ) ) ) {
+	delete_option( 'woocommerce_placeholder_image' );
+}
+
 crkit_seed_simple( 'CRK-COFFEE', 'Café de Tarrazú 340 g', $crkit_price['coffee'], 'Café de altura, tueste medio.' );
 crkit_seed_simple( 'CRK-HAMMOCK', 'Hamaca de algodón', $crkit_price['hammock'], 'Producto de valor alto: SINPE Móvil sigue disponible (tope ₡500.000).' );
 crkit_seed_simple( 'CRK-SURF', 'Tabla de surf', $crkit_price['surf'], 'Supera el tope de ₡500.000: SINPE Móvil no se ofrece.' );

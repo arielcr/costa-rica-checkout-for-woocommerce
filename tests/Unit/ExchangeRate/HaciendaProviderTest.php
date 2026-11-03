@@ -85,7 +85,7 @@ final class HaciendaProviderTest extends TestCase {
 		$this->assertSame( 456.04, $rate->sell );
 		$this->assertSame( HaciendaProvider::API_URL, $this->last_request['url'] );
 		$this->assertSame( 10, $this->last_request['args']['timeout'] );
-		$this->assertStringStartsWith( 'CostaRicaKitForWooCommerce/0.1.0', $this->last_request['args']['user-agent'] );
+		$this->assertStringStartsWith( 'CostaRicaCheckoutForWooCommerce/0.1.0', $this->last_request['args']['user-agent'] );
 		$this->assertArrayNotHasKey( 'sslverify', $this->last_request['args'] );
 	}
 

@@ -252,7 +252,7 @@ final class ReceiptController {
 		 * Fires after a customer uploads a SINPE Móvil payment receipt.
 		 * WooCommerce sends the "SINPE Móvil receipt uploaded" email on this action.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param int                  $order_id Order id.
 		 * @param array<string, mixed> $receipt  Receipt data (file, name, type, size, uploaded_at).

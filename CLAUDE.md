@@ -10,7 +10,7 @@ Permanent rules for this repo. Full spec: `docs/SPEC.md`. Design decisions: `doc
 
 ## Workflow
 - Work **by phases** (SPEC §9). At the end of each phase: stop, deliver the report (SPEC §11), wait for explicit approval.
-- **One branch per phase** (`phase/N-name`) and **one PR per phase** into `main` (private repo `arielcr/costa-rica-checkout-for-woocommerce`). Ariel merges; never merge or push to `main` yourself. CI must be green on the PR before reporting.
+- **One branch per phase** (`phase/N-name`) and **one PR per phase** into `main` (repo `arielcr/costa-rica-checkout-for-woocommerce`). Ariel merges; never merge or push to `main` yourself. CI must be green on the PR before reporting.
 - Never invent external API shapes. Verify with a real request and save it as a fixture in `tests/fixtures/`. No network → code against a fixture and flag it in the report.
 - **No runtime dependencies** (Composer or npm) without asking. Dev dependencies are fine.
 - Small, frequent commits, Conventional Commits (`feat(sinpe): …`, `test(rates): …`, `chore(ci): …`).

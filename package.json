@@ -1,6 +1,6 @@
 {
 	"name": "costa-rica-checkout-for-woocommerce",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"private": true,
 	"description": "SINPE Móvil, exchange rate, provinces/cantons/districts and ID number for WooCommerce stores in Costa Rica.",
 	"author": "Ariel Orozco",
@@ -34,6 +34,7 @@
 		"test:e2e:matrix": "bash bin/e2e-matrix.sh"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.14.0",
 		"@playwright/test": "^1.64.1",
 		"@woocommerce/dependency-extraction-webpack-plugin": "^5.1.0",
 		"@wordpress/env": "^12.0.0",

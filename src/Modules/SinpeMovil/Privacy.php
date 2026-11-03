@@ -61,7 +61,7 @@ final class Privacy {
 		}
 
 		$content = '<p class="privacy-policy-tutorial">' . esc_html__( 'Suggested text for stores that accept SINPE Móvil:', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
-			. '<p>' . esc_html__( 'When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment, we store it privately with your order, and only store staff can see it. We keep it as long as we keep the order records.', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
+			. '<p>' . esc_html__( 'When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment and store it privately with your order: only store staff and you, while logged in to your account, can see it. We keep it as long as we keep the order records.', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
 			. '<p>' . esc_html__( 'To show prices in colones, the store gets the exchange rate from the Ministerio de Hacienda or the Banco Central de Costa Rica. Those requests do not include any of your data.', 'costa-rica-checkout-for-woocommerce' ) . '</p>';
 
 		wp_add_privacy_policy_content( __( 'Costa Rica Checkout for WooCommerce', 'costa-rica-checkout-for-woocommerce' ), wp_kses_post( $content ) );

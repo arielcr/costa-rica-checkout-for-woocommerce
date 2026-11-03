@@ -174,3 +174,30 @@ Same 60 checks as phases 1 and 2, with the ID module on ("required only for an e
 
 Screenshots in `docs/screenshots/fase-3/` (`CRKIT_E2E_SCREENSHOTS=3 npx playwright test screenshots-fase-3`).
 
+## Phase 4 evidence (2026-11-03)
+
+Environment as in phase 3 (WordPress 7.1.4, WooCommerce 11.2.1 — the latest stable releases on this date — PHP 8.1, es_CR, USD, all modules on).
+
+### Independent review
+
+A separate agent that had not seen the development reviewed the built zip against the 18 Plugin Directory guidelines and the security review criteria. No blockers. Fixed: whole `$_POST` passed to a validator, incomplete External services section (request triggers, headers, Hacienda terms), old name in the User-Agent, privacy text, privacy tools of disabled modules, uninstall filesystem fallback and pending actions, escaped placeholder help in an email setting, translation load order. Kept, with reasons: `load_plugin_textdomain()` (ADR-0051) and the documented `$_POST` bridge in My Account (`Locations\BlocksCheckout::prepare_edit_address_values()`, ADR-0043). The review also found that `.wordpress-org/` leaked into the zip; it is excluded now.
+
+### SPEC §8 matrix and suites (version 1.0.0)
+
+Matrix 60/60 (PHP 8.1 and 8.3 × CRC and USD × HPOS, posts and sync). ID, Locations and accessibility e2e 10/10. Unit 146 tests; integration 108 tests on each order storage; CI 11/11 including WordPress 6.7 + WooCommerce 10.0.0. Plugin Check on the 1.0.0 zip: 0 errors, 1 expected warning (`load_plugin_textdomain`, ADR-0051).
+
+### Accessibility (`tests/e2e/specs/a11y.spec.js`, axe-core WCAG 2.1 A/AA)
+
+| Page | Plugin components | Whole page (not the plugin) |
+|---|---|---|
+| Classic checkout (canton, district, ID fields, SINPE Móvil), also with validation errors | 0 violations | theme navigation list markup; WooCommerce coupon link name |
+| Block checkout (ID fields, district, SINPE Móvil estimate) | 0 | WooCommerce order summary skeleton (`aria-prohibited-attr`) |
+| Order received (instructions, receipt form, rejected upload) | 0 | theme navigation list markup |
+| My Account (order view, billing address, account details) | 0 | theme navigation list markup; WooCommerce mini-cart drawer (`aria-hidden-focus`) |
+
+Keyboard: canton and district (selectWoo) chosen without the mouse, focus returns to the field after each choice and Tab moves to the next one; the block district (native select) is reachable with Tab; the receipt file field and its submit button are reachable in order. Errors: classic checkout errors use `role="alert"`; a rejected receipt is announced (`role="alert"`) and tied to the field (`aria-invalid`, `aria-describedby`). Stable over 4 repetitions (12/12). WooCommerce focuses its first notice 500 ms after the page loads (`woocommerce.js`); the keyboard test waits for it.
+
+### WordPress.org screenshots
+
+`.wordpress-org/screenshot-1.png` … `screenshot-8.png` (copies in `docs/screenshots/fase-4/`), es_CR, reproducible with `CRKIT_E2E_SCREENSHOTS=wporg npx playwright test screenshots-wporg`. Some WooCommerce strings appear in English ("Contact information", "Place Order", "(optional)"): WooCommerce's es_CR language pack is installed and current but does not translate them.
+

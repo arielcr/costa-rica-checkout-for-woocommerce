@@ -1,0 +1,40 @@
+# Updates readme.txt and the directory assets (banners, icons, screenshots in .wordpress-org/)
+# on WordPress.org when they change on main, without a new release. Skipped until the
+# SVN_USERNAME and SVN_PASSWORD secrets exist (that is, until the plugin is approved).
+name: WordPress.org readme and assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - readme.txt
+      - '.wordpress-org/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-assets
+  cancel-in-progress: true
+
+jobs:
+  assets:
+    name: Update readme and assets
+    runs-on: ubuntu-latest
+    env:
+      SLUG: costa-rica-checkout-for-woocommerce
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    steps:
+      - name: Skip without SVN credentials
+        if: env.SVN_USERNAME == '' || env.SVN_PASSWORD == ''
+        run: echo "::notice::SVN_USERNAME and SVN_PASSWORD are not set; nothing was sent to WordPress.org."
+      - uses: actions/checkout@v7
+        if: env.SVN_USERNAME != '' && env.SVN_PASSWORD != ''
+      - name: Update readme and assets on WordPress.org
+        if: env.SVN_USERNAME != '' && env.SVN_PASSWORD != ''
+        uses: 10up/action-wordpress-plugin-asset-update@2.2.0
+        env:
+          ASSETS_DIR: .wordpress-org
+          README_NAME: readme.txt
+          IGNORE_OTHER_FILES: true

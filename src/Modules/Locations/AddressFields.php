@@ -32,11 +32,6 @@ final class AddressFields {
 	public const CANTON = 'crkit_canton';
 
 	/**
-	 * Replacement token of the district in the address format.
-	 */
-	public const FORMAT_TOKEN = '{crkit_district}';
-
-	/**
 	 * Locations.
 	 *
 	 * @var LocationRepository
@@ -180,20 +175,23 @@ final class AddressFields {
 	}
 
 	/**
-	 * Costa Rican address format: "District, Canton, Province" on one line, then the postcode.
+	 * Costa Rican address format: canton (city) and province on one line, then the postcode.
+	 *
+	 * Only standard tokens: the block checkout formats address cards in the browser and prints
+	 * unknown tokens as they are. The district is added to `{city}` on the server instead.
 	 *
 	 * @param mixed $formats Address formats per country.
 	 * @return array<string, mixed>
 	 */
 	public function filter_address_formats( mixed $formats ): array {
 		$formats       = is_array( $formats ) ? $formats : array();
-		$formats['CR'] = "{name}\n{company}\n{address_1}\n{address_2}\n" . self::FORMAT_TOKEN . "{city}, {state}\n{postcode}\n{country}";
+		$formats['CR'] = "{name}\n{company}\n{address_1}\n{address_2}\n{city}, {state}\n{postcode}\n{country}";
 
 		return $formats;
 	}
 
 	/**
-	 * Replaces the district token. Empty when the address has no district.
+	 * "District, Canton" in place of the city, so the line reads "District, Canton, Province".
 	 *
 	 * @param mixed $replacements Replacements.
 	 * @param mixed $args         Address arguments.
@@ -202,8 +200,12 @@ final class AddressFields {
 	public function filter_address_replacements( mixed $replacements, mixed $args ): array {
 		$replacements = is_array( $replacements ) ? $replacements : array();
 		$district     = is_array( $args ) && ! empty( $args[ self::DISTRICT ] ) ? (string) $args[ self::DISTRICT ] : '';
+		$city         = is_array( $args ) && isset( $args['city'] ) && is_scalar( $args['city'] ) ? (string) $args['city'] : '';
 
-		$replacements[ self::FORMAT_TOKEN ] = '' === $district ? '' : $district . ', ';
+		if ( '' !== $district && '' !== $city ) {
+			$replacements['{city}']       = $district . ', ' . $city;
+			$replacements['{city_upper}'] = wc_strtoupper( $district . ', ' . $city );
+		}
 
 		return $replacements;
 	}

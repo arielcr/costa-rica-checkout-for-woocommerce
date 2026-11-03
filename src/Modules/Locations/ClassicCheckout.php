@@ -225,9 +225,15 @@ final class ClassicCheckout {
 	 */
 	public function validate_edit_address( mixed $user_id, mixed $load_address ): void {
 		$group = 'shipping' === $load_address ? 'shipping' : 'billing';
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WooCommerce verified the nonce before this action.
-		$data    = wp_unslash( $_POST );
-		$message = $this->get_validation_error( is_array( $data ) ? $data : array(), $group );
+		$data  = array();
+
+		// Only the three fields the check needs. WooCommerce verified the nonce before this action.
+		foreach ( array( 'country', 'state', AddressFields::DISTRICT ) as $key ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$data[ $group . '_' . $key ] = isset( $_POST[ $group . '_' . $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_' . $key ] ) ) : '';
+		}
+
+		$message = $this->get_validation_error( $data, $group );
 
 		if ( null !== $message ) {
 			wc_add_notice( $message, 'error', array( 'id' => $group . '_' . AddressFields::DISTRICT ) );
@@ -255,7 +261,7 @@ final class ClassicCheckout {
 		/**
 		 * Fires after a Costa Rican district is saved from a classic address form.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param WC_Customer   $customer Customer.
 		 * @param string        $group    `billing` or `shipping`.

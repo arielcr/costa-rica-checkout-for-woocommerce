@@ -32,7 +32,7 @@ final class OrderIdentification {
 		/**
 		 * Filters the identification of an order before other plugins read it.
 		 *
-		 * @since 0.2.0
+		 * @since 1.0.0
 		 *
 		 * @param array|null $data  `type` (Hacienda code: 01 física, 02 jurídica, 03 DIMEX, 04 NITE),
 		 *                          `type_label`, `number` (no spaces or hyphens) and
@@ -60,7 +60,7 @@ final class OrderIdentification {
 		/**
 		 * Fires when a customer places an order with an ID number, in the classic or the block checkout.
 		 *
-		 * @since 0.2.0
+		 * @since 1.0.0
 		 *
 		 * @param array    $data  Identification (see `crkit_order_identification`).
 		 * @param WC_Order $order Order.

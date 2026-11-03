@@ -11,13 +11,14 @@ namespace CRKit\Modules\Identification;
 
 use CRKit\Admin\SettingsSectionInterface;
 use CRKit\Modules\ModuleInterface;
+use CRKit\Modules\PersonalDataInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Identification module.
  */
-final class IdentificationModule implements ModuleInterface, SettingsSectionInterface {
+final class IdentificationModule implements ModuleInterface, SettingsSectionInterface, PersonalDataInterface {
 
 	/**
 	 * Module id.
@@ -63,6 +64,12 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 		( new AccountDetails( $settings ) )->register();
 		( new AdminFields( $settings ) )->register();
 		( new OrderDisplay() )->register();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function register_privacy_tools(): void {
 		( new Privacy() )->register();
 	}
 

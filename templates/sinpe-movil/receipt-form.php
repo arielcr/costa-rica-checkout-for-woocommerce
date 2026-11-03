@@ -23,6 +23,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$crkit_has_error = null !== $result && 'success' !== $result['type'];
 ?>
 <section id="crkit-sinpe-receipt" class="crkit-sinpe-receipt">
 	<h3 class="crkit-sinpe-receipt__title"><?php esc_html_e( 'Payment receipt', 'costa-rica-checkout-for-woocommerce' ); ?></h3>
@@ -31,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php if ( 'success' === $result['type'] ) : ?>
 			<div class="woocommerce-message" role="status"><?php echo esc_html( $result['text'] ); ?></div>
 		<?php else : ?>
-			<ul class="woocommerce-error" role="alert"><li><?php echo esc_html( $result['text'] ); ?></li></ul>
+			<div id="crkit-receipt-error" role="alert"><ul class="woocommerce-error"><li><?php echo esc_html( $result['text'] ); ?></li></ul></div>
 		<?php endif; ?>
 	<?php endif; ?>
 
@@ -45,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 			);
 			?>
 			<?php if ( '' !== $view_url ) : ?>
-				<a href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View receipt', 'costa-rica-checkout-for-woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View receipt', 'costa-rica-checkout-for-woocommerce' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(opens in a new tab)', 'costa-rica-checkout-for-woocommerce' ); ?></span></a>
 			<?php endif; ?>
 		</p>
 	<?php endif; ?>
@@ -58,7 +60,7 @@ defined( 'ABSPATH' ) || exit;
 					echo esc_html( null === $receipt ? __( 'Upload your receipt', 'costa-rica-checkout-for-woocommerce' ) : __( 'Replace your receipt', 'costa-rica-checkout-for-woocommerce' ) );
 					?>
 				</label>
-				<input type="file" id="crkit-receipt-file" name="<?php echo esc_attr( $file_field ); ?>" accept="<?php echo esc_attr( $accept ); ?>" required aria-describedby="crkit-receipt-help" />
+				<input type="file" id="crkit-receipt-file" name="<?php echo esc_attr( $file_field ); ?>" accept="<?php echo esc_attr( $accept ); ?>" required aria-invalid="<?php echo esc_attr( $crkit_has_error ? 'true' : 'false' ); ?>" aria-describedby="<?php echo esc_attr( $crkit_has_error ? 'crkit-receipt-error crkit-receipt-help' : 'crkit-receipt-help' ); ?>" />
 				<span id="crkit-receipt-help" class="description">
 					<?php
 					printf(

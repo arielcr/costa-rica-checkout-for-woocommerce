@@ -11,6 +11,7 @@ use Brain\Monkey\Actions;
 use Brain\Monkey\Filters;
 use Brain\Monkey\Functions;
 use CRKit\Modules\ModuleInterface;
+use CRKit\Modules\PersonalDataInterface;
 use CRKit\Plugin;
 use Mockery;
 use Mockery\MockInterface;
@@ -87,6 +88,19 @@ final class PluginTest extends TestCase {
 
 		$this->assertNotFalse( has_filter( 'woocommerce_get_settings_pages', array( $plugin, 'add_settings_page' ) ) );
 		$this->assertNotFalse( has_filter( 'plugin_action_links_' . self::BASENAME, array( $plugin, 'add_plugin_action_links' ) ) );
+	}
+
+	public function test_boot_registers_privacy_tools_of_disabled_modules_too(): void {
+		Functions\when( 'get_option' )->justReturn( array( 'off' => 'no' ) );
+		Functions\when( 'plugin_basename' )->justReturn( self::BASENAME );
+
+		$disabled = Mockery::mock( ModuleInterface::class, PersonalDataInterface::class );
+		$disabled->allows( 'get_id' )->andReturn( 'off' );
+		$disabled->allows( 'is_enabled_by_default' )->andReturn( true );
+		$disabled->shouldNotReceive( 'register' );
+		$disabled->expects( 'register_privacy_tools' )->once();
+
+		( new Plugin( array( $disabled ) ) )->boot();
 	}
 
 	public function test_boot_runs_only_once(): void {

@@ -68,17 +68,26 @@ final class Shortcode {
 				'show_date'     => 'yes',
 				'show_source'   => 'yes',
 				'hide_outdated' => 'no',
+				'inline'        => 'no',
 			),
 			is_array( $atts ) ? $atts : array(),
 			self::TAG
 		);
 
-		return $this->render(
+		$html = $this->render(
 			sanitize_key( (string) $atts['type'] ),
 			wc_string_to_bool( (string) $atts['show_date'] ),
 			wc_string_to_bool( (string) $atts['show_source'] ),
 			wc_string_to_bool( (string) $atts['hide_outdated'] )
 		);
+
+		// A shortcode on its own line is not wrapped in a paragraph, and block themes only lay out
+		// block-level children: wrap it, unless it is used inside a sentence (`inline="yes"`).
+		if ( '' === $html || wc_string_to_bool( (string) $atts['inline'] ) ) {
+			return $html;
+		}
+
+		return '<div class="crkit-exchange-rate-wrapper">' . $html . '</div>';
 	}
 
 	/**

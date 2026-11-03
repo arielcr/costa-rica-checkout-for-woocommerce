@@ -223,7 +223,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0041: Costa Rican address format "District, Canton, Province"
 
-- **Decision:** `woocommerce_localisation_address_formats` for `CR` puts `{crkit_district}{city}, {state}` on one line, followed by the postcode. The district name comes from the stored district (`_billing_crkit_district` / `_shipping_crkit_district` on orders, `billing_crkit_district` / `shipping_crkit_district` on customers).
+- **Decision:** `woocommerce_localisation_address_formats` for `CR` puts `{city}, {state}` on one line, followed by the postcode, and `woocommerce_formatted_address_replacements` turns `{city}` into "District, Canton" when the address has a district. (Until 1.0.0 the format used a custom `{crkit_district}` token; the block checkout formats address cards in the browser with standard tokens only and printed it literally. Found while taking the WordPress.org screenshots; the Locations e2e now checks it.) The district name comes from the stored district (`_billing_crkit_district` / `_shipping_crkit_district` on orders, `billing_crkit_district` / `shipping_crkit_district` on customers).
 - **Why:** it is how addresses are written in Costa Rica, and one filter covers the order screen, emails, My Account and the order received page. The block fields are registered with `show_in_order_confirmation => false` so the district is not printed twice.
 
 ## ADR-0042: Classic canton and district fields through the country locale
@@ -238,7 +238,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0044: Exchange rate shortcode and block
 
-- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate. The optional `hide_outdated="yes"` (shortcode) / `hideOutdated` (block) hides an outdated rate instead (owner's request, 2026-11-02).
+- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate. The optional `hide_outdated="yes"` (shortcode) / `hideOutdated` (block) hides an outdated rate instead (owner's request, 2026-11-02). The shortcode is wrapped in a `<div>` (block-level), because a shortcode on its own line is not wrapped in a paragraph and block themes only lay out block-level children; `inline="yes"` returns the bare `<span>` for use inside a sentence (found in the 1.0.0 screenshots).
 
 ## ADR-0045: Block district options read "Canton — District", sorted by canton
 
@@ -282,4 +282,15 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 - **Decision (owner, 2026-11-02):** before the first release the plugin is named "Costa Rica Checkout for WooCommerce", with slug, main file, folder and text domain `costa-rica-checkout-for-woocommerce` (translation files and script JSON files renamed and regenerated; GitHub repository renamed). The `crkit_` prefix, the `CRKit\` namespace and every option, meta, hook and handle name stay as they were: nothing was published, and stored data keeps working.
 - **wp-env:** the plugin is mounted with a mapping to `wp-content/plugins/costa-rica-checkout-for-woocommerce` instead of `"plugins": ["."]`, whose folder name came from the local checkout folder; `npm run env:start` and the seed activate it.
+
+## ADR-0051: load_plugin_textdomain() stays in 1.0.0
+
+- **Context:** Plugin Check warns that `load_plugin_textdomain()` is discouraged since WordPress 4.6, because WordPress loads translations of directory plugins just in time from the language packs of translate.wordpress.org (`wp-content/languages/plugins/`).
+- **Decision (owner, 2026-11-03):** keep it in 1.0.0. The es_CR and es_ES translations ship in `/languages` and there are no language packs yet; without the call those bundled files would not load. It runs on `init`, so it does not trigger the "translation loading too early" notice. The Plugin Check warning is expected.
+- **Plan:** after approval, import the bundled `.po` files into translate.wordpress.org (as the plugin's translation editor, or through the Spanish locale teams) so es_CR and es_ES language packs are built. Once both packs are published, remove the call and the bundled `languages/` files in a minor release (keeping the `.pot` only if a tool needs it), and drop the matching note from the readme.
+
+## ADR-0052: WordPress.org deployment
+
+- **Decision:** two workflows. `deploy.yml` runs on a `vX.Y.Z` tag: it checks that the tag matches `Version`, `CRKIT_VERSION` and `Stable tag`, builds the plugin with `bin/build-zip.sh` and publishes that staging folder plus `.wordpress-org/` with `10up/action-wordpress-plugin-deploy` 2.3.0 (`BUILD_DIR`), and keeps the zip as a workflow artifact. `wordpress-org-assets.yml` pushes `readme.txt` and `.wordpress-org/` changes on `main` with `10up/action-wordpress-plugin-asset-update` 2.2.0 (`IGNORE_OTHER_FILES`). Versions pinned to the latest releases (checked 2026-11-03). Both read `SVN_USERNAME` and `SVN_PASSWORD`; the tag workflow fails without them and the assets workflow skips.
+- `.wordpress-org/` is excluded from the plugin zip (`.distignore`): directory assets live in SVN `/assets`.
 

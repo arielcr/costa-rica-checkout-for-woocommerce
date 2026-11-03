@@ -1,0 +1,71 @@
+# Publishes a release to the WordPress.org plugin directory when a vX.Y.Z tag is pushed.
+#
+# Needs the repository secrets SVN_USERNAME and SVN_PASSWORD (WordPress.org account with commit
+# access to the plugin). The plugin code comes from the staging folder built by bin/build-zip.sh
+# (compiled JS, production autoloader, .distignore applied); banners, icons and screenshots come
+# from .wordpress-org/.
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    env:
+      SLUG: costa-rica-checkout-for-woocommerce
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    steps:
+      - name: Check the SVN credentials
+        if: env.SVN_USERNAME == '' || env.SVN_PASSWORD == ''
+        run: |
+          echo "::error::Set the SVN_USERNAME and SVN_PASSWORD repository secrets before tagging a release."
+          exit 1
+      - uses: actions/checkout@v7
+      - name: Check that the tag matches the plugin version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          HEADER="$(sed -n 's/^ \* Version:[[:space:]]*//p' "$SLUG.php" | tr -d '[:space:]')"
+          CONST="$(sed -n "s/^define( 'CRKIT_VERSION', '\([^']*\)' );/\1/p" "$SLUG.php")"
+          STABLE="$(sed -n 's/^Stable tag:[[:space:]]*//p' readme.txt | tr -d '[:space:]')"
+          echo "tag=$TAG header=$HEADER constant=$CONST stable=$STABLE"
+          if [ "$TAG" != "$HEADER" ] || [ "$TAG" != "$CONST" ] || [ "$TAG" != "$STABLE" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match Version, CRKIT_VERSION and Stable tag."
+            exit 1
+          fi
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+      - run: npm ci
+      - name: Build the plugin
+        run: npm run zip
+      - name: Deploy to WordPress.org
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@2.3.0
+        with:
+          generate-zip: true
+        env:
+          BUILD_DIR: build/costa-rica-checkout-for-woocommerce
+          ASSETS_DIR: .wordpress-org
+      - uses: actions/upload-artifact@v7
+        with:
+          name: costa-rica-checkout-for-woocommerce-${{ github.ref_name }}
+          path: ${{ steps.deploy.outputs.zip-path }}
+          if-no-files-found: error
