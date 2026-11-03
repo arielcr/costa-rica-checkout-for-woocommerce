@@ -125,7 +125,7 @@ class ReceiptUploadedEmail extends WC_Email {
 	 */
 	public function init_form_fields() {
 		/* translators: %s: list of available placeholders. */
-		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'costa-rica-checkout-for-woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'costa-rica-checkout-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array_map( 'esc_html', array_keys( $this->placeholders ) ) ) . '</code>' );
 		$this->form_fields = array(
 			'enabled'            => array(
 				'title'   => __( 'Enable/Disable', 'costa-rica-checkout-for-woocommerce' ),

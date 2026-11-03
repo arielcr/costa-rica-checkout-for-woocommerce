@@ -264,6 +264,9 @@ final class BlocksCheckout {
 		$district = isset( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ) : '';
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
+		// WooCommerce reads, validates and saves the block address fields from $_POST right after this
+		// action (CheckoutFieldsFrontend::save_address_fields()); it offers no filter for their values.
+		// Only the plugin's own keys are written, with sanitized values.
 		foreach ( $this->locations->get_states() as $province_state ) {
 			$_POST[ '_wc_' . $group . '/' . self::get_field_id( $province_state ) ] = $province_state === $state ? $district : '';
 		}
