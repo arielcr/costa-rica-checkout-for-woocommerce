@@ -238,13 +238,44 @@ final class IdentificationTest extends WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'Cédula', wc_create_order()->get_formatted_billing_address() );
 	}
 
-	public function test_store_emails_say_when_an_electronic_invoice_was_requested(): void {
+	public function test_order_emails_repeat_the_id_when_an_electronic_invoice_was_requested(): void {
 		$display = new OrderDisplay();
 		$order   = $this->order_with_id( '01', '112340567', true );
 
-		$this->assertArrayHasKey( 'crkit_electronic_invoice', $display->add_email_fields( array(), true, $order ) );
-		$this->assertSame( array(), $display->add_email_fields( array(), false, $order ) );
-		$this->assertSame( array(), $display->add_email_fields( array(), true, $this->order_with_id() ) );
+		$this->assertSame(
+			array(
+				'label' => 'The customer asked for an electronic invoice',
+				'value' => 'Cédula física 112340567',
+			),
+			$display->add_email_fields( array(), true, $order )['crkit_electronic_invoice']
+		);
+		$this->assertSame(
+			array(
+				'label' => 'Electronic invoice requested in the name of',
+				'value' => 'Cédula física 112340567',
+			),
+			$display->add_email_fields( array(), false, $order )['crkit_electronic_invoice']
+		);
+		$this->assertSame( array(), $display->add_email_fields( array(), true, $this->order_with_id() ), 'No invoice requested.' );
+		$this->assertSame( array(), $display->add_email_fields( array(), false, $this->order_with_id() ) );
+	}
+
+	public function test_order_emails_print_the_invoice_line_for_the_store_and_the_customer(): void {
+		$order = $this->order_with_id( '03', '155812345678', true );
+
+		foreach ( array( true, false ) as $plain_text ) {
+			ob_start();
+			WC()->mailer()->order_meta( $order, true, $plain_text );
+			$store = (string) ob_get_clean();
+			ob_start();
+			WC()->mailer()->order_meta( $order, false, $plain_text );
+			$customer = (string) ob_get_clean();
+
+			$this->assertStringContainsString( 'The customer asked for an electronic invoice', $store );
+			$this->assertStringContainsString( 'DIMEX 155812345678', $store );
+			$this->assertStringContainsString( 'Electronic invoice requested in the name of', $customer );
+			$this->assertStringContainsString( 'DIMEX 155812345678', $customer );
+		}
 	}
 
 	public function test_admin_replaces_the_block_fields_and_validates_edits(): void {

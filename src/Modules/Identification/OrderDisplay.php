@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Adds the ID to the billing address wherever WooCommerce prints it (order screen, emails, order
- * received page in classic and block themes, My Account orders), and tells the store in its emails
+ * received page in classic and block themes, My Account orders), and repeats it in the order emails
  * when the customer asked for an electronic invoice. See docs/DECISIONS.md, ADR-0047.
  */
 final class OrderDisplay {
@@ -74,7 +74,23 @@ final class OrderDisplay {
 	}
 
 	/**
-	 * Store emails: whether the customer asked for an electronic invoice.
+	 * "Cédula física 112340567", as plain text (WooCommerce escapes email meta fields).
+	 *
+	 * @param Identification $identification Identification.
+	 * @return string
+	 */
+	public static function format_inline( Identification $identification ): string {
+		$label = $identification->get_type_label();
+
+		return '' === $label
+			? $identification->number
+			/* translators: 1: ID type, e.g. "Cédula física", 2: ID number. */
+			: sprintf( _x( '%1$s %2$s', 'ID type and number in a sentence', 'costa-rica-kit-for-woocommerce' ), $label, $identification->number );
+	}
+
+	/**
+	 * Order emails, when the customer asked for an electronic invoice: the store sees the request with
+	 * the ID, and the customer sees the ID the invoice will be issued to, to catch typing mistakes early.
 	 *
 	 * @param mixed $fields        Fields.
 	 * @param mixed $sent_to_admin Whether the email goes to the store.
@@ -84,12 +100,21 @@ final class OrderDisplay {
 	public function add_email_fields( mixed $fields, mixed $sent_to_admin = false, mixed $order = null ): array {
 		$fields = is_array( $fields ) ? $fields : array();
 
-		if ( $sent_to_admin && $order instanceof WC_Order && IdentificationStore::wants_electronic_invoice( $order ) ) {
-			$fields['crkit_electronic_invoice'] = array(
-				'label' => __( 'Electronic invoice', 'costa-rica-kit-for-woocommerce' ),
-				'value' => __( 'The customer asked for an electronic invoice.', 'costa-rica-kit-for-woocommerce' ),
-			);
+		if ( ! $order instanceof WC_Order || ! IdentificationStore::wants_electronic_invoice( $order ) ) {
+			return $fields;
 		}
+
+		$identification = IdentificationStore::get( $order );
+		if ( null === $identification ) {
+			return $fields;
+		}
+
+		$fields['crkit_electronic_invoice'] = array(
+			'label' => $sent_to_admin
+				? __( 'The customer asked for an electronic invoice', 'costa-rica-kit-for-woocommerce' )
+				: __( 'Electronic invoice requested in the name of', 'costa-rica-kit-for-woocommerce' ),
+			'value' => self::format_inline( $identification ),
+		);
 
 		return $fields;
 	}
