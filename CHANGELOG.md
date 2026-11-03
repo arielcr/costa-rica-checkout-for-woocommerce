@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-03
+
+First public release on WordPress.org. Includes everything in 0.1.0 (internal development version) plus the changes below.
+
 ### Changed
 - Plugin renamed to "Costa Rica Checkout for WooCommerce" (slug and text domain `costa-rica-checkout-for-woocommerce`). Settings, order data and hooks are unchanged.
 
@@ -20,8 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The ID is shown with the billing address (order screen, emails, order received, My Account), editable in the order screen and in My Account → Account details, and included in WooCommerce's personal data export and erasure.
 - `crkit_get_order_identification()`, the `crkit_order_identification` filter and the `crkit_order_identification_saved` action for e-invoicing plugins.
 - Uninstall removes the district and ID meta of orders and customers when "Delete data on uninstall" is on.
+- Deployment workflows for WordPress.org (release on a `vX.Y.Z` tag; readme and assets on `main`) and the directory banners, icons and screenshots in `.wordpress-org/`.
 
-## [0.1.0] - 2026-10-31
+## [0.1.0] - 2026-10-31 (internal, not published)
 
 ### Added
 - SINPE Móvil payment gateway (`crkit_sinpe_movil`): amount in colones frozen in the order (rate, source, date, reference, payee), on-hold status, stock reduction, payment steps on the order received page and in the on-hold email.

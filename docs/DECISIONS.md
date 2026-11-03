@@ -283,3 +283,14 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 - **Decision (owner, 2026-11-02):** before the first release the plugin is named "Costa Rica Checkout for WooCommerce", with slug, main file, folder and text domain `costa-rica-checkout-for-woocommerce` (translation files and script JSON files renamed and regenerated; GitHub repository renamed). The `crkit_` prefix, the `CRKit\` namespace and every option, meta, hook and handle name stay as they were: nothing was published, and stored data keeps working.
 - **wp-env:** the plugin is mounted with a mapping to `wp-content/plugins/costa-rica-checkout-for-woocommerce` instead of `"plugins": ["."]`, whose folder name came from the local checkout folder; `npm run env:start` and the seed activate it.
 
+## ADR-0051: load_plugin_textdomain() stays in 1.0.0
+
+- **Context:** Plugin Check warns that `load_plugin_textdomain()` is discouraged since WordPress 4.6, because WordPress loads translations of directory plugins just in time from the language packs of translate.wordpress.org (`wp-content/languages/plugins/`).
+- **Decision (owner, 2026-11-03):** keep it in 1.0.0. The es_CR and es_ES translations ship in `/languages` and there are no language packs yet; without the call those bundled files would not load. It runs on `init`, so it does not trigger the "translation loading too early" notice. The Plugin Check warning is expected.
+- **Plan:** after approval, import the bundled `.po` files into translate.wordpress.org (as the plugin's translation editor, or through the Spanish locale teams) so es_CR and es_ES language packs are built. Once both packs are published, remove the call and the bundled `languages/` files in a minor release (keeping the `.pot` only if a tool needs it), and drop the matching note from the readme.
+
+## ADR-0052: WordPress.org deployment
+
+- **Decision:** two workflows. `deploy.yml` runs on a `vX.Y.Z` tag: it checks that the tag matches `Version`, `CRKIT_VERSION` and `Stable tag`, builds the plugin with `bin/build-zip.sh` and publishes that staging folder plus `.wordpress-org/` with `10up/action-wordpress-plugin-deploy` 2.3.0 (`BUILD_DIR`), and keeps the zip as a workflow artifact. `wordpress-org-assets.yml` pushes `readme.txt` and `.wordpress-org/` changes on `main` with `10up/action-wordpress-plugin-asset-update` 2.2.0 (`IGNORE_OTHER_FILES`). Versions pinned to the latest releases (checked 2026-11-03). Both read `SVN_USERNAME` and `SVN_PASSWORD`; the tag workflow fails without them and the assets workflow skips.
+- `.wordpress-org/` is excluded from the plugin zip (`.distignore`): directory assets live in SVN `/assets`.
+
