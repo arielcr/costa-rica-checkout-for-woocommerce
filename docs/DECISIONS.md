@@ -238,7 +238,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0044: Exchange rate shortcode and block
 
-- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate. The optional `hide_outdated="yes"` (shortcode) / `hideOutdated` (block) hides an outdated rate instead (owner's request, 2026-11-02).
+- **Decision:** `[crkit_exchange_rate]` and a dynamic block render the same markup on the server from the stored rate (no external request). Block metadata lives in `blocks/exchange-rate/block.json` (outside `assets/src`, which the build and the POT scan treat as JavaScript); the editor script is registered from PHP with the JSON asset file used by the other scripts. An outdated rate is still shown, with its date, and gets an `is-outdated` class; nothing is shown before the first rate. The optional `hide_outdated="yes"` (shortcode) / `hideOutdated` (block) hides an outdated rate instead (owner's request, 2026-11-02). The shortcode is wrapped in a `<div>` (block-level), because a shortcode on its own line is not wrapped in a paragraph and block themes only lay out block-level children; `inline="yes"` returns the bare `<span>` for use inside a sentence (found in the 1.0.0 screenshots).
 
 ## ADR-0045: Block district options read "Canton — District", sorted by canton
 

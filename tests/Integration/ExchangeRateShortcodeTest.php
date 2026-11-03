@@ -32,6 +32,14 @@ final class ExchangeRateShortcodeTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'BCCR', $html );
 	}
 
+	public function test_shortcode_is_block_level_unless_inline(): void {
+		$this->assertStringStartsWith( '<div class="crkit-exchange-rate-wrapper"><span class="crkit-exchange-rate', do_shortcode( '[crkit_exchange_rate]' ) );
+		$this->assertStringStartsWith( '<span class="crkit-exchange-rate', do_shortcode( '[crkit_exchange_rate inline="yes"]' ) );
+
+		// On its own line in a post: a block-level element, so block themes lay it out like a paragraph.
+		$this->assertMatchesRegularExpression( '#^\s*<div class="crkit-exchange-rate-wrapper">#', apply_filters( 'the_content', "<!-- wp:shortcode -->\n[crkit_exchange_rate]\n<!-- /wp:shortcode -->" ) );
+	}
+
 	public function test_shortcode_attributes(): void {
 		$html = do_shortcode( '[crkit_exchange_rate type="buy" show_date="no" show_source="no"]' );
 

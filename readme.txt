@@ -41,7 +41,7 @@ Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican onli
 
 **Exchange rate on your pages**
 
-* `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"` and `hide_outdated="yes|no"`. An outdated rate is shown with its date unless you hide it.
+* `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block. Shortcode attributes: `type="both|sell|buy"`, `show_date="yes|no"`, `show_source="yes|no"`, `hide_outdated="yes|no"` and `inline="yes|no"` (use `inline="yes"` inside a sentence). An outdated rate is shown with its date unless you hide it.
 
 **ID number (cédula)**
 
