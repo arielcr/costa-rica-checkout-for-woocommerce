@@ -53,7 +53,7 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 
 ## ADR-0009: Plugin Check runs against the built package
 
-- **Decision:** `npm run plugin-check` builds the zip staging folder (`build/costa-rica-kit-for-woocommerce/`) and runs `wp plugin check <path> --slug=costa-rica-kit-for-woocommerce` on it. CI does the same with `WordPress/plugin-check-action@v1` and `build-dir`.
+- **Decision:** `npm run plugin-check` builds the zip staging folder (`build/costa-rica-checkout-for-woocommerce/`) and runs `wp plugin check <path> --slug=costa-rica-checkout-for-woocommerce` on it. CI does the same with `WordPress/plugin-check-action@v1` and `build-dir`.
 - **Why:** the development checkout contains dotfiles, tests and dev configs that are never shipped; checking them would report errors that do not exist in the release.
 
 ## ADR-0010: PHPStan `treatPhpDocTypesAsCertain: false`
@@ -277,3 +277,9 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 ## ADR-0049: ID numbers in WooCommerce's personal data tools
 
 - **Decision:** the ID is added to WooCommerce's own exporters and erasers instead of new ones: customer data (`woocommerce_privacy_export_customer_personal_data`, `woocommerce_privacy_erase_personal_data_customer`) and orders (`woocommerce_privacy_export_order_personal_data`, `woocommerce_privacy_remove_order_personal_data_meta`). Orders follow WooCommerce's "Remove personal data from orders on request" setting; erased order meta is deleted rather than replaced with "[deleted]". A suggested privacy policy text explains why the ID is collected.
+
+## ADR-0050: Plugin name "Costa Rica Checkout for WooCommerce"
+
+- **Decision (owner, 2026-11-02):** before the first release the plugin is named "Costa Rica Checkout for WooCommerce", with slug, main file, folder and text domain `costa-rica-checkout-for-woocommerce` (translation files and script JSON files renamed and regenerated; GitHub repository renamed). The `crkit_` prefix, the `CRKit\` namespace and every option, meta, hook and handle name stay as they were: nothing was published, and stored data keeps working.
+- **wp-env:** the plugin is mounted with a mapping to `wp-content/plugins/costa-rica-checkout-for-woocommerce` instead of `"plugins": ["."]`, whose folder name came from the local checkout folder; `npm run env:start` and the seed activate it.
+
