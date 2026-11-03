@@ -3,6 +3,7 @@
  * Needs `npm run seed` (module on, "required only for an electronic invoice", customer with a saved
  * cédula física). Type names are the same in every language; messages are matched in English or Spanish.
  */
+const { execSync } = require( 'child_process' );
 const { test, expect } = require( '@playwright/test' );
 const u = require( '../utils' );
 
@@ -13,6 +14,13 @@ const FORMAT_ERROR = {
 // Classic and block themes print notices with different markup: match the message text.
 const expectNotice = ( page, text ) =>
 	expect( page.getByText( text ).first() ).toBeVisible();
+const REMINDER =
+	/(Add your ID number to speed up|Agregue su número de identificación para agilizar)/;
+const OPTIONAL = /\((optional|opcional)\)/;
+const wp = ( command ) =>
+	execSync( `npx wp-env run cli bash -c ${ JSON.stringify( command ) }`, {
+		stdio: 'ignore',
+	} );
 const SAVED = /(changed successfully|cambiado correctamente)/;
 const REQUIRED_FOR_INVOICE =
 	/(required for an electronic invoice|obligatori[oa] para (la|una) factura electrónica)/i;
@@ -142,4 +150,75 @@ test( 'My Account: the saved ID prefills the classic checkout and can be changed
 	await number.fill( '100000001' );
 	await page.click( 'button[name="save_account_details"]' );
 	await expectNotice( page, SAVED );
+} );
+
+test.describe( 'with the ID required', () => {
+	test.beforeAll( () =>
+		wp(
+			'wp option patch update crkit_identification_settings requirement required'
+		)
+	);
+	test.afterAll( () =>
+		wp(
+			'wp option patch update crkit_identification_settings requirement invoice; wp user meta update cliente _wc_other/crkit/id-type 01; wp user meta update cliente _wc_other/crkit/id-number 100000001; wp user meta update cliente last_name Mora'
+		)
+	);
+
+	test( 'Account details: the ID is optional there and checked if typed; checkout still requires it', async ( {
+		page,
+	} ) => {
+		await u.login( page, u.CUSTOMER );
+		await page.goto( '/my-account/edit-account/' );
+		const number = page.locator( '[name="_wc_other/crkit/id-number"]' );
+		await expect( number ).toHaveValue( '100000001' );
+		await expect(
+			page.locator( 'label[for="_wc_other/crkit/id-number"]' )
+		).toHaveText( OPTIONAL );
+		await expect( page.getByText( REMINDER ) ).toHaveCount( 0 );
+
+		// 1. A customer can remove the ID: the normal success message, then the reminder.
+		await number.fill( '' );
+		await page.click( 'button[name="save_account_details"]' );
+		await expectNotice( page, SAVED );
+		await expectNotice( page, REMINDER );
+		await expect( number ).toHaveValue( '' );
+
+		// 2. Without an ID, saving other changes shows the normal success message.
+		await page.fill( '#account_last_name', 'Mora Solís' );
+		await page.click( 'button[name="save_account_details"]' );
+		await expectNotice( page, SAVED );
+		await expect( page.locator( '#account_last_name' ) ).toHaveValue(
+			'Mora Solís'
+		);
+
+		// 3. A typed number is still checked against its type.
+		await page
+			.locator( '[name="_wc_other/crkit/id-type"]' )
+			.selectOption( '01' );
+		await number.fill( '12345' );
+		await page.click( 'button[name="save_account_details"]' );
+		await expectNotice( page, FORMAT_ERROR.physical );
+		await expect( page.getByText( SAVED ) ).toHaveCount( 0 );
+
+		// Both checkouts still require the ID with this setting.
+		await u.addToCart( page, 'CRK-COFFEE' );
+		await page.goto( '/checkout/' );
+		await page.waitForSelector( '.wc-block-checkout__form' );
+		await expect(
+			page.locator( 'label[for="contact-crkit-id-number"]' )
+		).not.toHaveText( OPTIONAL );
+		await u.selectBlockSinpe( page );
+		await page
+			.locator( '.wc-block-components-checkout-place-order-button' )
+			.click();
+		await expect(
+			page.locator( '#contact-crkit-id-number' )
+		).toHaveAttribute( 'aria-invalid', 'true' );
+		await expect( page ).not.toHaveURL( /order-received/ );
+
+		await page.goto( '/checkout-clasico/' );
+		await expect(
+			page.locator( '#crkit_id_number_field label .required' )
+		).toBeVisible();
+	} );
 } );

@@ -149,6 +149,16 @@ test( 'phase 3 screenshots', async ( { browser } ) => {
 	await account.goto( '/my-account/edit-account/' );
 	await shot( account, '10-mi-cuenta-detalles-cedula' );
 
+	// "Required" setting, customer without an ID: a reminder, not an error.
+	wp(
+		'wp option patch update crkit_identification_settings requirement required; wp user meta delete cliente _wc_other/crkit/id-number'
+	);
+	await account.goto( '/my-account/edit-account/' );
+	await shot( account, '13-mi-cuenta-aviso-sin-cedula', { fullPage: false } );
+	wp(
+		'wp option patch update crkit_identification_settings requirement invoice; wp user meta update cliente _wc_other/crkit/id-number 100000001'
+	);
+
 	// Block checkout on a phone.
 	const phone = await browser.newContext( {
 		viewport: { width: 390, height: 844 },
