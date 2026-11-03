@@ -26,6 +26,15 @@ First public release on WordPress.org. Includes everything in 0.1.0 (internal de
 - Uninstall removes the district and ID meta of orders and customers when "Delete data on uninstall" is on.
 - Deployment workflows for WordPress.org (release on a `vX.Y.Z` tag; readme and assets on `main`) and the directory banners, icons and screenshots in `.wordpress-org/`.
 
+### Fixed
+- Block checkout address cards printed the `{crkit_district}` token; the district now goes into the standard `{city}` replacement.
+- A `[crkit_exchange_rate]` shortcode on its own line sat outside the content width in block themes; it is now block-level (`inline="yes"` for use inside a sentence).
+- Receipt upload errors are tied to the file field (`aria-invalid`, `aria-describedby`) and announced; the "View receipt" link says it opens a new tab.
+- Personal data exporters and erasers stay available when their module is disabled.
+- Translations load before WooCommerce registers the block checkout fields.
+- Uninstall deletes receipts regardless of the filesystem method and removes pending actions when WooCommerce is inactive.
+- My Account address validation reads only the fields it needs; the exchange rate requests send the plugin's current name in the User-Agent.
+
 ## [0.1.0] - 2026-10-31 (internal, not published)
 
 ### Added
