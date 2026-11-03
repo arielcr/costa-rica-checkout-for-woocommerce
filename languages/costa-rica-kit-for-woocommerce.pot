@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T01:17:48+00:00\n"
+"POT-Creation-Date: 2026-11-03T01:43:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-kit-for-woocommerce\n"
@@ -283,11 +283,15 @@ msgstr ""
 msgid "Source: %s"
 msgstr ""
 
+#: src/Modules/Identification/AccountDetails.php:69
+msgid "Add your ID number to speed up your next purchases."
+msgstr ""
+
 #. translators: %s: field label.
 #: src/Modules/Identification/AdminFields.php:85
-#: src/Modules/Identification/BlocksCheckout.php:103
-#: src/Modules/Identification/ClassicCheckout.php:102
-#: src/Modules/Identification/ClassicCheckout.php:204
+#: src/Modules/Identification/BlocksCheckout.php:104
+#: src/Modules/Identification/ClassicCheckout.php:101
+#: src/Modules/Identification/ClassicCheckout.php:203
 #: src/Modules/Identification/Privacy.php:62
 msgid "ID type"
 msgstr ""
@@ -298,10 +302,10 @@ msgstr ""
 
 #. translators: %s: field label.
 #: src/Modules/Identification/AdminFields.php:95
-#: src/Modules/Identification/BlocksCheckout.php:114
-#: src/Modules/Identification/ClassicCheckout.php:111
-#: src/Modules/Identification/ClassicCheckout.php:208
-#: src/Modules/Identification/IdentificationModule.php:79
+#: src/Modules/Identification/BlocksCheckout.php:115
+#: src/Modules/Identification/ClassicCheckout.php:110
+#: src/Modules/Identification/ClassicCheckout.php:207
+#: src/Modules/Identification/IdentificationModule.php:80
 #: src/Modules/Identification/Privacy.php:66
 msgid "ID number"
 msgstr ""
@@ -327,32 +331,32 @@ msgstr ""
 msgid "The ID number was not saved: %s"
 msgstr ""
 
-#: src/Modules/Identification/BlocksCheckout.php:84
-#: src/Modules/Identification/BlocksCheckout.php:86
-#: src/Modules/Identification/ClassicCheckout.php:91
+#: src/Modules/Identification/BlocksCheckout.php:85
+#: src/Modules/Identification/BlocksCheckout.php:87
+#: src/Modules/Identification/ClassicCheckout.php:90
 msgid "I need an electronic invoice"
 msgstr ""
 
-#: src/Modules/Identification/BlocksCheckout.php:104
-#: src/Modules/Identification/ClassicCheckout.php:103
+#: src/Modules/Identification/BlocksCheckout.php:105
+#: src/Modules/Identification/ClassicCheckout.php:102
 msgid "Select an ID type"
 msgstr ""
 
 #. translators: %s: field label.
-#: src/Modules/Identification/ClassicCheckout.php:204
-#: src/Modules/Identification/ClassicCheckout.php:208
+#: src/Modules/Identification/ClassicCheckout.php:203
+#: src/Modules/Identification/ClassicCheckout.php:207
 #, php-format
 msgid "%s is required for an electronic invoice."
 msgstr ""
 
-#: src/Modules/Identification/ClassicCheckout.php:218
+#: src/Modules/Identification/ClassicCheckout.php:217
 #: src/Modules/Identification/IdentificationType.php:123
 #: src/Modules/Identification/IdentificationType.php:141
 msgid "Select the ID type."
 msgstr ""
 
 #: src/Modules/Identification/IdentificationModule.php:38
-#: src/Modules/Identification/IdentificationModule.php:90
+#: src/Modules/Identification/IdentificationModule.php:91
 msgid "ID number (cédula)"
 msgstr ""
 
@@ -360,15 +364,15 @@ msgstr ""
 msgid "Collects the customer ID type and number at checkout for e-invoicing plugins."
 msgstr ""
 
-#: src/Modules/Identification/IdentificationModule.php:91
+#: src/Modules/Identification/IdentificationModule.php:92
 msgid "Customers choose the ID type (cédula física, cédula jurídica, DIMEX or NITE) and type the number. The number is checked against the format Hacienda sets for its type; there is no public check digit, so it is not looked up in any registry. E-invoicing plugins can read it with crkit_get_order_identification()."
 msgstr ""
 
-#: src/Modules/Identification/IdentificationModule.php:96
+#: src/Modules/Identification/IdentificationModule.php:97
 msgid "ID number at checkout"
 msgstr ""
 
-#: src/Modules/Identification/IdentificationModule.php:99
+#: src/Modules/Identification/IdentificationModule.php:100
 msgid "With \"Required only if the customer asks for an electronic invoice\", checkout shows an \"I need an electronic invoice\" checkbox."
 msgstr ""
 

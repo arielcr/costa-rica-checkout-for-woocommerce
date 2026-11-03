@@ -70,7 +70,6 @@ final class ClassicCheckout {
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'save_to_order' ), 10, 2 );
 		add_action( 'woocommerce_checkout_update_customer', array( $this, 'save_to_customer' ), 10, 2 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'order_processed' ), 10, 3 );
-		add_action( 'woocommerce_save_account_details', array( $this, 'account_details_saved' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 	}
 
@@ -284,15 +283,6 @@ final class ClassicCheckout {
 		}
 	}
 
-	/**
-	 * After WooCommerce saves My Account → Account details (block contact fields), refresh the session copy.
-	 *
-	 * @param mixed $user_id User id.
-	 * @return void
-	 */
-	public function account_details_saved( mixed $user_id ): void {
-		IdentificationStore::sync_session_customer( absint( $user_id ) );
-	}
 
 	/**
 	 * A posted value as a string.

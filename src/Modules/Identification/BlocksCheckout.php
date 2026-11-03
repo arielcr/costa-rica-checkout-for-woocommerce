@@ -66,19 +66,20 @@ final class BlocksCheckout {
 	/**
 	 * Field definitions for a requirement setting.
 	 *
-	 * The fields are never hidden: My Account → Account details evaluates the rules without the
-	 * checkbox value and would drop hidden fields. With the INVOICE setting they are required only
-	 * while the checkbox is checked.
+	 * The fields are never hidden: My Account → Account details evaluates the rules without checkout
+	 * data and would drop hidden fields. For the same reason the `required` rules only match at checkout,
+	 * so the ID is optional in Account details with every setting (ADR-0048). With the INVOICE setting
+	 * the fields are required only while the checkbox is checked.
 	 *
 	 * @param string $requirement One of the IdentificationSettings constants.
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function get_field_definitions( string $requirement ): array {
-		$required = IdentificationSettings::REQUIRED === $requirement;
+		$required = IdentificationSettings::REQUIRED === $requirement ? $this->get_required_rule( false ) : false;
 		$fields   = array();
 
 		if ( IdentificationSettings::INVOICE === $requirement ) {
-			$required = $this->get_invoice_rule();
+			$required = $this->get_required_rule( true );
 			$fields[] = array(
 				'id'                         => IdentificationStore::INVOICE_FIELD,
 				'label'                      => __( 'I need an electronic invoice', 'costa-rica-kit-for-woocommerce' ),
@@ -128,30 +129,45 @@ final class BlocksCheckout {
 	}
 
 	/**
-	 * JSON Schema: the "I need an electronic invoice" checkbox is checked.
+	 * JSON Schema for the `required` option of the ID fields.
 	 *
+	 * Matches at checkout only: the block checkout (browser and Store API) always sends checkout data
+	 * (payment method, order note…), while My Account → Account details sends none. Optionally, the
+	 * "I need an electronic invoice" checkbox must also be checked.
+	 *
+	 * @param bool $only_with_invoice Whether the checkbox must be checked.
 	 * @return array<string, mixed>
 	 */
-	private function get_invoice_rule(): array {
-		return array(
+	private function get_required_rule( bool $only_with_invoice ): array {
+		$rule = array(
 			'type'       => 'object',
-			'required'   => array( 'customer' ),
+			'required'   => array( 'checkout' ),
 			'properties' => array(
-				'customer' => array(
-					'type'       => 'object',
-					'required'   => array( 'additional_fields' ),
-					'properties' => array(
-						'additional_fields' => array(
-							'type'       => 'object',
-							'required'   => array( IdentificationStore::INVOICE_FIELD ),
-							'properties' => array(
-								IdentificationStore::INVOICE_FIELD => array( 'const' => true ),
-							),
-						),
-					),
+				'checkout' => array(
+					'type'          => 'object',
+					'minProperties' => 1,
 				),
 			),
 		);
+
+		if ( $only_with_invoice ) {
+			$rule['required'][]             = 'customer';
+			$rule['properties']['customer'] = array(
+				'type'       => 'object',
+				'required'   => array( 'additional_fields' ),
+				'properties' => array(
+					'additional_fields' => array(
+						'type'       => 'object',
+						'required'   => array( IdentificationStore::INVOICE_FIELD ),
+						'properties' => array(
+							IdentificationStore::INVOICE_FIELD => array( 'const' => true ),
+						),
+					),
+				),
+			);
+		}
+
+		return $rule;
 	}
 
 	/**

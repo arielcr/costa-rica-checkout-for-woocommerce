@@ -9,6 +9,9 @@ namespace CRKit\Tests\Integration;
 
 use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
 use Automattic\WooCommerce\Blocks\Package;
+use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\Validation;
+use CRKit\Modules\Identification\AccountDetails;
 use CRKit\Modules\Identification\AdminFields;
 use CRKit\Modules\Identification\BlocksCheckout;
 use CRKit\Modules\Identification\ClassicCheckout;
@@ -66,14 +69,70 @@ final class IdentificationTest extends WP_UnitTestCase {
 		$this->assertSame( array( false, false ), array_column( $optional, 'required' ) );
 
 		$required = $blocks->get_field_definitions( IdentificationSettings::REQUIRED );
-		$this->assertSame( array( true, true ), array_column( $required, 'required' ) );
+		$this->assertIsArray( $required[0]['required'] );
 
 		$invoice = $blocks->get_field_definitions( IdentificationSettings::INVOICE );
 		$this->assertSame( array( 'crkit/electronic-invoice', 'crkit/id-type', 'crkit/id-number' ), array_column( $invoice, 'id' ) );
 		$this->assertIsArray( $invoice[1]['required'] );
 		$this->assertSame( array( 'const' => true ), $invoice[2]['required']['properties']['customer']['properties']['additional_fields']['properties']['crkit/electronic-invoice'] );
+		$this->assertTrue( Validation::is_valid_schema( $invoice[2]['required'] ) );
+		$this->assertTrue( Validation::is_valid_schema( $required[1]['required'] ) );
 		$this->assertSame( array( '01', '02', '03', '04' ), array_column( $invoice[1]['options'], 'value' ) );
 		$this->assertSame( array( false, false, false ), array_column( $invoice, 'show_in_order_confirmation' ) );
+	}
+
+	/**
+	 * Document objects as the Store API checkout and My Account → Account details build them.
+	 *
+	 * @param bool $checkout Whether to include checkout data.
+	 * @param bool $invoice  Value of the electronic invoice checkbox.
+	 * @return DocumentObject
+	 */
+	private function document( bool $checkout, bool $invoice ): DocumentObject {
+		$data = array( 'customer' => array( 'additional_fields' => array( 'crkit/electronic-invoice' => $invoice ) ) );
+		if ( $checkout ) {
+			$data['checkout'] = array(
+				'payment_method'    => 'crkit_sinpe_movil',
+				'create_account'    => false,
+				'customer_note'     => '',
+				'additional_fields' => array(),
+			);
+		}
+
+		return new DocumentObject( $data );
+	}
+
+	public function test_ids_are_required_only_at_checkout(): void {
+		wc_load_cart();
+		$blocks   = new BlocksCheckout( $this->settings );
+		$required = $blocks->get_field_definitions( IdentificationSettings::REQUIRED )[1]['required'];
+		$invoice  = $blocks->get_field_definitions( IdentificationSettings::INVOICE )[2]['required'];
+
+		$this->assertTrue( Validation::validate_document_object( $this->document( true, false ), $required ) );
+		$this->assertWPError( Validation::validate_document_object( $this->document( false, false ), $required ), 'Optional in Account details.' );
+
+		$this->assertTrue( Validation::validate_document_object( $this->document( true, true ), $invoice ) );
+		$this->assertWPError( Validation::validate_document_object( $this->document( true, false ), $invoice ), 'Checkbox not checked.' );
+		$this->assertWPError( Validation::validate_document_object( $this->document( false, true ), $invoice ), 'Optional in Account details.' );
+	}
+
+	public function test_account_details_remind_customers_without_an_id_when_it_is_required(): void {
+		$user = self::factory()->user->create( array( 'role' => 'customer' ) );
+		wp_set_current_user( $user );
+		$account = new AccountDetails( $this->settings );
+
+		$this->set_requirement( IdentificationSettings::INVOICE );
+		$this->assertFalse( $account->needs_reminder() );
+
+		$this->set_requirement( IdentificationSettings::REQUIRED );
+		$this->assertTrue( $account->needs_reminder() );
+		ob_start();
+		$account->print_reminder();
+		$this->assertStringContainsString( 'Add your ID number to speed up your next purchases.', (string) ob_get_clean() );
+
+		update_user_meta( $user, '_wc_other/crkit/id-type', '01' );
+		update_user_meta( $user, '_wc_other/crkit/id-number', '112340567' );
+		$this->assertFalse( $account->needs_reminder() );
 	}
 
 	public function test_block_fields_are_registered_as_contact_fields(): void {
@@ -216,7 +275,7 @@ final class IdentificationTest extends WP_UnitTestCase {
 		$classic = new ClassicCheckout( $this->settings );
 		$this->assertSame( '03', $classic->get_saved_value( null, ClassicCheckout::TYPE_KEY ), 'The classic checkout reads the database.' );
 
-		$classic->account_details_saved( $user );
+		( new AccountDetails( $this->settings ) )->account_details_saved( $user );
 
 		$this->assertSame( '03', WC()->customer->get_meta( '_wc_other/crkit/id-type' ) );
 		$this->assertSame( '155812345678', WC()->customer->get_meta( '_wc_other/crkit/id-number' ) );

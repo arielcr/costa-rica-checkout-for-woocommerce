@@ -60,6 +60,7 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 
 		( new BlocksCheckout( $settings ) )->register();
 		( new ClassicCheckout( $settings ) )->register();
+		( new AccountDetails( $settings ) )->register();
 		( new AdminFields( $settings ) )->register();
 		( new OrderDisplay() )->register();
 		( new Privacy() )->register();
