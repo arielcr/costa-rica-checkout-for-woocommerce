@@ -164,7 +164,9 @@ Environment as in phase 2, with the ID module on (seeded, "required only for an 
 
 Order emails with an electronic invoice request (integration test, HTML and plain text): the store's say "The customer asked for an electronic invoice: DIMEX 155812345678" and the customer's "Electronic invoice requested in the name of: DIMEX 155812345678". Screenshots 09 (store) and 12 (customer) in `docs/screenshots/fase-3/`.
 
-The ID and Locations e2e specs (6 tests) pass with HPOS, posts storage and sync mode (PHP 8.1, USD).
+With the "Required" setting (e2e): in Account details the ID is optional — removing it shows the normal success message and then the reminder "Add your ID number to speed up your next purchases."; a customer without an ID who changes the last name gets the normal success message; "12345" as a cédula física is an error. The block checkout still marks the ID as required and blocks the order without it, and the classic checkout shows it as required. Screenshot 13 in `docs/screenshots/fase-3/`.
+
+The ID and Locations e2e specs (7 tests) pass with HPOS, posts storage and sync mode (PHP 8.1, USD).
 
 ### SPEC §8 matrix with the ID module
 

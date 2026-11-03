@@ -48,7 +48,7 @@ Costa Rica Kit for WooCommerce brings the local needs of a Costa Rican online st
 * ID type (cédula física, cédula jurídica, DIMEX or NITE) and number in the classic and block checkouts.
 * The number is checked against the format Hacienda sets for each type (for example, a cédula física has 9 digits and does not start with 0). Hyphens and spaces are removed. Cédulas jurídicas with letters, announced by the Registro Nacional, are accepted.
 * Choose whether the ID is optional, required, or required only when the customer checks "I need an electronic invoice".
-* Shown with the billing address in the order screen, emails, the order received page and My Account. Customers can change it in My Account → Account details.
+* Shown with the billing address in the order screen, emails, the order received page and My Account. Customers can change it in My Account → Account details, where it is always optional; with "Required", customers without one see a reminder there.
 * When the customer asks for an electronic invoice, the store's emails say so with the ID, and the customer's emails show the ID the invoice will be issued to, so typing mistakes are caught early.
 * For developers: `crkit_get_order_identification( $order )`, the `crkit_order_identification` filter and the `crkit_order_identification_saved` action.
 
