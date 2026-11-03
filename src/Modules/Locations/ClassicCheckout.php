@@ -255,7 +255,7 @@ final class ClassicCheckout {
 		/**
 		 * Fires after a Costa Rican district is saved from a classic address form.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param WC_Customer   $customer Customer.
 		 * @param string        $group    `billing` or `shipping`.

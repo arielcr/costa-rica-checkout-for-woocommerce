@@ -83,7 +83,7 @@ final class ExchangeRateService {
 		/**
 		 * Filters the exchange rate sources.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param RateProviderInterface[] $providers Providers keyed by id.
 		 * @param ExchangeRateSettings    $settings  Exchange rate settings.
@@ -187,7 +187,7 @@ final class ExchangeRateService {
 		/**
 		 * Filters the usable exchange rate (CRC per USD).
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param float|null        $value Rate, or null if unavailable or outdated.
 		 * @param string            $type  `sell` or `buy`.
@@ -221,7 +221,7 @@ final class ExchangeRateService {
 		/**
 		 * Filters an amount converted to colones. Use it to support other currencies.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param float|null $converted Amount in CRC, or null if it cannot be converted.
 		 * @param float      $amount    Original amount.
@@ -257,7 +257,7 @@ final class ExchangeRateService {
 			/**
 			 * Fires when an exchange rate update fails. The last good rate is kept.
 			 *
-			 * @since 0.1.0
+			 * @since 1.0.0
 			 *
 			 * @param RateProviderException $exception Error.
 			 * @param string                $source    Provider id.
@@ -273,7 +273,7 @@ final class ExchangeRateService {
 		/**
 		 * Fires after a new exchange rate is saved.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param ExchangeRate      $rate     New rate.
 		 * @param ExchangeRate|null $previous Previous rate, if any.

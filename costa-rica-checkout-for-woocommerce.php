@@ -2,7 +2,7 @@
 /**
  * Plugin Name:          Costa Rica Checkout for WooCommerce
  * Description:          SINPE Móvil payments, exchange rates, provinces/cantons/districts and ID numbers for WooCommerce stores in Costa Rica.
- * Version:              0.1.0
+ * Version:              1.0.0
  * Requires at least:    6.7
  * Requires PHP:         8.1
  * Requires Plugins:     woocommerce
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CRKIT_VERSION', '0.1.0' );
+define( 'CRKIT_VERSION', '1.0.0' );
 define( 'CRKIT_PLUGIN_FILE', __FILE__ );
 define( 'CRKIT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CRKIT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

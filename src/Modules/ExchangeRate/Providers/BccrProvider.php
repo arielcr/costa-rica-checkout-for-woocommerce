@@ -119,7 +119,7 @@ final class BccrProvider extends AbstractHttpProvider {
 		/**
 		 * Filters the BCCR SDDE API base URL.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param string $base_url Base URL, without trailing slash.
 		 */

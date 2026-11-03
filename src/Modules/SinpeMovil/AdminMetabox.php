@@ -215,7 +215,7 @@ final class AdminMetabox {
 		/**
 		 * Fires after a store manager confirms a SINPE Móvil payment.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param int      $order_id Order id.
 		 * @param WC_Order $order    Order.
@@ -251,7 +251,7 @@ final class AdminMetabox {
 		/**
 		 * Fires after a store manager rejects a SINPE Móvil payment.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param int      $order_id Order id.
 		 * @param WC_Order $order    Order.

@@ -82,7 +82,7 @@ final class Plugin {
 		/**
 		 * Filters the modules registered by the plugin.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param ModuleInterface[] $modules Module instances.
 		 */
@@ -134,7 +134,7 @@ final class Plugin {
 		/**
 		 * Fires after the plugin and its enabled modules are registered.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param Plugin $plugin Plugin instance.
 		 */

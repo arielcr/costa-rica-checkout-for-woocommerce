@@ -441,7 +441,7 @@ class Gateway extends WC_Payment_Gateway {
 		/**
 		 * Fires after a SINPE Móvil order is placed on hold, waiting for the payment.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param WC_Order     $order Order.
 		 * @param PaymentQuote $quote Amount in colones and the rate used.

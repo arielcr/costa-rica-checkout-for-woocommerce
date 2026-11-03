@@ -52,7 +52,7 @@ final class HaciendaProvider extends AbstractHttpProvider {
 		/**
 		 * Filters the Ministerio de Hacienda exchange rate endpoint.
 		 *
-		 * @since 0.1.0
+		 * @since 1.0.0
 		 *
 		 * @param string $url Endpoint URL.
 		 */
