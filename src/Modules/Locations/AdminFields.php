@@ -63,15 +63,15 @@ final class AdminFields {
 	 */
 	public function add_field( mixed $fields ): array {
 		$fields  = is_array( $fields ) ? $fields : array();
-		$options = array( '' => __( '— Not in Costa Rica —', 'costa-rica-kit-for-woocommerce' ) );
+		$options = array( '' => __( '— Not in Costa Rica —', 'costa-rica-checkout-for-woocommerce' ) );
 
 		foreach ( $this->locations->all() as $postcode => $location ) {
 			/* translators: 1: district, 2: canton, 3: province. */
-			$options[ $postcode ] = sprintf( __( '%1$s, %2$s, %3$s', 'costa-rica-kit-for-woocommerce' ), $location->district, $location->canton, $location->province );
+			$options[ $postcode ] = sprintf( __( '%1$s, %2$s, %3$s', 'costa-rica-checkout-for-woocommerce' ), $location->district, $location->canton, $location->province );
 		}
 
 		$fields[ AddressFields::DISTRICT ] = array(
-			'label'         => __( 'District (Costa Rica)', 'costa-rica-kit-for-woocommerce' ),
+			'label'         => __( 'District (Costa Rica)', 'costa-rica-checkout-for-woocommerce' ),
 			'show'          => false,
 			'type'          => 'select',
 			'class'         => 'wc-enhanced-select',

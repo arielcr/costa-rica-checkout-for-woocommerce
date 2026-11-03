@@ -18,7 +18,7 @@ final class UninstallTest extends TestCase {
 
 	public function test_uninstall_removes_options_and_scheduled_actions_but_keeps_data(): void {
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-			define( 'WP_UNINSTALL_PLUGIN', 'costa-rica-kit-for-woocommerce/costa-rica-kit-for-woocommerce.php' );
+			define( 'WP_UNINSTALL_PLUGIN', 'costa-rica-checkout-for-woocommerce/costa-rica-checkout-for-woocommerce.php' );
 		}
 
 		$this->use_options_store(

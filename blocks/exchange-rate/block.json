@@ -5,9 +5,9 @@
 	"title": "Exchange rate (Costa Rica)",
 	"category": "widgets",
 	"icon": "money-alt",
-	"description": "Shows the US dollar exchange rate in colones stored by Costa Rica Kit for WooCommerce.",
+	"description": "Shows the US dollar exchange rate in colones stored by Costa Rica Checkout for WooCommerce.",
 	"keywords": [ "tipo de cambio", "colones", "dólar", "BCCR", "Hacienda" ],
-	"textdomain": "costa-rica-kit-for-woocommerce",
+	"textdomain": "costa-rica-checkout-for-woocommerce",
 	"attributes": {
 		"type": {
 			"type": "string",

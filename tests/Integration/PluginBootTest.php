@@ -18,7 +18,7 @@ use WP_UnitTestCase;
  */
 final class PluginBootTest extends WP_UnitTestCase {
 
-	private const BASENAME = 'costa-rica-kit-for-woocommerce/costa-rica-kit-for-woocommerce.php';
+	private const BASENAME = 'costa-rica-checkout-for-woocommerce/costa-rica-checkout-for-woocommerce.php';
 
 	public function test_plugin_boots_after_woocommerce(): void {
 		$this->assertSame( 1, did_action( 'crkit_loaded' ) );

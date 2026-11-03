@@ -35,7 +35,7 @@ final class SettingsPage extends WC_Settings_Page {
 	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
 		$this->id     = Plugin::SETTINGS_TAB;
-		$this->label  = __( 'Costa Rica', 'costa-rica-kit-for-woocommerce' );
+		$this->label  = __( 'Costa Rica', 'costa-rica-checkout-for-woocommerce' );
 
 		parent::__construct();
 	}
@@ -47,7 +47,7 @@ final class SettingsPage extends WC_Settings_Page {
 	 */
 	protected function get_own_sections(): array {
 		$sections = array(
-			'' => __( 'Modules', 'costa-rica-kit-for-woocommerce' ),
+			'' => __( 'Modules', 'costa-rica-checkout-for-woocommerce' ),
 		);
 
 		foreach ( $this->plugin->get_settings_sections() as $id => $section ) {
@@ -79,8 +79,8 @@ final class SettingsPage extends WC_Settings_Page {
 			array(
 				'id'    => 'crkit_modules_section',
 				'type'  => 'title',
-				'title' => __( 'Modules', 'costa-rica-kit-for-woocommerce' ),
-				'desc'  => __( 'Enable only the features your store needs. Disabled modules add nothing to your store.', 'costa-rica-kit-for-woocommerce' ),
+				'title' => __( 'Modules', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'  => __( 'Enable only the features your store needs. Disabled modules add nothing to your store.', 'costa-rica-checkout-for-woocommerce' ),
 			),
 		);
 
@@ -102,13 +102,13 @@ final class SettingsPage extends WC_Settings_Page {
 		$settings[] = array(
 			'id'    => 'crkit_data_section',
 			'type'  => 'title',
-			'title' => __( 'Data', 'costa-rica-kit-for-woocommerce' ),
+			'title' => __( 'Data', 'costa-rica-checkout-for-woocommerce' ),
 		);
 		$settings[] = array(
 			'id'      => Plugin::DELETE_DATA_OPTION,
 			'type'    => 'checkbox',
-			'title'   => __( 'Delete data on uninstall', 'costa-rica-kit-for-woocommerce' ),
-			'desc'    => __( 'When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders and customers. Settings are always deleted.', 'costa-rica-kit-for-woocommerce' ),
+			'title'   => __( 'Delete data on uninstall', 'costa-rica-checkout-for-woocommerce' ),
+			'desc'    => __( 'When the plugin is deleted, also delete SINPE Móvil payment receipts and the data this plugin added to orders and customers. Settings are always deleted.', 'costa-rica-checkout-for-woocommerce' ),
 			'default' => 'no',
 		);
 		$settings[] = array(

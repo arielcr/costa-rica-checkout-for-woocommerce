@@ -2,7 +2,7 @@
 /**
  * SINPE Móvil receipt upload form (order received page and My Account).
  *
- * Override by copying it to yourtheme/costa-rica-kit-for-woocommerce/sinpe-movil/receipt-form.php.
+ * Override by copying it to yourtheme/costa-rica-checkout-for-woocommerce/sinpe-movil/receipt-form.php.
  *
  * @package CRKit\Templates
  * @version 0.1.0
@@ -25,7 +25,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <section id="crkit-sinpe-receipt" class="crkit-sinpe-receipt">
-	<h3 class="crkit-sinpe-receipt__title"><?php esc_html_e( 'Payment receipt', 'costa-rica-kit-for-woocommerce' ); ?></h3>
+	<h3 class="crkit-sinpe-receipt__title"><?php esc_html_e( 'Payment receipt', 'costa-rica-checkout-for-woocommerce' ); ?></h3>
 
 	<?php if ( null !== $result ) : ?>
 		<?php if ( 'success' === $result['type'] ) : ?>
@@ -40,12 +40,12 @@ defined( 'ABSPATH' ) || exit;
 			<?php
 			printf(
 				/* translators: %s: date and time of the upload. */
-				esc_html__( 'Receipt received on %s.', 'costa-rica-kit-for-woocommerce' ),
+				esc_html__( 'Receipt received on %s.', 'costa-rica-checkout-for-woocommerce' ),
 				esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $receipt['uploaded_at'] ) )
 			);
 			?>
 			<?php if ( '' !== $view_url ) : ?>
-				<a href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View receipt', 'costa-rica-kit-for-woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( $view_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View receipt', 'costa-rica-checkout-for-woocommerce' ); ?></a>
 			<?php endif; ?>
 		</p>
 	<?php endif; ?>
@@ -55,7 +55,7 @@ defined( 'ABSPATH' ) || exit;
 			<p class="form-row">
 				<label for="crkit-receipt-file">
 					<?php
-					echo esc_html( null === $receipt ? __( 'Upload your receipt', 'costa-rica-kit-for-woocommerce' ) : __( 'Replace your receipt', 'costa-rica-kit-for-woocommerce' ) );
+					echo esc_html( null === $receipt ? __( 'Upload your receipt', 'costa-rica-checkout-for-woocommerce' ) : __( 'Replace your receipt', 'costa-rica-checkout-for-woocommerce' ) );
 					?>
 				</label>
 				<input type="file" id="crkit-receipt-file" name="<?php echo esc_attr( $file_field ); ?>" accept="<?php echo esc_attr( $accept ); ?>" required aria-describedby="crkit-receipt-help" />
@@ -63,7 +63,7 @@ defined( 'ABSPATH' ) || exit;
 					<?php
 					printf(
 						/* translators: %s: maximum file size, e.g. "5 MB". */
-						esc_html__( 'JPG, PNG, WEBP or PDF, up to %s.', 'costa-rica-kit-for-woocommerce' ),
+						esc_html__( 'JPG, PNG, WEBP or PDF, up to %s.', 'costa-rica-checkout-for-woocommerce' ),
 						esc_html( $max_size )
 					);
 					?>
@@ -75,7 +75,7 @@ defined( 'ABSPATH' ) || exit;
 			<input type="hidden" name="context" value="<?php echo esc_attr( $context ); ?>" />
 			<?php wp_nonce_field( $nonce_action, $nonce_field, false ); ?>
 			<p>
-				<button type="submit" class="button wp-element-button"><?php esc_html_e( 'Send receipt', 'costa-rica-kit-for-woocommerce' ); ?></button>
+				<button type="submit" class="button wp-element-button"><?php esc_html_e( 'Send receipt', 'costa-rica-checkout-for-woocommerce' ); ?></button>
 			</p>
 		</form>
 	<?php endif; ?>

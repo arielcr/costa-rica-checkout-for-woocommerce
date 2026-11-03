@@ -52,7 +52,7 @@ tests_add_filter(
 		);
 
 		require_once WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
-		require_once dirname( __DIR__, 2 ) . '/costa-rica-kit-for-woocommerce.php';
+		require_once dirname( __DIR__, 2 ) . '/costa-rica-checkout-for-woocommerce.php';
 	}
 );
 

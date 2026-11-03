@@ -2,7 +2,7 @@
 /**
  * SINPE Móvil payment steps (order received page, My Account and HTML email).
  *
- * Override by copying it to yourtheme/costa-rica-kit-for-woocommerce/sinpe-movil/instructions.php.
+ * Override by copying it to yourtheme/costa-rica-checkout-for-woocommerce/sinpe-movil/instructions.php.
  *
  * @package CRKit\Templates
  * @version 0.1.0
@@ -22,14 +22,14 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <section class="crkit-sinpe-instructions">
-	<h2 class="crkit-sinpe-instructions__title"><?php esc_html_e( 'How to pay with SINPE Móvil', 'costa-rica-kit-for-woocommerce' ); ?></h2>
+	<h2 class="crkit-sinpe-instructions__title"><?php esc_html_e( 'How to pay with SINPE Móvil', 'costa-rica-checkout-for-woocommerce' ); ?></h2>
 	<ol class="crkit-sinpe-instructions__steps">
-		<li><?php esc_html_e( 'Open your bank app and choose SINPE Móvil.', 'costa-rica-kit-for-woocommerce' ); ?></li>
+		<li><?php esc_html_e( 'Open your bank app and choose SINPE Móvil.', 'costa-rica-checkout-for-woocommerce' ); ?></li>
 		<li>
 			<?php
 			printf(
 				/* translators: 1: amount in colones, 2: phone number. */
-				esc_html__( 'Send exactly %1$s to the number %2$s.', 'costa-rica-kit-for-woocommerce' ),
+				esc_html__( 'Send exactly %1$s to the number %2$s.', 'costa-rica-checkout-for-woocommerce' ),
 				'<strong>' . wp_kses_post( $amount_crc_html ) . '</strong>',
 				'<strong>' . esc_html( $phone ) . '</strong>'
 			);
@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) || exit;
 				echo ' ';
 				printf(
 					/* translators: %s: account holder name. */
-					esc_html__( 'Your bank app will show the name %s.', 'costa-rica-kit-for-woocommerce' ),
+					esc_html__( 'Your bank app will show the name %s.', 'costa-rica-checkout-for-woocommerce' ),
 					'<strong>' . esc_html( rtrim( $holder, '.' ) ) . '</strong>'
 				);
 			}
@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php
 			printf(
 				/* translators: %s: payment reference (order number). */
-				esc_html__( 'Write %s in the payment description.', 'costa-rica-kit-for-woocommerce' ),
+				esc_html__( 'Write %s in the payment description.', 'costa-rica-checkout-for-woocommerce' ),
 				'<strong>' . esc_html( $reference ) . '</strong>'
 			);
 			?>
@@ -58,16 +58,16 @@ defined( 'ABSPATH' ) || exit;
 					<?php
 					printf(
 						/* translators: %s: link to the page where the receipt is uploaded. */
-						esc_html__( 'Upload the payment receipt on %s.', 'costa-rica-kit-for-woocommerce' ),
-						'<a href="' . esc_url( $receipt_url ) . '">' . esc_html__( 'your order page', 'costa-rica-kit-for-woocommerce' ) . '</a>'
+						esc_html__( 'Upload the payment receipt on %s.', 'costa-rica-checkout-for-woocommerce' ),
+						'<a href="' . esc_url( $receipt_url ) . '">' . esc_html__( 'your order page', 'costa-rica-checkout-for-woocommerce' ) . '</a>'
 					);
 					?>
 				<?php else : ?>
-					<?php esc_html_e( 'Upload the payment receipt below.', 'costa-rica-kit-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Upload the payment receipt below.', 'costa-rica-checkout-for-woocommerce' ); ?>
 				<?php endif; ?>
 			</li>
 		<?php endif; ?>
-		<li><?php esc_html_e( 'We will process your order as soon as we confirm the payment.', 'costa-rica-kit-for-woocommerce' ); ?></li>
+		<li><?php esc_html_e( 'We will process your order as soon as we confirm the payment.', 'costa-rica-checkout-for-woocommerce' ); ?></li>
 	</ol>
 
 	<?php if ( $is_converted ) : ?>
@@ -75,7 +75,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php
 			printf(
 				/* translators: 1: order total in the store currency, 2: exchange rate. */
-				esc_html__( 'Order total %1$s, converted with an exchange rate of %2$s.', 'costa-rica-kit-for-woocommerce' ),
+				esc_html__( 'Order total %1$s, converted with an exchange rate of %2$s.', 'costa-rica-checkout-for-woocommerce' ),
 				wp_kses_post( $order->get_formatted_order_total() ),
 				esc_html( $rate_text )
 			);

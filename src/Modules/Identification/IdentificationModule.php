@@ -35,14 +35,14 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'ID number (cédula)', 'costa-rica-kit-for-woocommerce' );
+		return __( 'ID number (cédula)', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
-		return __( 'Collects the customer ID type and number at checkout for e-invoicing plugins.', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Collects the customer ID type and number at checkout for e-invoicing plugins.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 	 * {@inheritDoc}
 	 */
 	public function get_settings_section_label(): string {
-		return __( 'ID number', 'costa-rica-kit-for-woocommerce' );
+		return __( 'ID number', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
@@ -88,16 +88,16 @@ final class IdentificationModule implements ModuleInterface, SettingsSectionInte
 			array(
 				'id'    => 'crkit_identification_section',
 				'type'  => 'title',
-				'title' => __( 'ID number (cédula)', 'costa-rica-kit-for-woocommerce' ),
-				'desc'  => __( 'Customers choose the ID type (cédula física, cédula jurídica, DIMEX or NITE) and type the number. The number is checked against the format Hacienda sets for its type; there is no public check digit, so it is not looked up in any registry. E-invoicing plugins can read it with crkit_get_order_identification().', 'costa-rica-kit-for-woocommerce' ),
+				'title' => __( 'ID number (cédula)', 'costa-rica-checkout-for-woocommerce' ),
+				'desc'  => __( 'Customers choose the ID type (cédula física, cédula jurídica, DIMEX or NITE) and type the number. The number is checked against the format Hacienda sets for its type; there is no public check digit, so it is not looked up in any registry. E-invoicing plugins can read it with crkit_get_order_identification().', 'costa-rica-checkout-for-woocommerce' ),
 			),
 			array(
 				'id'      => IdentificationSettings::OPTION . '[requirement]',
 				'type'    => 'select',
-				'title'   => __( 'ID number at checkout', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'ID number at checkout', 'costa-rica-checkout-for-woocommerce' ),
 				'options' => IdentificationSettings::get_requirement_options(),
 				'default' => IdentificationSettings::INVOICE,
-				'desc'    => __( 'With "Required only if the customer asks for an electronic invoice", checkout shows an "I need an electronic invoice" checkbox.', 'costa-rica-kit-for-woocommerce' ),
+				'desc'    => __( 'With "Required only if the customer asks for an electronic invoice", checkout shows an "I need an electronic invoice" checkbox.', 'costa-rica-checkout-for-woocommerce' ),
 			),
 			array(
 				'id'   => 'crkit_identification_section',

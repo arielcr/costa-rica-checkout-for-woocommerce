@@ -6,12 +6,12 @@
 #   SKIP_JS_BUILD=1 npm run zip # reuse an existing assets/build (CI)
 #
 # Output:
-#   build/costa-rica-kit-for-woocommerce/          staging folder (used by Plugin Check)
-#   dist/costa-rica-kit-for-woocommerce-<ver>.zip  distributable
+#   build/costa-rica-checkout-for-woocommerce/          staging folder (used by Plugin Check)
+#   dist/costa-rica-checkout-for-woocommerce-<ver>.zip  distributable
 #
 set -euo pipefail
 
-SLUG="costa-rica-kit-for-woocommerce"
+SLUG="costa-rica-checkout-for-woocommerce"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="$ROOT/build"
 STAGE_DIR="$BUILD_DIR/$SLUG"

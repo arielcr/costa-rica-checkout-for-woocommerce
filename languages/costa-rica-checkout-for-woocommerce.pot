@@ -2,36 +2,36 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Costa Rica Kit for WooCommerce 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/costa-rica-kit-for-woocommerce\n"
+"Project-Id-Version: Costa Rica Checkout for WooCommerce 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/costa-rica-checkout-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T01:43:01+00:00\n"
+"POT-Creation-Date: 2026-11-03T02:00:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: costa-rica-kit-for-woocommerce\n"
+"X-Domain: costa-rica-checkout-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 #: src/Modules/SinpeMovil/Privacy.php:67
-msgid "Costa Rica Kit for WooCommerce"
+msgid "Costa Rica Checkout for WooCommerce"
 msgstr ""
 
 #. Description of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 msgid "SINPE Móvil payments, exchange rates, provinces/cantons/districts and ID numbers for WooCommerce stores in Costa Rica."
 msgstr ""
 
 #. Author of the plugin
-#: costa-rica-kit-for-woocommerce.php
+#: costa-rica-checkout-for-woocommerce.php
 msgid "Ariel Orozco"
 msgstr ""
 
-#: costa-rica-kit-for-woocommerce.php:36
-msgid "Costa Rica Kit for WooCommerce is missing its autoloader. Run \"composer install\" or install the plugin from its release package."
+#: costa-rica-checkout-for-woocommerce.php:36
+msgid "Costa Rica Checkout for WooCommerce is missing its autoloader. Run \"composer install\" or install the plugin from its release package."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:38
@@ -160,14 +160,14 @@ msgid "The exchange rate could not be updated: %s The last good rate is kept."
 msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:332
-msgid "Costa Rica Kit: there is no exchange rate yet."
+msgid "Costa Rica Checkout: there is no exchange rate yet."
 msgstr ""
 
 #. translators: %d: maximum age in hours.
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:335
 #, php-format
-msgid "Costa Rica Kit: the exchange rate is older than %d hour."
-msgid_plural "Costa Rica Kit: the exchange rate is older than %d hours."
+msgid "Costa Rica Checkout: the exchange rate is older than %d hour."
+msgid_plural "Costa Rica Checkout: the exchange rate is older than %d hours."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -451,7 +451,7 @@ msgid "At checkout we ask for your ID type and number (cédula física, cédula 
 msgstr ""
 
 #: src/Modules/Identification/Privacy.php:50
-msgid "Costa Rica Kit for WooCommerce: ID number"
+msgid "Costa Rica Checkout for WooCommerce: ID number"
 msgstr ""
 
 #: src/Modules/Identification/Privacy.php:123
@@ -1083,7 +1083,7 @@ msgstr ""
 
 #: blocks/exchange-rate/block.json
 msgctxt "block description"
-msgid "Shows the US dollar exchange rate in colones stored by Costa Rica Kit for WooCommerce."
+msgid "Shows the US dollar exchange rate in colones stored by Costa Rica Checkout for WooCommerce."
 msgstr ""
 
 #: blocks/exchange-rate/block.json

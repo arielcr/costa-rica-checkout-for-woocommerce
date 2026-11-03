@@ -148,12 +148,12 @@ final class AddressFields {
 					'required' => false,
 				),
 				self::CANTON   => array(
-					'label'    => __( 'Canton', 'costa-rica-kit-for-woocommerce' ),
+					'label'    => __( 'Canton', 'costa-rica-checkout-for-woocommerce' ),
 					'hidden'   => false,
 					'required' => $required,
 				),
 				self::DISTRICT => array(
-					'label'    => __( 'District', 'costa-rica-kit-for-woocommerce' ),
+					'label'    => __( 'District', 'costa-rica-checkout-for-woocommerce' ),
 					'hidden'   => false,
 					'required' => $required,
 				),

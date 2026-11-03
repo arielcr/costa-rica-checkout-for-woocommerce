@@ -154,7 +154,7 @@ final class SinpeAdminActionsTest extends SinpeTestCase {
 
 		update_option( 'crkit_delete_data_on_uninstall', 'yes' );
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-			define( 'WP_UNINSTALL_PLUGIN', 'costa-rica-kit-for-woocommerce/costa-rica-kit-for-woocommerce.php' );
+			define( 'WP_UNINSTALL_PLUGIN', 'costa-rica-checkout-for-woocommerce/costa-rica-checkout-for-woocommerce.php' );
 		}
 		include CRKIT_PLUGIN_DIR . 'uninstall.php';
 		wp_cache_flush();

@@ -32,8 +32,8 @@ class ReceiptUploadedEmail extends WC_Email {
 	 */
 	public function __construct() {
 		$this->id             = self::ID;
-		$this->title          = __( 'SINPE Móvil receipt uploaded', 'costa-rica-kit-for-woocommerce' );
-		$this->description    = __( 'Sent to the store when a customer uploads a SINPE Móvil payment receipt.', 'costa-rica-kit-for-woocommerce' );
+		$this->title          = __( 'SINPE Móvil receipt uploaded', 'costa-rica-checkout-for-woocommerce' );
+		$this->description    = __( 'Sent to the store when a customer uploads a SINPE Móvil payment receipt.', 'costa-rica-checkout-for-woocommerce' );
 		$this->template_html  = 'emails/admin-sinpe-receipt-uploaded.php';
 		$this->template_plain = 'emails/plain/admin-sinpe-receipt-uploaded.php';
 		$this->template_base  = CRKIT_PLUGIN_DIR . 'templates/';
@@ -55,7 +55,7 @@ class ReceiptUploadedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return __( '[{site_title}]: SINPE Móvil receipt for order #{order_number}', 'costa-rica-kit-for-woocommerce' );
+		return __( '[{site_title}]: SINPE Móvil receipt for order #{order_number}', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class ReceiptUploadedEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Payment receipt received', 'costa-rica-kit-for-woocommerce' );
+		return __( 'Payment receipt received', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
@@ -125,25 +125,25 @@ class ReceiptUploadedEmail extends WC_Email {
 	 */
 	public function init_form_fields() {
 		/* translators: %s: list of available placeholders. */
-		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'costa-rica-kit-for-woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'costa-rica-checkout-for-woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 		$this->form_fields = array(
 			'enabled'            => array(
-				'title'   => __( 'Enable/Disable', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'costa-rica-checkout-for-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable this email notification', 'costa-rica-kit-for-woocommerce' ),
+				'label'   => __( 'Enable this email notification', 'costa-rica-checkout-for-woocommerce' ),
 				'default' => 'yes',
 			),
 			'recipient'          => array(
-				'title'       => __( 'Recipient(s)', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Recipient(s)', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'text',
 				/* translators: %s: admin email address. */
-				'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'costa-rica-kit-for-woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+				'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'costa-rica-checkout-for-woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 				'placeholder' => '',
 				'default'     => '',
 				'desc_tip'    => true,
 			),
 			'subject'            => array(
-				'title'       => __( 'Subject', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Subject', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				'description' => $placeholder_text,
@@ -151,7 +151,7 @@ class ReceiptUploadedEmail extends WC_Email {
 				'default'     => '',
 			),
 			'heading'            => array(
-				'title'       => __( 'Email heading', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Email heading', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				'description' => $placeholder_text,
@@ -159,18 +159,18 @@ class ReceiptUploadedEmail extends WC_Email {
 				'default'     => '',
 			),
 			'additional_content' => array(
-				'title'       => __( 'Additional content', 'costa-rica-kit-for-woocommerce' ),
-				'description' => __( 'Text to appear below the main email content.', 'costa-rica-kit-for-woocommerce' ) . ' ' . $placeholder_text,
+				'title'       => __( 'Additional content', 'costa-rica-checkout-for-woocommerce' ),
+				'description' => __( 'Text to appear below the main email content.', 'costa-rica-checkout-for-woocommerce' ) . ' ' . $placeholder_text,
 				'css'         => 'width:400px; height: 75px;',
-				'placeholder' => __( 'N/A', 'costa-rica-kit-for-woocommerce' ),
+				'placeholder' => __( 'N/A', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'textarea',
 				'default'     => $this->get_default_additional_content(),
 				'desc_tip'    => true,
 			),
 			'email_type'         => array(
-				'title'       => __( 'Email type', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Email type', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Choose which format of email to send.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Choose which format of email to send.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => 'html',
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),

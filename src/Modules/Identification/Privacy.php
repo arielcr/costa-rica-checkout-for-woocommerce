@@ -44,10 +44,10 @@ final class Privacy {
 			return;
 		}
 
-		$content = '<p class="privacy-policy-tutorial">' . esc_html__( 'Suggested text for stores that ask for an ID number at checkout:', 'costa-rica-kit-for-woocommerce' ) . '</p>'
-			. '<p>' . esc_html__( 'At checkout we ask for your ID type and number (cédula física, cédula jurídica, DIMEX or NITE) to issue the electronic invoice that Costa Rican tax law requires. We store it with your order and, if you have an account, in your account so you do not have to type it again. We keep it as long as we keep the order records, and you can change it in your account.', 'costa-rica-kit-for-woocommerce' ) . '</p>';
+		$content = '<p class="privacy-policy-tutorial">' . esc_html__( 'Suggested text for stores that ask for an ID number at checkout:', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
+			. '<p>' . esc_html__( 'At checkout we ask for your ID type and number (cédula física, cédula jurídica, DIMEX or NITE) to issue the electronic invoice that Costa Rican tax law requires. We store it with your order and, if you have an account, in your account so you do not have to type it again. We keep it as long as we keep the order records, and you can change it in your account.', 'costa-rica-checkout-for-woocommerce' ) . '</p>';
 
-		wp_add_privacy_policy_content( __( 'Costa Rica Kit for WooCommerce: ID number', 'costa-rica-kit-for-woocommerce' ), wp_kses_post( $content ) );
+		wp_add_privacy_policy_content( __( 'Costa Rica Checkout for WooCommerce: ID number', 'costa-rica-checkout-for-woocommerce' ), wp_kses_post( $content ) );
 	}
 
 	/**
@@ -59,19 +59,19 @@ final class Privacy {
 	private function get_rows( Identification $identification ): array {
 		$rows = array(
 			array(
-				'name'  => __( 'ID type', 'costa-rica-kit-for-woocommerce' ),
+				'name'  => __( 'ID type', 'costa-rica-checkout-for-woocommerce' ),
 				'value' => '' === $identification->get_type_label() ? $identification->type : $identification->get_type_label(),
 			),
 			array(
-				'name'  => __( 'ID number', 'costa-rica-kit-for-woocommerce' ),
+				'name'  => __( 'ID number', 'costa-rica-checkout-for-woocommerce' ),
 				'value' => $identification->number,
 			),
 		);
 
 		if ( $identification->electronic_invoice ) {
 			$rows[] = array(
-				'name'  => __( 'Electronic invoice', 'costa-rica-kit-for-woocommerce' ),
-				'value' => __( 'Requested', 'costa-rica-kit-for-woocommerce' ),
+				'name'  => __( 'Electronic invoice', 'costa-rica-checkout-for-woocommerce' ),
+				'value' => __( 'Requested', 'costa-rica-checkout-for-woocommerce' ),
 			);
 		}
 
@@ -120,7 +120,7 @@ final class Privacy {
 			$customer->save();
 
 			$response['messages']      = isset( $response['messages'] ) && is_array( $response['messages'] ) ? $response['messages'] : array();
-			$response['messages'][]    = __( 'Removed the customer ID number.', 'costa-rica-kit-for-woocommerce' );
+			$response['messages'][]    = __( 'Removed the customer ID number.', 'costa-rica-checkout-for-woocommerce' );
 			$response['items_removed'] = true;
 		}
 

@@ -38,8 +38,8 @@ class Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = self::ID;
 		$this->has_fields         = false;
-		$this->method_title       = __( 'SINPE Móvil', 'costa-rica-kit-for-woocommerce' );
-		$this->method_description = __( 'Manual payments with SINPE Móvil. Customers pay from their bank app, see the exact amount in colones, and upload the receipt; you confirm the payment from the order screen.', 'costa-rica-kit-for-woocommerce' );
+		$this->method_title       = __( 'SINPE Móvil', 'costa-rica-checkout-for-woocommerce' );
+		$this->method_description = __( 'Manual payments with SINPE Móvil. Customers pay from their bank app, see the exact amount in colones, and upload the receipt; you confirm the payment from the order screen.', 'costa-rica-checkout-for-woocommerce' );
 		$this->supports           = array( 'products' );
 
 		$this->init_form_fields();
@@ -60,7 +60,7 @@ class Gateway extends WC_Payment_Gateway {
 		if ( 'CRC' !== get_woocommerce_currency() && null === crkit_exchange_rate_service() ) {
 			printf(
 				'<div class="notice notice-warning inline"><p>%s</p></div>',
-				esc_html__( 'Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica.', 'costa-rica-kit-for-woocommerce' )
+				esc_html__( 'Your store does not sell in colones and the Exchange rate module is disabled, so SINPE Móvil is not offered at checkout. Enable it in WooCommerce → Settings → Costa Rica.', 'costa-rica-checkout-for-woocommerce' )
 			);
 		}
 
@@ -84,55 +84,55 @@ class Gateway extends WC_Payment_Gateway {
 	public function init_form_fields(): void {
 		$this->form_fields = array(
 			'enabled'         => array(
-				'title'   => __( 'Enable/Disable', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'costa-rica-checkout-for-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable SINPE Móvil', 'costa-rica-kit-for-woocommerce' ),
+				'label'   => __( 'Enable SINPE Móvil', 'costa-rica-checkout-for-woocommerce' ),
 				'default' => 'no',
 			),
 			'title'           => array(
-				'title'       => __( 'Title', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Title', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'safe_text',
-				'description' => __( 'Name of the payment method at checkout.', 'costa-rica-kit-for-woocommerce' ),
-				'default'     => __( 'SINPE Móvil', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Name of the payment method at checkout.', 'costa-rica-checkout-for-woocommerce' ),
+				'default'     => __( 'SINPE Móvil', 'costa-rica-checkout-for-woocommerce' ),
 				'desc_tip'    => true,
 			),
 			'description'     => array(
-				'title'       => __( 'Description', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Description', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Shown at checkout when the customer selects SINPE Móvil.', 'costa-rica-kit-for-woocommerce' ),
-				'default'     => __( 'Pay from your bank app with SINPE Móvil. After placing the order you will see the number and the exact amount in colones.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Shown at checkout when the customer selects SINPE Móvil.', 'costa-rica-checkout-for-woocommerce' ),
+				'default'     => __( 'Pay from your bank app with SINPE Móvil. After placing the order you will see the number and the exact amount in colones.', 'costa-rica-checkout-for-woocommerce' ),
 				'desc_tip'    => true,
 			),
 			'instructions'    => array(
-				'title'       => __( 'Extra instructions', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Extra instructions', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Optional text added to the payment steps on the order received page and in the on-hold email.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Optional text added to the payment steps on the order received page and in the on-hold email.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => '',
 				'desc_tip'    => true,
 			),
 			'phone'           => array(
-				'title'       => __( 'SINPE Móvil number', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'SINPE Móvil number', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( '8-digit number that receives the payments, e.g. 8888-8888. Required to offer the method.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( '8-digit number that receives the payments, e.g. 8888-8888. Required to offer the method.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => '',
 				'placeholder' => '8888-8888',
 			),
 			'holder'          => array(
-				'title'       => __( 'Account holder', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Account holder', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Name the customer sees in their bank app before confirming, so they know they are paying the right person.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Name the customer sees in their bank app before confirming, so they know they are paying the right person.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => '',
 			),
 			'require_receipt' => array(
-				'title'   => __( 'Payment receipt', 'costa-rica-kit-for-woocommerce' ),
+				'title'   => __( 'Payment receipt', 'costa-rica-checkout-for-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Ask the customer to upload the payment receipt', 'costa-rica-kit-for-woocommerce' ),
+				'label'   => __( 'Ask the customer to upload the payment receipt', 'costa-rica-checkout-for-woocommerce' ),
 				'default' => 'yes',
 			),
 			'max_upload_mb'   => array(
-				'title'             => __( 'Maximum receipt size (MB)', 'costa-rica-kit-for-woocommerce' ),
+				'title'             => __( 'Maximum receipt size (MB)', 'costa-rica-checkout-for-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'Allowed formats: JPG, PNG, WEBP and PDF.', 'costa-rica-kit-for-woocommerce' ),
+				'description'       => __( 'Allowed formats: JPG, PNG, WEBP and PDF.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'           => (string) self::DEFAULT_MAX_UPLOAD_MB,
 				'custom_attributes' => array(
 					'min'  => '1',
@@ -140,9 +140,9 @@ class Gateway extends WC_Payment_Gateway {
 				),
 			),
 			'max_amount_crc'  => array(
-				'title'             => __( 'Maximum amount per order (₡)', 'costa-rica-kit-for-woocommerce' ),
+				'title'             => __( 'Maximum amount per order (₡)', 'costa-rica-checkout-for-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'The method is not offered when the order total in colones is higher. Leave empty for no limit. The BCCR limits SINPE Móvil payments by SMS to ₡100,000 per day; the limit in bank apps depends on each bank (usually up to ₡500,000).', 'costa-rica-kit-for-woocommerce' ),
+				'description'       => __( 'The method is not offered when the order total in colones is higher. Leave empty for no limit. The BCCR limits SINPE Móvil payments by SMS to ₡100,000 per day; the limit in bank apps depends on each bank (usually up to ₡500,000).', 'costa-rica-checkout-for-woocommerce' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'min'  => '0',
@@ -150,19 +150,19 @@ class Gateway extends WC_Payment_Gateway {
 				),
 			),
 			'rate_type'       => array(
-				'title'       => __( 'Exchange rate', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Exchange rate', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Only for stores that do not sell in colones. Uses the rate from the Exchange rate module.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Only for stores that do not sell in colones. Uses the rate from the Exchange rate module.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => ExchangeRate::SELL,
 				'options'     => array(
-					ExchangeRate::SELL => __( 'Sell rate', 'costa-rica-kit-for-woocommerce' ),
-					ExchangeRate::BUY  => __( 'Buy rate', 'costa-rica-kit-for-woocommerce' ),
+					ExchangeRate::SELL => __( 'Sell rate', 'costa-rica-checkout-for-woocommerce' ),
+					ExchangeRate::BUY  => __( 'Buy rate', 'costa-rica-checkout-for-woocommerce' ),
 				),
 			),
 			'surcharge'       => array(
-				'title'             => __( 'Exchange rate surcharge (%)', 'costa-rica-kit-for-woocommerce' ),
+				'title'             => __( 'Exchange rate surcharge (%)', 'costa-rica-checkout-for-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'Optional percentage added to the exchange rate, for stores that do not sell in colones.', 'costa-rica-kit-for-woocommerce' ),
+				'description'       => __( 'Optional percentage added to the exchange rate, for stores that do not sell in colones.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'min'  => '0',
@@ -170,13 +170,13 @@ class Gateway extends WC_Payment_Gateway {
 				),
 			),
 			'reject_status'   => array(
-				'title'       => __( 'Rejected payments', 'costa-rica-kit-for-woocommerce' ),
+				'title'       => __( 'Rejected payments', 'costa-rica-checkout-for-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Order status when you reject a payment from the order screen.', 'costa-rica-kit-for-woocommerce' ),
+				'description' => __( 'Order status when you reject a payment from the order screen.', 'costa-rica-checkout-for-woocommerce' ),
 				'default'     => 'failed',
 				'options'     => array(
-					'failed'    => __( 'Failed (the customer can pay again)', 'costa-rica-kit-for-woocommerce' ),
-					'cancelled' => __( 'Cancelled', 'costa-rica-kit-for-woocommerce' ),
+					'failed'    => __( 'Failed (the customer can pay again)', 'costa-rica-checkout-for-woocommerce' ),
+					'cancelled' => __( 'Cancelled', 'costa-rica-checkout-for-woocommerce' ),
 				),
 			),
 		);
@@ -198,7 +198,7 @@ class Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( ! Phone::is_valid( $value ) ) {
-			throw new \Exception( esc_html__( 'The SINPE Móvil number must have 8 digits, for example 8888-8888.', 'costa-rica-kit-for-woocommerce' ) );
+			throw new \Exception( esc_html__( 'The SINPE Móvil number must have 8 digits, for example 8888-8888.', 'costa-rica-checkout-for-woocommerce' ) );
 		}
 
 		return Phone::normalize( $value );
@@ -423,7 +423,7 @@ class Gateway extends WC_Payment_Gateway {
 		$quote = $this->get_quote( (float) $order->get_total( 'edit' ), $order->get_currency() );
 
 		if ( null === $quote || ! $this->is_within_limit( $quote ) ) {
-			wc_add_notice( __( 'SINPE Móvil is not available for this order right now. Please choose another payment method.', 'costa-rica-kit-for-woocommerce' ), 'error' );
+			wc_add_notice( __( 'SINPE Móvil is not available for this order right now. Please choose another payment method.', 'costa-rica-checkout-for-woocommerce' ), 'error' );
 
 			return array( 'result' => 'failure' );
 		}
@@ -477,12 +477,12 @@ class Gateway extends WC_Payment_Gateway {
 
 		if ( ! $quote->is_converted() ) {
 			/* translators: %s: amount in colones. */
-			return sprintf( __( 'Awaiting SINPE Móvil payment of %s.', 'costa-rica-kit-for-woocommerce' ), $amount );
+			return sprintf( __( 'Awaiting SINPE Móvil payment of %s.', 'costa-rica-checkout-for-woocommerce' ), $amount );
 		}
 
 		return sprintf(
 			/* translators: 1: amount in colones, 2: exchange rate, 3: rate source, 4: date of the rate. */
-			__( 'Awaiting SINPE Móvil payment of %1$s (exchange rate %2$s from %3$s, %4$s).', 'costa-rica-kit-for-woocommerce' ),
+			__( 'Awaiting SINPE Móvil payment of %1$s (exchange rate %2$s from %3$s, %4$s).', 'costa-rica-checkout-for-woocommerce' ),
 			$amount,
 			Formatter::rate( (float) $quote->rate, $quote->surcharge ),
 			$this->get_source_label( $quote->rate_source ),

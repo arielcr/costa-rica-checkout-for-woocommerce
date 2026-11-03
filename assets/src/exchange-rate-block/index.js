@@ -15,30 +15,36 @@ const Edit = ( { attributes, setAttributes } ) => {
 		<div { ...useBlockProps() }>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Settings', 'costa-rica-kit-for-woocommerce' ) }
+					title={ __(
+						'Settings',
+						'costa-rica-checkout-for-woocommerce'
+					) }
 				>
 					<SelectControl
-						label={ __( 'Rate', 'costa-rica-kit-for-woocommerce' ) }
+						label={ __(
+							'Rate',
+							'costa-rica-checkout-for-woocommerce'
+						) }
 						value={ type }
 						options={ [
 							{
 								label: __(
 									'Sell and buy',
-									'costa-rica-kit-for-woocommerce'
+									'costa-rica-checkout-for-woocommerce'
 								),
 								value: 'both',
 							},
 							{
 								label: __(
 									'Sell',
-									'costa-rica-kit-for-woocommerce'
+									'costa-rica-checkout-for-woocommerce'
 								),
 								value: 'sell',
 							},
 							{
 								label: __(
 									'Buy',
-									'costa-rica-kit-for-woocommerce'
+									'costa-rica-checkout-for-woocommerce'
 								),
 								value: 'buy',
 							},
@@ -52,7 +58,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<ToggleControl
 						label={ __(
 							'Show the date',
-							'costa-rica-kit-for-woocommerce'
+							'costa-rica-checkout-for-woocommerce'
 						) }
 						checked={ showDate }
 						onChange={ ( value ) =>
@@ -63,11 +69,11 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<ToggleControl
 						label={ __(
 							'Hide when outdated',
-							'costa-rica-kit-for-woocommerce'
+							'costa-rica-checkout-for-woocommerce'
 						) }
 						help={ __(
 							'When off, an outdated rate is shown with its date.',
-							'costa-rica-kit-for-woocommerce'
+							'costa-rica-checkout-for-woocommerce'
 						) }
 						checked={ hideOutdated }
 						onChange={ ( value ) =>
@@ -78,7 +84,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 					<ToggleControl
 						label={ __(
 							'Show the source',
-							'costa-rica-kit-for-woocommerce'
+							'costa-rica-checkout-for-woocommerce'
 						) }
 						checked={ showSource }
 						onChange={ ( value ) =>

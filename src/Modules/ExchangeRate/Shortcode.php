@@ -98,7 +98,7 @@ final class Shortcode {
 			isset( $asset['version'] ) && is_string( $asset['version'] ) ? $asset['version'] : CRKIT_VERSION,
 			true
 		);
-		wp_set_script_translations( self::BLOCK_SCRIPT_HANDLE, 'costa-rica-kit-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::BLOCK_SCRIPT_HANDLE, 'costa-rica-checkout-for-woocommerce', CRKIT_PLUGIN_DIR . 'languages' );
 
 		register_block_type(
 			CRKIT_PLUGIN_DIR . 'blocks/exchange-rate',
@@ -149,23 +149,23 @@ final class Shortcode {
 
 		if ( 'buy' !== $type ) {
 			/* translators: %s: sell exchange rate in colones. */
-			$values[] = sprintf( __( 'Sell: %s', 'costa-rica-kit-for-woocommerce' ), RateFormatter::rate( $rate->sell ) );
+			$values[] = sprintf( __( 'Sell: %s', 'costa-rica-checkout-for-woocommerce' ), RateFormatter::rate( $rate->sell ) );
 		}
 		if ( 'sell' !== $type ) {
 			/* translators: %s: buy exchange rate in colones. */
-			$values[] = sprintf( __( 'Buy: %s', 'costa-rica-kit-for-woocommerce' ), RateFormatter::rate( $rate->buy ) );
+			$values[] = sprintf( __( 'Buy: %s', 'costa-rica-checkout-for-woocommerce' ), RateFormatter::rate( $rate->buy ) );
 		}
 
 		$details = '';
 		if ( $show_date && $show_source ) {
 			/* translators: 1: date of the rate, 2: source name. */
-			$details = sprintf( __( 'Rate of %1$s, source: %2$s', 'costa-rica-kit-for-woocommerce' ), RateFormatter::date( $rate->date ), $this->service->get_source_label( $rate->source ) );
+			$details = sprintf( __( 'Rate of %1$s, source: %2$s', 'costa-rica-checkout-for-woocommerce' ), RateFormatter::date( $rate->date ), $this->service->get_source_label( $rate->source ) );
 		} elseif ( $show_date ) {
 			/* translators: %s: date of the rate. */
-			$details = sprintf( __( 'Rate of %s', 'costa-rica-kit-for-woocommerce' ), RateFormatter::date( $rate->date ) );
+			$details = sprintf( __( 'Rate of %s', 'costa-rica-checkout-for-woocommerce' ), RateFormatter::date( $rate->date ) );
 		} elseif ( $show_source ) {
 			/* translators: %s: source name. */
-			$details = sprintf( __( 'Source: %s', 'costa-rica-kit-for-woocommerce' ), $this->service->get_source_label( $rate->source ) );
+			$details = sprintf( __( 'Source: %s', 'costa-rica-checkout-for-woocommerce' ), $this->service->get_source_label( $rate->source ) );
 		}
 
 		return sprintf(

@@ -60,11 +60,11 @@ final class Privacy {
 			return;
 		}
 
-		$content = '<p class="privacy-policy-tutorial">' . esc_html__( 'Suggested text for stores that accept SINPE Móvil:', 'costa-rica-kit-for-woocommerce' ) . '</p>'
-			. '<p>' . esc_html__( 'When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment, we store it privately with your order, and only store staff can see it. We keep it as long as we keep the order records.', 'costa-rica-kit-for-woocommerce' ) . '</p>'
-			. '<p>' . esc_html__( 'To show prices in colones, the store gets the exchange rate from the Ministerio de Hacienda or the Banco Central de Costa Rica. Those requests do not include any of your data.', 'costa-rica-kit-for-woocommerce' ) . '</p>';
+		$content = '<p class="privacy-policy-tutorial">' . esc_html__( 'Suggested text for stores that accept SINPE Móvil:', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
+			. '<p>' . esc_html__( 'When you pay with SINPE Móvil, we ask you to upload the payment receipt issued by your bank. The receipt can include your name, phone number, bank and the transaction number. We use it only to confirm your payment, we store it privately with your order, and only store staff can see it. We keep it as long as we keep the order records.', 'costa-rica-checkout-for-woocommerce' ) . '</p>'
+			. '<p>' . esc_html__( 'To show prices in colones, the store gets the exchange rate from the Ministerio de Hacienda or the Banco Central de Costa Rica. Those requests do not include any of your data.', 'costa-rica-checkout-for-woocommerce' ) . '</p>';
 
-		wp_add_privacy_policy_content( __( 'Costa Rica Kit for WooCommerce', 'costa-rica-kit-for-woocommerce' ), wp_kses_post( $content ) );
+		wp_add_privacy_policy_content( __( 'Costa Rica Checkout for WooCommerce', 'costa-rica-checkout-for-woocommerce' ), wp_kses_post( $content ) );
 	}
 
 	/**
@@ -76,7 +76,7 @@ final class Privacy {
 	public function register_exporter( $exporters ): array {
 		$exporters                         = is_array( $exporters ) ? $exporters : array();
 		$exporters['crkit-sinpe-receipts'] = array(
-			'exporter_friendly_name' => __( 'SINPE Móvil payments', 'costa-rica-kit-for-woocommerce' ),
+			'exporter_friendly_name' => __( 'SINPE Móvil payments', 'costa-rica-checkout-for-woocommerce' ),
 			'callback'               => array( $this, 'export' ),
 		);
 
@@ -92,7 +92,7 @@ final class Privacy {
 	public function register_eraser( $erasers ): array {
 		$erasers                         = is_array( $erasers ) ? $erasers : array();
 		$erasers['crkit-sinpe-receipts'] = array(
-			'eraser_friendly_name' => __( 'SINPE Móvil payment receipts', 'costa-rica-kit-for-woocommerce' ),
+			'eraser_friendly_name' => __( 'SINPE Móvil payment receipts', 'costa-rica-checkout-for-woocommerce' ),
 			'callback'             => array( $this, 'erase' ),
 		);
 
@@ -120,29 +120,29 @@ final class Privacy {
 
 			$items = array(
 				array(
-					'name'  => __( 'Order number', 'costa-rica-kit-for-woocommerce' ),
+					'name'  => __( 'Order number', 'costa-rica-checkout-for-woocommerce' ),
 					'value' => $order->get_order_number(),
 				),
 				array(
-					'name'  => __( 'Amount in colones', 'costa-rica-kit-for-woocommerce' ),
+					'name'  => __( 'Amount in colones', 'costa-rica-checkout-for-woocommerce' ),
 					'value' => Formatter::crc( $payment['amount_crc'] ),
 				),
 			);
 
 			if ( null !== $receipt ) {
 				$items[] = array(
-					'name'  => __( 'Payment receipt', 'costa-rica-kit-for-woocommerce' ),
+					'name'  => __( 'Payment receipt', 'costa-rica-checkout-for-woocommerce' ),
 					'value' => $receipt['name'],
 				);
 				$items[] = array(
-					'name'  => __( 'Receipt uploaded on', 'costa-rica-kit-for-woocommerce' ),
+					'name'  => __( 'Receipt uploaded on', 'costa-rica-checkout-for-woocommerce' ),
 					'value' => wp_date( 'Y-m-d H:i', $receipt['uploaded_at'] ),
 				);
 			}
 
 			$data[] = array(
 				'group_id'    => 'crkit-sinpe-movil',
-				'group_label' => __( 'SINPE Móvil payments', 'costa-rica-kit-for-woocommerce' ),
+				'group_label' => __( 'SINPE Móvil payments', 'costa-rica-checkout-for-woocommerce' ),
 				'item_id'     => 'crkit-sinpe-' . $order->get_id(),
 				'data'        => $items,
 			);
@@ -182,7 +182,7 @@ final class Privacy {
 			if ( ! $erase ) {
 				$response['items_retained'] = true;
 				/* translators: %s: order number. */
-				$response['messages'][] = sprintf( __( 'The SINPE Móvil receipt of order %s was retained, following the WooCommerce privacy settings.', 'costa-rica-kit-for-woocommerce' ), $order->get_order_number() );
+				$response['messages'][] = sprintf( __( 'The SINPE Móvil receipt of order %s was retained, following the WooCommerce privacy settings.', 'costa-rica-checkout-for-woocommerce' ), $order->get_order_number() );
 				continue;
 			}
 
@@ -192,7 +192,7 @@ final class Privacy {
 
 			$response['items_removed'] = true;
 			/* translators: %s: order number. */
-			$response['messages'][] = sprintf( __( 'Removed the SINPE Móvil receipt of order %s.', 'costa-rica-kit-for-woocommerce' ), $order->get_order_number() );
+			$response['messages'][] = sprintf( __( 'Removed the SINPE Móvil receipt of order %s.', 'costa-rica-checkout-for-woocommerce' ), $order->get_order_number() );
 		}
 
 		return $response;

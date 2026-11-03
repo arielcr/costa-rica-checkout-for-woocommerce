@@ -27,7 +27,7 @@ abstract class AbstractHttpProvider implements RateProviderInterface {
 	 * @return string
 	 */
 	public static function get_user_agent(): string {
-		return 'CostaRicaKitForWooCommerce/' . CRKIT_VERSION . ' (+https://wordpress.org/plugins/costa-rica-kit-for-woocommerce/)';
+		return 'CostaRicaKitForWooCommerce/' . CRKIT_VERSION . ' (+https://wordpress.org/plugins/costa-rica-checkout-for-woocommerce/)';
 	}
 
 	/**

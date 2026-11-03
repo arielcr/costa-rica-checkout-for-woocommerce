@@ -69,7 +69,7 @@ final class OrderDisplay {
 			'' === $label
 				? $identification->number
 				/* translators: 1: ID type, e.g. "Cédula física", 2: ID number. */
-				: sprintf( _x( '%1$s: %2$s', 'ID type and number', 'costa-rica-kit-for-woocommerce' ), $label, $identification->number )
+				: sprintf( _x( '%1$s: %2$s', 'ID type and number', 'costa-rica-checkout-for-woocommerce' ), $label, $identification->number )
 		);
 	}
 
@@ -85,7 +85,7 @@ final class OrderDisplay {
 		return '' === $label
 			? $identification->number
 			/* translators: 1: ID type, e.g. "Cédula física", 2: ID number. */
-			: sprintf( _x( '%1$s %2$s', 'ID type and number in a sentence', 'costa-rica-kit-for-woocommerce' ), $label, $identification->number );
+			: sprintf( _x( '%1$s %2$s', 'ID type and number in a sentence', 'costa-rica-checkout-for-woocommerce' ), $label, $identification->number );
 	}
 
 	/**
@@ -111,8 +111,8 @@ final class OrderDisplay {
 
 		$fields['crkit_electronic_invoice'] = array(
 			'label' => $sent_to_admin
-				? __( 'The customer asked for an electronic invoice', 'costa-rica-kit-for-woocommerce' )
-				: __( 'Electronic invoice requested in the name of', 'costa-rica-kit-for-woocommerce' ),
+				? __( 'The customer asked for an electronic invoice', 'costa-rica-checkout-for-woocommerce' )
+				: __( 'Electronic invoice requested in the name of', 'costa-rica-checkout-for-woocommerce' ),
 			'value' => self::format_inline( $identification ),
 		);
 

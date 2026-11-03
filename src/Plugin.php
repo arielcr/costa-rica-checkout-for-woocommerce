@@ -148,7 +148,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain(): void {
-		load_plugin_textdomain( 'costa-rica-kit-for-woocommerce', false, dirname( plugin_basename( CRKIT_PLUGIN_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'costa-rica-checkout-for-woocommerce', false, dirname( plugin_basename( CRKIT_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
@@ -324,7 +324,7 @@ final class Plugin {
 		$settings_link = sprintf(
 			'<a href="%1$s">%2$s</a>',
 			esc_url( self::get_settings_url() ),
-			esc_html__( 'Settings', 'costa-rica-kit-for-woocommerce' )
+			esc_html__( 'Settings', 'costa-rica-checkout-for-woocommerce' )
 		);
 
 		return array_merge( array( 'settings' => $settings_link ), $links );
