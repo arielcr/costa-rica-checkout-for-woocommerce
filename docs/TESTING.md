@@ -162,6 +162,8 @@ Environment as in phase 2, with the ID module on (seeded, "required only for an 
 | Blocks: "(optional)" disappears when the checkbox is checked; DIMEX with 10 digits rejected by the server; cédula jurídica "3-101-a00001" saved as 3101A00001 | ✅ |
 | My Account → Account details: saved ID shown, invalid number rejected, a 12-digit DIMEX saved and prefilled in the classic and block checkouts | ✅ |
 
+Order emails with an electronic invoice request (integration test, HTML and plain text): the store's say "The customer asked for an electronic invoice: DIMEX 155812345678" and the customer's "Electronic invoice requested in the name of: DIMEX 155812345678". Screenshots 09 (store) and 12 (customer) in `docs/screenshots/fase-3/`.
+
 The ID and Locations e2e specs (6 tests) pass with HPOS, posts storage and sync mode (PHP 8.1, USD).
 
 ### SPEC §8 matrix with the ID module
