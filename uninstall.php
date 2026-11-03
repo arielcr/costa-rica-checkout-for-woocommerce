@@ -30,9 +30,18 @@ foreach ( $crkit_options as $crkit_option ) {
 	delete_option( $crkit_option );
 }
 
-// Action Scheduler ships with WooCommerce; it is unavailable if WooCommerce is inactive.
+// Action Scheduler ships with WooCommerce. If WooCommerce is inactive, remove the pending
+// actions of the plugin from its tables directly.
 if ( function_exists( 'as_unschedule_all_actions' ) ) {
 	as_unschedule_all_actions( '', array(), 'crkit' );
+} else {
+	global $wpdb;
+	$crkit_actions_table = $wpdb->prefix . 'actionscheduler_actions';
+	// phpcs:disable WordPress.DB.DirectDatabaseQuery -- One-off cleanup on uninstall; nothing to cache.
+	if ( $crkit_actions_table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $crkit_actions_table ) ) ) ) {
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE hook LIKE %s AND status = %s', $crkit_actions_table, $wpdb->esc_like( 'crkit_' ) . '%', 'pending' ) );
+	}
+	// phpcs:enable WordPress.DB.DirectDatabaseQuery
 }
 
 if ( $crkit_delete_data ) {
@@ -41,12 +50,10 @@ if ( $crkit_delete_data ) {
 	$crkit_dir     = trailingslashit( $crkit_uploads['basedir'] ) . 'crkit-receipts';
 
 	if ( is_dir( $crkit_dir ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-
-		if ( WP_Filesystem() ) {
-			global $wp_filesystem;
-			$wp_filesystem->delete( $crkit_dir, true );
-		}
+		// Direct access, regardless of FS_METHOD: the plugin itself wrote these files under uploads.
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+		( new WP_Filesystem_Direct( null ) )->delete( $crkit_dir, true );
 	}
 
 	/*
