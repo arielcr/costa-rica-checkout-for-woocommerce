@@ -182,6 +182,10 @@ Environment as in phase 3 (WordPress 7.1.4, WooCommerce 11.2.1 — the latest st
 
 A separate agent that had not seen the development reviewed the built zip against the 18 Plugin Directory guidelines and the security review criteria. No blockers. Fixed: whole `$_POST` passed to a validator, incomplete External services section (request triggers, headers, Hacienda terms), old name in the User-Agent, privacy text, privacy tools of disabled modules, uninstall filesystem fallback and pending actions, escaped placeholder help in an email setting, translation load order. Kept, with reasons: `load_plugin_textdomain()` (ADR-0051) and the documented `$_POST` bridge in My Account (`Locations\BlocksCheckout::prepare_edit_address_values()`, ADR-0043). The review also found that `.wordpress-org/` leaked into the zip; it is excluded now.
 
+### SPEC §8 matrix and suites (version 1.0.0)
+
+Matrix 60/60 (PHP 8.1 and 8.3 × CRC and USD × HPOS, posts and sync). ID, Locations and accessibility e2e 10/10. Unit 146 tests; integration 108 tests on each order storage; CI 11/11 including WordPress 6.7 + WooCommerce 10.0.0. Plugin Check on the 1.0.0 zip: 0 errors, 1 expected warning (`load_plugin_textdomain`, ADR-0051).
+
 ### Accessibility (`tests/e2e/specs/a11y.spec.js`, axe-core WCAG 2.1 A/AA)
 
 | Page | Plugin components | Whole page (not the plugin) |
