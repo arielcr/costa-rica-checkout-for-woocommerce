@@ -17,6 +17,7 @@ use CRKit\Modules\Identification\IdentificationModule;
 use CRKit\Modules\LifecycleInterface;
 use CRKit\Modules\Locations\LocationsModule;
 use CRKit\Modules\ModuleInterface;
+use CRKit\Modules\PersonalDataInterface;
 use CRKit\Modules\SinpeMovil\SinpeMovilModule;
 
 defined( 'ABSPATH' ) || exit;
@@ -121,7 +122,9 @@ final class Plugin {
 		}
 		$this->booted = true;
 
-		add_action( 'init', array( $this, 'load_textdomain' ) );
+		// Before WooCommerce's own init (priority 0), which fires `woocommerce_init`, where the block checkout
+		// fields are registered with translated labels.
+		add_action( 'init', array( $this, 'load_textdomain' ), -1 );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRKIT_PLUGIN_FILE ), array( $this, 'add_plugin_action_links' ) );
 		add_action( 'add_option_' . self::MODULES_OPTION, array( $this, 'handle_modules_added' ), 10, 2 );
@@ -129,6 +132,13 @@ final class Plugin {
 
 		foreach ( $this->get_enabled_modules() as $module ) {
 			$module->register();
+		}
+
+		// Data stored by a module stays after it is disabled, so its privacy tools always load.
+		foreach ( $this->modules as $module ) {
+			if ( $module instanceof PersonalDataInterface ) {
+				$module->register_privacy_tools();
+			}
 		}
 
 		/**
@@ -142,8 +152,8 @@ final class Plugin {
 	}
 
 	/**
-	 * Loads the bundled translations (es_CR) until they are available from translate.wordpress.org,
-	 * which take precedence once installed.
+	 * Loads the bundled translations (es_CR and es_ES) until language packs exist on
+	 * translate.wordpress.org; see docs/DECISIONS.md, ADR-0051.
 	 *
 	 * @return void
 	 */

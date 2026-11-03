@@ -11,6 +11,7 @@ namespace CRKit\Modules\SinpeMovil;
 
 use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use CRKit\Modules\ModuleInterface;
+use CRKit\Modules\PersonalDataInterface;
 use CRKit\Modules\SinpeMovil\Emails\ReceiptUploadedEmail;
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * SINPE Móvil module.
  */
-final class SinpeMovilModule implements ModuleInterface {
+final class SinpeMovilModule implements ModuleInterface, PersonalDataInterface {
 
 	/**
 	 * Module id.
@@ -66,11 +67,17 @@ final class SinpeMovilModule implements ModuleInterface {
 
 		( new Frontend() )->register();
 		( new ReceiptController( $storage ) )->register();
-		( new Privacy( $storage ) )->register();
 
 		if ( is_admin() ) {
 			( new AdminMetabox() )->register();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function register_privacy_tools(): void {
+		( new Privacy( new ReceiptStorage() ) )->register();
 	}
 
 	/**
