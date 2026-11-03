@@ -119,12 +119,25 @@ test( 'phase 3 screenshots', async ( { browser } ) => {
 	);
 	await shot( admin, '08-ajustes-identificacion', { fullPage: false } );
 
-	const mail = wp(
+	// Emails of the classic order (mail catcher): the store's new order email has the order number
+	// in its file name; the customer's on-hold email is the other one with the ID number.
+	const storeMail = wp(
 		`cd wp-content/uploads/crkit-dev-mail && ls -1t *-${ classicOrder.id }.html | head -1`
 	).trim();
-	if ( mail ) {
-		await admin.goto( `/wp-content/uploads/crkit-dev-mail/${ mail }` );
-		await shot( admin, '09-correo-tienda-cedula' );
+	const customerMail = wp(
+		`cd wp-content/uploads/crkit-dev-mail && grep -l 112340567 *.html | grep -v -- '-${ classicOrder.id }.html' | xargs ls -1t | head -1`
+	).trim();
+	for ( const [ file, name ] of [
+		[ storeMail, '09-correo-tienda-cedula' ],
+		[ customerMail, '12-correo-cliente-factura' ],
+	] ) {
+		if ( file ) {
+			await admin.goto( `/wp-content/uploads/crkit-dev-mail/${ file }` );
+			await expect( admin.locator( 'body' ) ).toContainText(
+				'Cédula física 112340567'
+			);
+			await shot( admin, name );
+		}
 	}
 
 	// Customer: My Account → Account details.
