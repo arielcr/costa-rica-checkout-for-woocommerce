@@ -117,10 +117,10 @@ final class BlocksCheckout {
 			'type'                       => 'text',
 			'required'                   => $required,
 			'sanitize_callback'          => static fn( $value ): string => IdentificationType::normalize( is_scalar( $value ) ? (string) $value : '' ),
+			// No `autocapitalize`: React warns about the lowercase DOM property; the number is upper-cased on the server.
 			'attributes'                 => array(
-				'autocomplete'   => 'off',
-				'autocapitalize' => 'characters',
-				'maxLength'      => 20,
+				'autocomplete' => 'off',
+				'maxLength'    => 20,
 			),
 			'show_in_order_confirmation' => false,
 		);
