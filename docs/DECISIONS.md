@@ -283,14 +283,21 @@ Short ADRs for design decisions not covered by `docs/SPEC.md`. Format: context, 
 - **Decision (owner, 2026-11-02):** before the first release the plugin is named "Costa Rica Checkout for WooCommerce", with slug, main file, folder and text domain `costa-rica-checkout-for-woocommerce` (translation files and script JSON files renamed and regenerated; GitHub repository renamed). The `crkit_` prefix, the `CRKit\` namespace and every option, meta, hook and handle name stay as they were: nothing was published, and stored data keeps working.
 - **wp-env:** the plugin is mounted with a mapping to `wp-content/plugins/costa-rica-checkout-for-woocommerce` instead of `"plugins": ["."]`, whose folder name came from the local checkout folder; `npm run env:start` and the seed activate it.
 
-## ADR-0051: load_plugin_textdomain() stays in 1.0.0
+## ADR-0051: Bundled es_CR and es_ES translations, without load_plugin_textdomain()
 
-- **Context:** Plugin Check warns that `load_plugin_textdomain()` is discouraged since WordPress 4.6, because WordPress loads translations of directory plugins just in time from the language packs of translate.wordpress.org (`wp-content/languages/plugins/`).
-- **Decision (owner, 2026-11-03):** keep it in 1.0.0. The es_CR and es_ES translations ship in `/languages` and there are no language packs yet; without the call those bundled files would not load. It runs on `init`, so it does not trigger the "translation loading too early" notice. The Plugin Check warning is expected.
-- **Plan:** after approval, import the bundled `.po` files into translate.wordpress.org (as the plugin's translation editor, or through the Spanish locale teams) so es_CR and es_ES language packs are built. Once both packs are published, remove the call and the bundled `languages/` files in a minor release (keeping the `.pot` only if a tool needs it), and drop the matching note from the readme.
+- **Correction (2026-11-06):** the first version of this ADR kept `load_plugin_textdomain()` because "without the call the bundled files would not load". That is wrong from WordPress 6.8: `wp-settings.php` registers the `Domain Path` of every active plugin from its headers (`set_custom_path()`). Verified with the call removed on WordPress 7.1.4 (the `.mo` in `languages/` loads) and in the source of the 6.7, 6.7.1, 6.7.2 tags and the 6.7 branch (absent) and 6.8 (present).
+- **Decision (owner, 2026-11-06, after the WordPress.org review suggested both):** remove the call and keep the es_CR and es_ES files in `languages/`. On WordPress 6.7.x the plugin appears in English until language packs exist; the readme says so.
+- **Why the files stay:** the plugin's audience is Spanish-speaking, and language packs only exist after publication, once the translations are imported and approved on translate.wordpress.org. The review marks this as a suggestion, not a requirement.
+- **Plan:** after approval, import the `.po` files into translate.wordpress.org (as the plugin's translation editor, or through the Spanish locale teams). A language pack is built at 90% of the stable strings. Once the es_CR and es_ES packs are published, remove the bundled files in a minor release.
 
 ## ADR-0052: WordPress.org deployment
 
 - **Decision:** two workflows. `deploy.yml` runs on a `vX.Y.Z` tag: it checks that the tag matches `Version`, `CRKIT_VERSION` and `Stable tag`, builds the plugin with `bin/build-zip.sh` and publishes that staging folder plus `.wordpress-org/` with `10up/action-wordpress-plugin-deploy` 2.3.0 (`BUILD_DIR`), and keeps the zip as a workflow artifact. `wordpress-org-assets.yml` pushes `readme.txt` and `.wordpress-org/` changes on `main` with `10up/action-wordpress-plugin-asset-update` 2.2.0 (`IGNORE_OTHER_FILES`). Versions pinned to the latest releases (checked 2026-11-03). Both read `SVN_USERNAME` and `SVN_PASSWORD`; the tag workflow fails without them and the assets workflow skips.
 - `.wordpress-org/` is excluded from the plugin zip (`.distignore`): directory assets live in SVN `/assets`.
 
+## ADR-0053: Exchange rate module off by default (opt-in)
+
+- **Context:** the WordPress.org review (2026-11-06, guidelines 7 and 9) objected that the module was on by default and contacted the Ministerio de Hacienda after activation and every 12 hours without an explicit opt-in.
+- **Decision (owner, 2026-11-06):** the module is off by default, so a new install makes no external request and schedules nothing. Enabling it in WooCommerce → Settings → Costa Rica is the opt-in; its description states what it connects to, how often, and that no customer data is sent. The first request runs right after enabling.
+- **Consequence:** stores that sell in colones do not need the module. Stores that sell in dollars must enable it to offer SINPE Móvil; until then the method is not offered and the SINPE Móvil settings explain why. A store that wants only a manual rate still has to enable the module, which keeps the background requests running.
+- **Related (guideline 11):** the outdated rate warning no longer appears across the whole admin, only on WooCommerce screens (on the plugin's settings section in colón stores).

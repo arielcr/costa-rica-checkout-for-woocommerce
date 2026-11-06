@@ -197,17 +197,45 @@ final class LocationsTest extends WP_UnitTestCase {
 	}
 
 	public function test_my_account_copies_the_district_into_the_block_field_of_its_province(): void {
+		$user = self::factory()->user->create( array( 'role' => 'customer' ) );
+		wp_set_current_user( $user );
 		$_POST = array(
-			'billing_state'          => 'CR-H',
-			'billing_crkit_district' => '40206',
+			'billing_state'                  => 'CR-H',
+			'billing_crkit_district'         => '40206',
+			'woocommerce-edit-address-nonce' => wp_create_nonce( 'woocommerce-edit_address' ),
 		);
 
-		( new BlocksCheckout( $this->locations, $this->fields ) )->prepare_edit_address_values( 1, 'billing' );
+		( new BlocksCheckout( $this->locations, $this->fields ) )->prepare_edit_address_values( $user, 'billing' );
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Test assertions.
 		$this->assertSame( '40206', $_POST['_wc_billing/crkit/district-h'] );
 		$this->assertSame( '', $_POST['_wc_billing/crkit/district-sj'] );
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
+	}
+
+	public function test_my_account_handlers_need_the_form_nonce_and_the_same_user(): void {
+		$user = self::factory()->user->create( array( 'role' => 'customer' ) );
+		wp_set_current_user( $user );
+		$blocks = new BlocksCheckout( $this->locations, $this->fields );
+		$fields = array(
+			'billing_state'          => 'CR-H',
+			'billing_crkit_district' => '40206',
+		);
+
+		$_POST = $fields;
+		$blocks->prepare_edit_address_values( $user, 'billing' );
+		$this->assertSame( $fields, $_POST, 'No nonce.' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Test assertion.
+
+		$_POST = $fields + array( 'woocommerce-edit-address-nonce' => 'invalid' );
+		$blocks->prepare_edit_address_values( $user, 'billing' );
+		$this->assertArrayNotHasKey( '_wc_billing/crkit/district-h', $_POST, 'Invalid nonce.' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Test assertion.
+
+		$_POST = $fields + array( 'woocommerce-edit-address-nonce' => wp_create_nonce( 'woocommerce-edit_address' ) );
+		$blocks->prepare_edit_address_values( $user + 1, 'billing' );
+		$this->assertArrayNotHasKey( '_wc_billing/crkit/district-h', $_POST, 'Another user.' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Test assertion.
+
+		$this->assertTrue( AddressFields::is_address_form_request( $user ) );
+		$this->assertFalse( AddressFields::is_address_form_request( 0 ) );
 	}
 
 	public function test_admin_uses_one_searchable_district_field_instead_of_the_block_fields(): void {

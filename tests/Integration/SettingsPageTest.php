@@ -53,7 +53,7 @@ final class SettingsPageTest extends WP_UnitTestCase {
 			),
 			array_column( $toggles, 'id' )
 		);
-		$this->assertSame( array( 'yes', 'yes', 'no', 'no' ), array_column( $toggles, 'default' ) );
+		$this->assertSame( array( 'no', 'yes', 'no', 'no' ), array_column( $toggles, 'default' ) );
 	}
 
 	public function test_saving_the_tab_stores_toggles_in_a_single_option(): void {

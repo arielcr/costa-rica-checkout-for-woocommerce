@@ -178,7 +178,7 @@ final class ReceiptController {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- The nonce is verified below, after reading the order id it is bound to.
 		$order_id  = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : 0;
 		$order_key = isset( $_POST['order_key'] ) ? sanitize_text_field( wp_unslash( $_POST['order_key'] ) ) : '';
-		$context   = isset( $_POST['context'] ) && 'account' === $_POST['context'] ? 'account' : 'thankyou';
+		$context   = isset( $_POST['context'] ) && 'account' === sanitize_key( wp_unslash( $_POST['context'] ) ) ? 'account' : 'thankyou';
 		$nonce     = isset( $_POST[ self::NONCE_FIELD ] ) ? sanitize_text_field( wp_unslash( $_POST[ self::NONCE_FIELD ] ) ) : '';
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 

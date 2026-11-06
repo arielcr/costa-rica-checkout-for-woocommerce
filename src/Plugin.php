@@ -122,9 +122,6 @@ final class Plugin {
 		}
 		$this->booted = true;
 
-		// Before WooCommerce's own init (priority 0), which fires `woocommerce_init`, where the block checkout
-		// fields are registered with translated labels.
-		add_action( 'init', array( $this, 'load_textdomain' ), -1 );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRKIT_PLUGIN_FILE ), array( $this, 'add_plugin_action_links' ) );
 		add_action( 'add_option_' . self::MODULES_OPTION, array( $this, 'handle_modules_added' ), 10, 2 );
@@ -149,16 +146,6 @@ final class Plugin {
 		 * @param Plugin $plugin Plugin instance.
 		 */
 		do_action( 'crkit_loaded', $this );
-	}
-
-	/**
-	 * Loads the bundled translations (es_CR and es_ES) until language packs exist on
-	 * translate.wordpress.org; see docs/DECISIONS.md, ADR-0051.
-	 *
-	 * @return void
-	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain( 'costa-rica-checkout-for-woocommerce', false, dirname( plugin_basename( CRKIT_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**

@@ -32,7 +32,7 @@ final class ModulesTest extends TestCase {
 	 */
 	public static function provide_modules(): array {
 		return array(
-			'exchange rate'  => array( new ExchangeRateModule(), 'exchange_rate', true ),
+			'exchange rate'  => array( new ExchangeRateModule(), 'exchange_rate', false ),
 			'sinpe movil'    => array( new SinpeMovilModule(), 'sinpe_movil', true ),
 			'locations'      => array( new LocationsModule(), 'locations', false ),
 			'identification' => array( new IdentificationModule(), 'identification', false ),

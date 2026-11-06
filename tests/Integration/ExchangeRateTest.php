@@ -42,7 +42,7 @@ final class ExchangeRateTest extends WP_UnitTestCase {
 		delete_option( RateRepository::RATE_OPTION );
 		delete_option( RateRepository::STATUS_OPTION );
 		delete_option( ExchangeRateSettings::OPTION );
-		delete_option( Plugin::MODULES_OPTION );
+		update_option( Plugin::MODULES_OPTION, array( 'exchange_rate' => 'yes' ) ); // Off by default.
 		Scheduler::unschedule();
 	}
 
@@ -181,15 +181,22 @@ final class ExchangeRateTest extends WP_UnitTestCase {
 		$this->assertSame( 505.25, crkit_get_exchange_rate( 'buy' ) );
 	}
 
-	public function test_outdated_rate_shows_a_notice_in_a_dollar_store(): void {
+	public function test_outdated_rate_shows_a_notice_on_woocommerce_screens_of_a_dollar_store(): void {
 		update_option( 'woocommerce_currency', 'USD' );
 		update_option( RateRepository::RATE_OPTION, ( new ExchangeRate( 449.7, 456.04, '2026-10-01', 'hacienda', time() - 72 * HOUR_IN_SECONDS ) )->to_array(), false );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+		require_once ABSPATH . 'wp-admin/includes/screen.php';
+		require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php';
 
+		set_current_screen( 'woocommerce_page_wc-settings' );
 		$output = $this->render_notices();
-
 		$this->assertStringContainsString( 'older than 48 hours', $output );
 		$this->assertStringContainsString( 'SINPE Móvil is hidden', $output );
+
+		set_current_screen( 'dashboard' );
+		$outside = $this->render_notices();
+		set_current_screen( 'front' );
+		$this->assertSame( '', $outside, 'The warning does not take over the whole admin.' );
 	}
 
 	public function test_no_notice_outside_the_settings_in_a_colon_store(): void {
