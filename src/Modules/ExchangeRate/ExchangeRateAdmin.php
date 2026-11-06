@@ -323,8 +323,9 @@ final class ExchangeRateAdmin {
 			return;
 		}
 
-		// In colón stores the rate is informative only, so the warning stays on the settings section.
-		if ( 'CRC' === get_woocommerce_currency() && ! $on_section ) {
+		// Never across the whole admin: on WooCommerce screens, and only on the settings section in
+		// colón stores, where the rate is informative.
+		if ( ! $on_section && ( 'CRC' === get_woocommerce_currency() || ! $this->is_woocommerce_screen() ) ) {
 			return;
 		}
 
@@ -420,11 +421,30 @@ final class ExchangeRateAdmin {
 	 * @return bool
 	 */
 	private function is_settings_section(): bool {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only screen detection.
-		return isset( $_GET['page'], $_GET['tab'], $_GET['section'] )
-			&& 'wc-settings' === $_GET['page']
-			&& Plugin::SETTINGS_TAB === $_GET['tab']
-			&& self::SECTION === $_GET['section'];
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		$expected = array(
+			'page'    => 'wc-settings',
+			'tab'     => Plugin::SETTINGS_TAB,
+			'section' => self::SECTION,
+		);
+
+		foreach ( $expected as $arg => $value ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only screen detection; changes nothing.
+			if ( ! isset( $_GET[ $arg ] ) || sanitize_key( wp_unslash( $_GET[ $arg ] ) ) !== $value ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Whether the current admin screen belongs to WooCommerce.
+	 *
+	 * @return bool
+	 */
+	private function is_woocommerce_screen(): bool {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		return null !== $screen && function_exists( 'wc_get_screen_ids' ) && in_array( $screen->id, wc_get_screen_ids(), true );
 	}
 }
