@@ -91,4 +91,5 @@ bin/ build-zip.sh · seed.sh (dev data) · docs/screenshots/fase-N/
 - Plugin Check's WPCS does not treat `wc_clean()` as a sanitizer on superglobals; use `sanitize_text_field( wp_unslash( … ) )` there.
 - Block contact fields also render in My Account → Account details, where WooCommerce evaluates their rules without checkout values: never give them `hidden` rules (they would disappear there). WooCommerce only displays block fields for `store-api` orders; for both checkouts, display them yourself (ADR-0047).
 - E2E: block themes print notices as `.wc-block-components-notice-banner`, not `.woocommerce-error`/`.woocommerce-message`; match notices by text.
+- Translations load without `load_plugin_textdomain()`: WordPress 6.8+ registers the `Domain Path` from the plugin headers; 6.7.x stays in English (ADR-0051). The Exchange rate module is opt-in (ADR-0053): tests and e2e must enable it.
 - Translations: `languages/` ships es_CR and es_ES with the same texts. After changing strings: `npm run i18n:pot`, update both `.po` files, `npm run i18n:compile`.

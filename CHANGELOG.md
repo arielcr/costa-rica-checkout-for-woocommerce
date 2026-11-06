@@ -13,6 +13,11 @@ First public release on WordPress.org. Includes everything in 0.1.0 (internal de
 
 ### Changed
 - Plugin renamed to "Costa Rica Checkout for WooCommerce" (slug and text domain `costa-rica-checkout-for-woocommerce`). Settings, order data and hooks are unchanged.
+- The Exchange rate module is off by default: no external request until the merchant enables it. Stores that sell in dollars need it to offer SINPE Móvil.
+- The outdated rate warning appears only on WooCommerce screens.
+
+### Removed
+- `load_plugin_textdomain()`: WordPress 6.8 and later load the included translations from the `Domain Path`. On WordPress 6.7 the plugin appears in English.
 
 ### Added
 - Locations module: official 2025 administrative division of Costa Rica (7 provinces, 84 cantons, 492 districts) in `data/cr-locations.json`, generated from the decree by `bin/extract-dta-2025.py`.
@@ -31,9 +36,8 @@ First public release on WordPress.org. Includes everything in 0.1.0 (internal de
 - A `[crkit_exchange_rate]` shortcode on its own line sat outside the content width in block themes; it is now block-level (`inline="yes"` for use inside a sentence).
 - Receipt upload errors are tied to the file field (`aria-invalid`, `aria-describedby`) and announced; the "View receipt" link says it opens a new tab.
 - Personal data exporters and erasers stay available when their module is disabled.
-- Translations load before WooCommerce registers the block checkout fields.
 - Uninstall deletes receipts regardless of the filesystem method and removes pending actions when WooCommerce is inactive.
-- My Account address validation reads only the fields it needs; the exchange rate requests send the plugin's current name in the User-Agent.
+- My Account address handlers verify the form nonce and the user, and read only the fields they need; the exchange rate requests send the plugin's current name in the User-Agent.
 
 ## [0.1.0] - 2026-10-31 (internal, not published)
 

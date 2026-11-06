@@ -18,7 +18,7 @@ Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican onli
 
 * Manual payment method: customers pay from their bank app and you confirm the payment from the order screen.
 * Shows the SINPE Móvil number, the account holder, the **exact amount in colones** and a reference on the order received page and in the on-hold email.
-* Stores in dollars: the amount in colones is calculated with the exchange rate of the day (sell or buy, plus an optional surcharge) and frozen in the order.
+* Stores in dollars: the amount in colones is calculated with the exchange rate of the day (sell or buy, plus an optional surcharge) and frozen in the order. This needs the Exchange rate module; stores that sell in colones do not.
 * Customers upload the payment receipt (JPG, PNG, WEBP or PDF) from the order received page or from My Account. Receipts are stored privately, outside the Media Library, and only store staff and the customer can see them.
 * "Confirm payment" and "Reject payment" buttons in the order screen, and an email to the store when a receipt arrives.
 * Optional maximum amount per order, so the method is hidden above your bank's SINPE Móvil limit.
@@ -26,6 +26,7 @@ Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican onli
 
 **Exchange rate**
 
+* Off by default: the plugin makes no external requests until you enable this module.
 * US dollar buy and sell rates from the Ministerio de Hacienda (no credentials), from the Banco Central de Costa Rica (with your own BCCR token), or a manual rate.
 * Updated in the background twice a day. Customers never wait for an external service: the checkout always reads the stored rate.
 * If the source fails, the last good rate is kept. If it gets too old, you see a notice and SINPE Móvil is hidden in stores that sell in dollars.
@@ -61,6 +62,7 @@ Costa Rica Checkout for WooCommerce brings the local needs of a Costa Rican onli
 * ID numbers are checked by format only (there is no public check digit). Hacienda's "Extranjero No Domiciliado" and "No Contribuyente" types are not offered.
 * The classic cart's shipping calculator does not ask for canton and district; shipping rates that depend on them are exact at checkout.
 * In the block checkout the district is a regular dropdown without search, sorted by canton.
+* The included Spanish translations load automatically from WordPress 6.8. On WordPress 6.7 the plugin appears in English.
 * The exchange rate depends on the Ministerio de Hacienda or BCCR services. If they fail, the last good rate is kept; if it gets too old, SINPE Móvil is hidden in stores that sell in dollars until a new rate arrives or you set a manual one.
 
 Compatible with WooCommerce High-Performance Order Storage (HPOS) and the block checkout. Includes Spanish translations for Costa Rica (es_CR) and Spain (es_ES).
@@ -71,7 +73,7 @@ Development happens on GitHub: https://github.com/arielcr/costa-rica-checkout-fo
 
 1. Install and activate WooCommerce.
 2. Install this plugin from **Plugins → Add New** or upload the zip file, then activate it.
-3. Go to **WooCommerce → Settings → Costa Rica** and check the exchange rate source.
+3. If your store sells in dollars, go to **WooCommerce → Settings → Costa Rica**, enable the Exchange rate module and check its source. Stores that sell in colones do not need it. See "External services" below.
 4. Go to **WooCommerce → Settings → Payments → SINPE Móvil**, enter your SINPE Móvil number and the account holder, and enable the method.
 
 == Frequently Asked Questions ==
@@ -90,7 +92,7 @@ No. The exchange rate comes from the Ministerio de Hacienda by default, which ne
 
 = My store sells in dollars. What amount does the customer pay? =
 
-The order total converted to colones with the exchange rate of the day (sell rate by default), plus your optional surcharge, rounded up to whole colones. The amount and the rate are saved in the order, so later rate changes do not affect it.
+First enable the Exchange rate module: without it, SINPE Móvil is not offered in stores that sell in dollars. The customer pays the order total converted to colones with the exchange rate of the day (sell rate by default), plus your optional surcharge, rounded up to whole colones. The amount and the rate are saved in the order, so later rate changes do not affect it.
 
 = Where are the payment receipts stored? Are they public? =
 
@@ -138,9 +140,9 @@ No. There is no public check digit, so the plugin only checks the format of each
 
 == External services ==
 
-The exchange rate module connects to the services below to get the US dollar buy and sell rates. Requests are made:
+The exchange rate module connects to the services below to get the US dollar buy and sell rates. It is off by default: nothing is requested until you enable it in **WooCommerce → Settings → Costa Rica**. Once it is enabled, requests are made:
 
-* in the background right after the plugin is activated or the exchange rate module is enabled (the module is on by default and the Ministerio de Hacienda is the default source), and then every 12 hours;
+* in the background right after you enable the module, and then every 12 hours;
 * when an administrator changes the source or the BCCR token in the settings;
 * when an administrator clicks "Update now".
 
@@ -179,7 +181,7 @@ They never run while a customer browses the store or checks out: the store alway
 = 1.0.0 =
 * First public release.
 * SINPE Móvil payment method: exact amount in colones (converted with the rate of the day in stores that sell in dollars), payment steps, private receipt uploads, "Confirm payment" and "Reject payment" in the order screen, and an email to the store when a receipt arrives.
-* Exchange rate from the Ministerio de Hacienda, the BCCR or a manual rate, updated in the background, with the `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block.
+* Optional exchange rate module (off by default): rate from the Ministerio de Hacienda, the BCCR or a manual rate, updated in the background, with the `[crkit_exchange_rate]` shortcode and an "Exchange rate (Costa Rica)" block.
 * Provinces, cantons and districts (official 2025 division) in the classic and block checkouts, My Account and the order screen.
 * ID type and number (cédula física, cédula jurídica, DIMEX, NITE) in both checkouts, with an optional "I need an electronic invoice" checkbox, for electronic invoicing plugins.
 * WooCommerce → Settings → Costa Rica, with one toggle per module.

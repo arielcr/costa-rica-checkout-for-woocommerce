@@ -201,3 +201,9 @@ Keyboard: canton and district (selectWoo) chosen without the mouse, focus return
 
 `.wordpress-org/screenshot-1.png` … `screenshot-8.png` (copies in `docs/screenshots/fase-4/`), es_CR, reproducible with `CRKIT_E2E_SCREENSHOTS=wporg npx playwright test screenshots-wporg`. Some WooCommerce strings appear in English ("Contact information", "Place Order", "(optional)"): WooCommerce's es_CR language pack is installed and current but does not translate them.
 
+## WordPress.org review, round 1 (2026-11-06)
+
+- **Opt-in** (`tests/e2e/specs/exchange-rate-optin.spec.js`): a fresh activation schedules nothing; a dollar store does not offer SINPE Móvil at checkout and its settings explain why; enabling the module in Settings → Costa Rica schedules the first request. Unit test: `Plugin::create()` with no saved toggles never calls `as_schedule_recurring_action()`.
+- **Nonces:** every state-changing handler was reviewed. "Update now", confirm and reject check a nonce and a capability; receipt upload checks a per-order nonce and the owner or order key; receipt download checks a nonce and the viewer. The two My Account address handlers relied on WooCommerce's nonce check; they now verify it and the user themselves (integration test: no nonce, invalid nonce, another user).
+- **Translations without `load_plugin_textdomain()`:** es_CR strings load on WordPress 7.1.4 from `languages/` (ADR-0051); the es_CR e2e specs pass.
+
