@@ -103,6 +103,18 @@ final class PluginTest extends TestCase {
 		( new Plugin( array( $disabled ) ) )->boot();
 	}
 
+	public function test_a_fresh_install_schedules_no_external_requests(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
+		Functions\expect( 'as_schedule_recurring_action' )->never();
+
+		$plugin = Plugin::create();
+
+		$this->assertFalse( $plugin->is_module_enabled( 'exchange_rate' ) );
+		$this->assertTrue( $plugin->is_module_enabled( 'sinpe_movil' ) );
+
+		$plugin->activate();
+	}
+
 	public function test_boot_runs_only_once(): void {
 		Functions\when( 'get_option' )->justReturn( array() );
 		Functions\when( 'plugin_basename' )->justReturn( self::BASENAME );

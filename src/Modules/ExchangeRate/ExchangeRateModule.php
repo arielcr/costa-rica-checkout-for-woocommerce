@@ -50,14 +50,15 @@ final class ExchangeRateModule implements ModuleInterface, LifecycleInterface, S
 	 * {@inheritDoc}
 	 */
 	public function get_description(): string {
-		return __( 'Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions.', 'costa-rica-checkout-for-woocommerce' );
+		return __( 'Keeps the US dollar exchange rate up to date for colón conversions. SINPE Móvil needs it in stores that do not sell in colones. When enabled, this site connects to the selected source (Ministerio de Hacienda by default, or BCCR) right away and then every 12 hours. No customer data is sent.', 'costa-rica-checkout-for-woocommerce' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function is_enabled_by_default(): bool {
-		return true;
+		// Opt-in: no external request until the merchant enables the module (ADR-0053).
+		return false;
 	}
 
 	/**

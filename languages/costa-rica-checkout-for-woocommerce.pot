@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T16:01:50+00:00\n"
+"POT-Creation-Date: 2026-11-06T18:27:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: costa-rica-checkout-for-woocommerce\n"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateAdmin.php:89
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:46
-#: src/Modules/ExchangeRate/ExchangeRateModule.php:112
+#: src/Modules/ExchangeRate/ExchangeRateModule.php:113
 #: src/Modules/SinpeMovil/Gateway.php:153
 msgid "Exchange rate"
 msgstr ""
@@ -159,82 +159,82 @@ msgstr ""
 msgid "The exchange rate could not be updated: %s The last good rate is kept."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:332
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:333
 msgid "Costa Rica Checkout: there is no exchange rate yet."
 msgstr ""
 
 #. translators: %d: maximum age in hours.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:335
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:336
 #, php-format
 msgid "Costa Rica Checkout: the exchange rate is older than %d hour."
 msgid_plural "Costa Rica Checkout: the exchange rate is older than %d hours."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:340
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:341
 msgid "SINPE Móvil is hidden at checkout until a current rate is available."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:347
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:348
 msgid "Review the exchange rate settings"
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:361
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:362
 msgid "the BCCR source needs a token."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:363
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:364
 msgid "the source rejected the request (400)."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:365
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:366
 msgid "the BCCR token is invalid or expired (401). Generate a new one."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:367
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:368
 msgid "the BCCR token has no access to this service (403). Check your subscription."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:369
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:370
 msgid "the service address was not found (404)."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:371
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:372
 msgid "too many requests (429). The next scheduled update will try again."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:373
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:374
 msgid "the service could not be reached. Check your server connection."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:375
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:376
 msgid "the service returned an unexpected response."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:377
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:378
 msgid "the service has no rate for the last days."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:382
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:383
 msgid "the BCCR answered with an internal error (HTTP 500). Either the token is invalid or the BCCR service is failing. Check the token; if it is correct, the next scheduled update will try again."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:386
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:387
 msgid "the service had an internal error. The next scheduled update will try again."
 msgstr ""
 
 #. translators: %s: HTTP status code.
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:391
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:392
 #, php-format
 msgid "the service answered with HTTP status %s."
 msgstr ""
 
-#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:394
+#: src/Modules/ExchangeRate/ExchangeRateAdmin.php:395
 msgid "unknown error."
 msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateModule.php:53
-msgid "Keeps the US dollar exchange rate (Ministerio de Hacienda, BCCR or manual) up to date for colón conversions."
+msgid "Keeps the US dollar exchange rate up to date for colón conversions. SINPE Móvil needs it in stores that do not sell in colones. When enabled, this site connects to the selected source (Ministerio de Hacienda by default, or BCCR) right away and then every 12 hours. No customer data is sent."
 msgstr ""
 
 #: src/Modules/ExchangeRate/ExchangeRateService.php:125
@@ -254,31 +254,31 @@ msgid "Ministerio de Hacienda (no credentials needed)"
 msgstr ""
 
 #. translators: %s: sell exchange rate in colones.
-#: src/Modules/ExchangeRate/Shortcode.php:152
+#: src/Modules/ExchangeRate/Shortcode.php:161
 #, php-format
 msgid "Sell: %s"
 msgstr ""
 
 #. translators: %s: buy exchange rate in colones.
-#: src/Modules/ExchangeRate/Shortcode.php:156
+#: src/Modules/ExchangeRate/Shortcode.php:165
 #, php-format
 msgid "Buy: %s"
 msgstr ""
 
 #. translators: 1: date of the rate, 2: source name.
-#: src/Modules/ExchangeRate/Shortcode.php:162
+#: src/Modules/ExchangeRate/Shortcode.php:171
 #, php-format
 msgid "Rate of %1$s, source: %2$s"
 msgstr ""
 
 #. translators: %s: date of the rate.
-#: src/Modules/ExchangeRate/Shortcode.php:165
+#: src/Modules/ExchangeRate/Shortcode.php:174
 #, php-format
 msgid "Rate of %s"
 msgstr ""
 
 #. translators: %s: source name.
-#: src/Modules/ExchangeRate/Shortcode.php:168
+#: src/Modules/ExchangeRate/Shortcode.php:177
 #, php-format
 msgid "Source: %s"
 msgstr ""
@@ -458,12 +458,12 @@ msgstr ""
 msgid "Removed the customer ID number."
 msgstr ""
 
-#: src/Modules/Locations/AddressFields.php:151
+#: src/Modules/Locations/AddressFields.php:168
 #: src/Modules/Locations/ClassicCheckout.php:79
 msgid "Canton"
 msgstr ""
 
-#: src/Modules/Locations/AddressFields.php:156
+#: src/Modules/Locations/AddressFields.php:173
 #: src/Modules/Locations/BlocksCheckout.php:98
 #: src/Modules/Locations/ClassicCheckout.php:88
 msgid "District"
@@ -504,11 +504,11 @@ msgstr ""
 msgid "Select a district…"
 msgstr ""
 
-#: src/Modules/Locations/ClassicCheckout.php:353
+#: src/Modules/Locations/ClassicCheckout.php:357
 msgid "Select the district of the shipping address."
 msgstr ""
 
-#: src/Modules/Locations/ClassicCheckout.php:354
+#: src/Modules/Locations/ClassicCheckout.php:358
 msgid "Select the district of the billing address."
 msgstr ""
 
@@ -923,7 +923,7 @@ msgstr ""
 msgid "Adds SINPE Móvil as a manual payment method with payment receipt uploads. Configure it in WooCommerce → Settings → Payments."
 msgstr ""
 
-#: src/Plugin.php:337
+#: src/Plugin.php:324
 #: assets/build/exchange-rate-block.js:1
 msgid "Settings"
 msgstr ""
