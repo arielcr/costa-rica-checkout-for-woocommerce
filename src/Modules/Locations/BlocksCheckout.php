@@ -257,9 +257,13 @@ final class BlocksCheckout {
 	 * @return void
 	 */
 	public function prepare_edit_address_values( mixed $user_id, mixed $load_address ): void {
+		if ( ! AddressFields::is_address_form_request( $user_id ) ) {
+			return;
+		}
+
 		$group = 'shipping' === $load_address ? 'shipping' : 'billing';
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verified the nonce before this action.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Verified by is_address_form_request() above.
 		$state    = isset( $_POST[ $group . '_state' ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_state' ] ) ) : '';
 		$district = isset( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_' . AddressFields::DISTRICT ] ) ) : '';
 		// phpcs:enable WordPress.Security.NonceVerification.Missing

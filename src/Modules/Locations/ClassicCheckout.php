@@ -224,12 +224,16 @@ final class ClassicCheckout {
 	 * @return void
 	 */
 	public function validate_edit_address( mixed $user_id, mixed $load_address ): void {
+		if ( ! AddressFields::is_address_form_request( $user_id ) ) {
+			return;
+		}
+
 		$group = 'shipping' === $load_address ? 'shipping' : 'billing';
 		$data  = array();
 
-		// Only the three fields the check needs. WooCommerce verified the nonce before this action.
+		// Only the three fields the check needs.
 		foreach ( array( 'country', 'state', AddressFields::DISTRICT ) as $key ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified by is_address_form_request() above.
 			$data[ $group . '_' . $key ] = isset( $_POST[ $group . '_' . $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $group . '_' . $key ] ) ) : '';
 		}
 

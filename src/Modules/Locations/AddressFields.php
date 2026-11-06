@@ -64,6 +64,28 @@ final class AddressFields {
 	}
 
 	/**
+	 * Whether the current request is the My Account address form, submitted by this user.
+	 *
+	 * WooCommerce checks the same nonce before firing its address hooks. The hooks can also be fired by
+	 * other code, so handlers that read the posted fields check it again.
+	 *
+	 * @param mixed $user_id User id passed to the hook.
+	 * @return bool
+	 */
+	public static function is_address_form_request( mixed $user_id ): bool {
+		$user_id = absint( $user_id );
+
+		if ( 0 === $user_id || get_current_user_id() !== $user_id ) {
+			return false;
+		}
+
+		$field = isset( $_POST['woocommerce-edit-address-nonce'] ) ? 'woocommerce-edit-address-nonce' : '_wpnonce';
+		$nonce = isset( $_POST[ $field ] ) ? sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) : '';
+
+		return false !== wp_verify_nonce( $nonce, 'woocommerce-edit_address' );
+	}
+
+	/**
 	 * District of an address of an order or a customer.
 	 *
 	 * @param WC_Data $data  Order or customer.
